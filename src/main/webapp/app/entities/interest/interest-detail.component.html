@@ -1,0 +1,33 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="interest">
+            <h2><span jhiTranslate="spingularApp.interest.detail.title">Interest</span> {{interest.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="spingularApp.interest.interestName">Interest Name</span></dt>
+                <dd>
+                    <span>{{interest.interestName}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.interest.appuser">Appuser</span></dt>
+                <dd>
+                    <span *ngFor="let appuser of interest.appusers; let last = last">
+                        <a [routerLink]="['/appuser', appuser?.id, 'view' ]">{{appuser.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/interest', interest.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

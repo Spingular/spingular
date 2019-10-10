@@ -1,0 +1,13 @@
+export const enum EthnicGroup {
+  NA = 'NA',
+  MIXED = 'MIXED',
+  WHITE = 'WHITE',
+  LATIN = 'LATIN',
+  GYPSY = 'GYPSY',
+  AFRO = 'AFRO',
+  HINDU = 'HINDU',
+  ARAB = 'ARAB',
+  ASIAN = 'ASIAN',
+  INDIAN = 'INDIAN',
+  OTHER = 'OTHER'
+}

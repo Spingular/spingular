@@ -1,0 +1,79 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="spingularApp.appphoto.home.title">Appphotos</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-appphoto" [routerLink]="['/appphoto/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="spingularApp.appphoto.home.createLabel">
+            Create a new Appphoto
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="appphotos?.length === 0">
+        <span jhiTranslate="spingularApp.appphoto.home.notFound">No appphotos found</span>
+    </div>
+    <div class="table-responsive" *ngIf="appphotos?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="creationDate"><span jhiTranslate="spingularApp.appphoto.creationDate">Creation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="image"><span jhiTranslate="spingularApp.appphoto.image">Image</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="appuserId"><span jhiTranslate="spingularApp.appphoto.appuser">Appuser</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let appphoto of appphotos ;trackBy: trackId">
+                <td><a [routerLink]="['/appphoto', appphoto.id, 'view' ]">{{appphoto.id}}</a></td>
+                <td>{{appphoto.creationDate | date:'medium'}}</td>
+                <td>
+                    <a *ngIf="appphoto.image" (click)="openFile(appphoto.imageContentType, appphoto.image)">
+                        <img [src]="'data:' + appphoto.imageContentType + ';base64,' + appphoto.image" style="max-height: 30px;" alt="appphoto image"/>
+                    </a>
+                    <span *ngIf="appphoto.image">{{appphoto.imageContentType}}, {{byteSize(appphoto.image)}}</span>
+                </td>
+                <td>
+                    <div *ngIf="appphoto.appuserId">
+                        <a [routerLink]="['/appuser', appphoto.appuserId , 'view' ]" >{{appphoto.appuserId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/appphoto', appphoto.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/appphoto', appphoto.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/appphoto', { outlets: { popup: appphoto.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="appphotos?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

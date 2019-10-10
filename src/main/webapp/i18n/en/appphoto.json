@@ -1,0 +1,24 @@
+{
+  "spingularApp": {
+    "appphoto": {
+      "home": {
+        "title": "Appphotos",
+        "createLabel": "Create a new Appphoto",
+        "createOrEditLabel": "Create or edit a Appphoto",
+        "notFound": "No Appphotos found"
+      },
+      "created": "A new Appphoto is created with identifier {{ param }}",
+      "updated": "A Appphoto is updated with identifier {{ param }}",
+      "deleted": "A Appphoto is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Appphoto {{ id }}?"
+      },
+      "detail": {
+        "title": "Appphoto"
+      },
+      "creationDate": "Creation Date",
+      "image": "Image",
+      "appuser": "Appuser"
+    }
+  }
+}

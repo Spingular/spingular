@@ -1,0 +1,67 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="proposal">
+            <h2><span jhiTranslate="spingularApp.proposal.detail.title">Proposal</span> {{proposal.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="spingularApp.proposal.creationDate">Creation Date</span></dt>
+                <dd>
+                    <span>{{proposal.creationDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.proposal.proposalName">Proposal Name</span></dt>
+                <dd>
+                    <span>{{proposal.proposalName}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.proposal.proposalType">Proposal Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'spingularApp.ProposalType.' + proposal.proposalType}}">{{proposal.proposalType}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.proposal.proposalRole">Proposal Role</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'spingularApp.ProposalRole.' + proposal.proposalRole}}">{{proposal.proposalRole}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.proposal.releaseDate">Release Date</span></dt>
+                <dd>
+                    <span>{{proposal.releaseDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.proposal.isOpen">Is Open</span></dt>
+                <dd>
+                    <span>{{proposal.isOpen}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.proposal.isAccepted">Is Accepted</span></dt>
+                <dd>
+                    <span>{{proposal.isAccepted}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.proposal.isPaid">Is Paid</span></dt>
+                <dd>
+                    <span>{{proposal.isPaid}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.proposal.appuser">Appuser</span></dt>
+                <dd>
+                    <div *ngIf="proposal.appuserId">
+                        <a [routerLink]="['/appuser', proposal.appuserId, 'view']">{{proposal.appuserId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.proposal.post">Post</span></dt>
+                <dd>
+                    <div *ngIf="proposal.postId">
+                        <a [routerLink]="['/post', proposal.postId, 'view']">{{proposal.postId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/proposal', proposal.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

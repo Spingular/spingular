@@ -1,0 +1,47 @@
+{
+  "spingularApp": {
+    "appuser": {
+      "home": {
+        "title": "Appusers",
+        "createLabel": "Crear nuevo Appuser",
+        "createOrEditLabel": "Crear o editar Appuser",
+        "notFound": "No Appusers found"
+      },
+      "created": "Un nuevo Appuser ha sido creado con el identificador {{ param }}",
+      "updated": "Un Appuser ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Appuser ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Appuser {{ id }}?"
+      },
+      "detail": {
+        "title": "Appuser"
+      },
+      "creationDate": "Creation Date",
+      "assignedVotesPoints": "Assigned Votes Points",
+      "user": "User",
+      "appprofile": "Appprofile",
+      "appphoto": "Appphoto",
+      "community": "Community",
+      "blog": "Blog",
+      "notification": "Notification",
+      "album": "Album",
+      "comment": "Comment",
+      "post": "Post",
+      "sender": "Sender",
+      "receiver": "Receiver",
+      "followed": "Followed",
+      "following": "Following",
+      "blockeduser": "Blockeduser",
+      "blockinguser": "Blockinguser",
+      "vtopic": "Vtopic",
+      "vquestion": "Vquestion",
+      "vanswer": "Vanswer",
+      "vthumb": "Vthumb",
+      "proposal": "Proposal",
+      "proposalVote": "Proposal Vote",
+      "interest": "Interest",
+      "activity": "Activity",
+      "celeb": "Celeb"
+    }
+  }
+}

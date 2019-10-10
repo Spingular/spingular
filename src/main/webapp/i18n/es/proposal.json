@@ -1,0 +1,32 @@
+{
+  "spingularApp": {
+    "proposal": {
+      "home": {
+        "title": "Proposals",
+        "createLabel": "Crear nuevo Proposal",
+        "createOrEditLabel": "Crear o editar Proposal",
+        "notFound": "No Proposals found"
+      },
+      "created": "Un nuevo Proposal ha sido creado con el identificador {{ param }}",
+      "updated": "Un Proposal ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Proposal ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Proposal {{ id }}?"
+      },
+      "detail": {
+        "title": "Proposal"
+      },
+      "creationDate": "Creation Date",
+      "proposalName": "Proposal Name",
+      "proposalType": "Proposal Type",
+      "proposalRole": "Proposal Role",
+      "releaseDate": "Release Date",
+      "isOpen": "Is Open",
+      "isAccepted": "Is Accepted",
+      "isPaid": "Is Paid",
+      "proposalVote": "Proposal Vote",
+      "appuser": "Appuser",
+      "post": "Post"
+    }
+  }
+}

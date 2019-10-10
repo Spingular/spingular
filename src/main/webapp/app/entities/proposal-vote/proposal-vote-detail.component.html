@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="proposalVote">
+            <h2><span jhiTranslate="spingularApp.proposalVote.detail.title">Proposal Vote</span> {{proposalVote.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="spingularApp.proposalVote.creationDate">Creation Date</span></dt>
+                <dd>
+                    <span>{{proposalVote.creationDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.proposalVote.votePoints">Vote Points</span></dt>
+                <dd>
+                    <span>{{proposalVote.votePoints}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.proposalVote.appuser">Appuser</span></dt>
+                <dd>
+                    <div *ngIf="proposalVote.appuserId">
+                        <a [routerLink]="['/appuser', proposalVote.appuserId, 'view']">{{proposalVote.appuserId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.proposalVote.proposal">Proposal</span></dt>
+                <dd>
+                    <div *ngIf="proposalVote.proposalId">
+                        <a [routerLink]="['/proposal', proposalVote.proposalId, 'view']">{{proposalVote.proposalId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/proposal-vote', proposalVote.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

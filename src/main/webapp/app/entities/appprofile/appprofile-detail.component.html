@@ -1,0 +1,121 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="appprofile">
+            <h2><span jhiTranslate="spingularApp.appprofile.detail.title">Appprofile</span> {{appprofile.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="spingularApp.appprofile.creationDate">Creation Date</span></dt>
+                <dd>
+                    <span>{{appprofile.creationDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.gender">Gender</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'spingularApp.Gender.' + appprofile.gender}}">{{appprofile.gender}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.phone">Phone</span></dt>
+                <dd>
+                    <span>{{appprofile.phone}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.bio">Bio</span></dt>
+                <dd>
+                    <span>{{appprofile.bio}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.facebook">Facebook</span></dt>
+                <dd>
+                    <span>{{appprofile.facebook}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.twitter">Twitter</span></dt>
+                <dd>
+                    <span>{{appprofile.twitter}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.linkedin">Linkedin</span></dt>
+                <dd>
+                    <span>{{appprofile.linkedin}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.instagram">Instagram</span></dt>
+                <dd>
+                    <span>{{appprofile.instagram}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.googlePlus">Google Plus</span></dt>
+                <dd>
+                    <span>{{appprofile.googlePlus}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.birthdate">Birthdate</span></dt>
+                <dd>
+                    <span>{{appprofile.birthdate}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.civilStatus">Civil Status</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'spingularApp.CivilStatus.' + appprofile.civilStatus}}">{{appprofile.civilStatus}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.lookingFor">Looking For</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'spingularApp.Gender.' + appprofile.lookingFor}}">{{appprofile.lookingFor}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.purpose">Purpose</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'spingularApp.Purpose.' + appprofile.purpose}}">{{appprofile.purpose}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.physical">Physical</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'spingularApp.Physical.' + appprofile.physical}}">{{appprofile.physical}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.religion">Religion</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'spingularApp.Religion.' + appprofile.religion}}">{{appprofile.religion}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.ethnicGroup">Ethnic Group</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'spingularApp.EthnicGroup.' + appprofile.ethnicGroup}}">{{appprofile.ethnicGroup}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.studies">Studies</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'spingularApp.Studies.' + appprofile.studies}}">{{appprofile.studies}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.sibblings">Sibblings</span></dt>
+                <dd>
+                    <span>{{appprofile.sibblings}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.eyes">Eyes</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'spingularApp.Eyes.' + appprofile.eyes}}">{{appprofile.eyes}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.smoker">Smoker</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'spingularApp.Smoker.' + appprofile.smoker}}">{{appprofile.smoker}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.children">Children</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'spingularApp.Children.' + appprofile.children}}">{{appprofile.children}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.futureChildren">Future Children</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'spingularApp.FutureChildren.' + appprofile.futureChildren}}">{{appprofile.futureChildren}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.pet">Pet</span></dt>
+                <dd>
+                    <span>{{appprofile.pet}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appprofile.appuser">Appuser</span></dt>
+                <dd>
+                    <div *ngIf="appprofile.appuserId">
+                        <a [routerLink]="['/appuser', appprofile.appuserId, 'view']">{{appprofile.appuserId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/appprofile', appprofile.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

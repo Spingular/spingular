@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <!--
+        Added the constraints for entity Vthumb.
+    -->
+    <changeSet id="20191010214717-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="appuser_id"
+                                 baseTableName="vthumb"
+                                 constraintName="fk_vthumb_appuser_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="appuser"/>
+
+        <addForeignKeyConstraint baseColumnNames="vquestion_id"
+                                 baseTableName="vthumb"
+                                 constraintName="fk_vthumb_vquestion_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="vquestion"/>
+
+        <addForeignKeyConstraint baseColumnNames="vanswer_id"
+                                 baseTableName="vthumb"
+                                 constraintName="fk_vthumb_vanswer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="vanswer"/>
+
+    </changeSet>
+</databaseChangeLog>

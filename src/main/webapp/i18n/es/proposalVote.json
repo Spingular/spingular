@@ -1,0 +1,25 @@
+{
+  "spingularApp": {
+    "proposalVote": {
+      "home": {
+        "title": "Proposal Votes",
+        "createLabel": "Crear nuevo Proposal Vote",
+        "createOrEditLabel": "Crear o editar Proposal Vote",
+        "notFound": "No Proposal Votes found"
+      },
+      "created": "Un nuevo Proposal Vote ha sido creado con el identificador {{ param }}",
+      "updated": "Un Proposal Vote ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Proposal Vote ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Proposal Vote {{ id }}?"
+      },
+      "detail": {
+        "title": "Proposal Vote"
+      },
+      "creationDate": "Creation Date",
+      "votePoints": "Vote Points",
+      "appuser": "Appuser",
+      "proposal": "Proposal"
+    }
+  }
+}

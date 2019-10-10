@@ -1,0 +1,291 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-appprofile-heading" jhiTranslate="spingularApp.appprofile.home.createOrEditLabel">Create or edit a Appprofile</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.creationDate" for="field_creationDate">Creation Date</label>
+                    <div class="d-flex">
+                        <input id="field_creationDate" type="datetime-local" class="form-control" name="creationDate" formControlName="creationDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                    <div *ngIf="editForm.get('creationDate').invalid && (editForm.get('creationDate').dirty || editForm.get('creationDate').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('creationDate').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('creationDate').errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.gender" for="field_gender">Gender</label>
+                    <select class="form-control" name="gender" formControlName="gender" id="field_gender">
+                        <option value="MALE">{{'spingularApp.Gender.MALE' | translate}}</option>
+                        <option value="FEMALE">{{'spingularApp.Gender.FEMALE' | translate}}</option>
+                        <option value="OTHER">{{'spingularApp.Gender.OTHER' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.phone" for="field_phone">Phone</label>
+                    <input type="text" class="form-control" name="phone" id="field_phone"
+                           formControlName="phone"/>
+                    <div *ngIf="editForm.get('phone').invalid && (editForm.get('phone').dirty || editForm.get('phone').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('phone').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.bio" for="field_bio">Bio</label>
+                    <input type="text" class="form-control" name="bio" id="field_bio"
+                           formControlName="bio"/>
+                    <div *ngIf="editForm.get('bio').invalid && (editForm.get('bio').dirty || editForm.get('bio').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('bio').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 7500 }">
+                        This field cannot be longer than 7500 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.facebook" for="field_facebook">Facebook</label>
+                    <input type="text" class="form-control" name="facebook" id="field_facebook"
+                           formControlName="facebook"/>
+                    <div *ngIf="editForm.get('facebook').invalid && (editForm.get('facebook').dirty || editForm.get('facebook').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('facebook').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.twitter" for="field_twitter">Twitter</label>
+                    <input type="text" class="form-control" name="twitter" id="field_twitter"
+                           formControlName="twitter"/>
+                    <div *ngIf="editForm.get('twitter').invalid && (editForm.get('twitter').dirty || editForm.get('twitter').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('twitter').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.linkedin" for="field_linkedin">Linkedin</label>
+                    <input type="text" class="form-control" name="linkedin" id="field_linkedin"
+                           formControlName="linkedin"/>
+                    <div *ngIf="editForm.get('linkedin').invalid && (editForm.get('linkedin').dirty || editForm.get('linkedin').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('linkedin').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.instagram" for="field_instagram">Instagram</label>
+                    <input type="text" class="form-control" name="instagram" id="field_instagram"
+                           formControlName="instagram"/>
+                    <div *ngIf="editForm.get('instagram').invalid && (editForm.get('instagram').dirty || editForm.get('instagram').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('instagram').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.googlePlus" for="field_googlePlus">Google Plus</label>
+                    <input type="text" class="form-control" name="googlePlus" id="field_googlePlus"
+                           formControlName="googlePlus"/>
+                    <div *ngIf="editForm.get('googlePlus').invalid && (editForm.get('googlePlus').dirty || editForm.get('googlePlus').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('googlePlus').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.birthdate" for="field_birthdate">Birthdate</label>
+                    <div class="d-flex">
+                        <input id="field_birthdate" type="datetime-local" class="form-control" name="birthdate" formControlName="birthdate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.civilStatus" for="field_civilStatus">Civil Status</label>
+                    <select class="form-control" name="civilStatus" formControlName="civilStatus" id="field_civilStatus">
+                        <option value="NA">{{'spingularApp.CivilStatus.NA' | translate}}</option>
+                        <option value="SINGLE">{{'spingularApp.CivilStatus.SINGLE' | translate}}</option>
+                        <option value="MARRIED">{{'spingularApp.CivilStatus.MARRIED' | translate}}</option>
+                        <option value="DIVORCED">{{'spingularApp.CivilStatus.DIVORCED' | translate}}</option>
+                        <option value="WIDOWER">{{'spingularApp.CivilStatus.WIDOWER' | translate}}</option>
+                        <option value="SEPARATED">{{'spingularApp.CivilStatus.SEPARATED' | translate}}</option>
+                        <option value="ENGAGED">{{'spingularApp.CivilStatus.ENGAGED' | translate}}</option>
+                        <option value="OTHER">{{'spingularApp.CivilStatus.OTHER' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.lookingFor" for="field_lookingFor">Looking For</label>
+                    <select class="form-control" name="lookingFor" formControlName="lookingFor" id="field_lookingFor">
+                        <option value="MALE">{{'spingularApp.Gender.MALE' | translate}}</option>
+                        <option value="FEMALE">{{'spingularApp.Gender.FEMALE' | translate}}</option>
+                        <option value="OTHER">{{'spingularApp.Gender.OTHER' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.purpose" for="field_purpose">Purpose</label>
+                    <select class="form-control" name="purpose" formControlName="purpose" id="field_purpose">
+                        <option value="NOT_INTERESTED">{{'spingularApp.Purpose.NOT_INTERESTED' | translate}}</option>
+                        <option value="FRIENDSHIP">{{'spingularApp.Purpose.FRIENDSHIP' | translate}}</option>
+                        <option value="MEET_PEOPLE">{{'spingularApp.Purpose.MEET_PEOPLE' | translate}}</option>
+                        <option value="STABLE_RELATIONSHIP">{{'spingularApp.Purpose.STABLE_RELATIONSHIP' | translate}}</option>
+                        <option value="MARRIAGE">{{'spingularApp.Purpose.MARRIAGE' | translate}}</option>
+                        <option value="OTHER">{{'spingularApp.Purpose.OTHER' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.physical" for="field_physical">Physical</label>
+                    <select class="form-control" name="physical" formControlName="physical" id="field_physical">
+                        <option value="NA">{{'spingularApp.Physical.NA' | translate}}</option>
+                        <option value="THIN">{{'spingularApp.Physical.THIN' | translate}}</option>
+                        <option value="ATHLETIC">{{'spingularApp.Physical.ATHLETIC' | translate}}</option>
+                        <option value="NORMAL">{{'spingularApp.Physical.NORMAL' | translate}}</option>
+                        <option value="CORPULENT">{{'spingularApp.Physical.CORPULENT' | translate}}</option>
+                        <option value="BULKY">{{'spingularApp.Physical.BULKY' | translate}}</option>
+                        <option value="OTHER">{{'spingularApp.Physical.OTHER' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.religion" for="field_religion">Religion</label>
+                    <select class="form-control" name="religion" formControlName="religion" id="field_religion">
+                        <option value="NA">{{'spingularApp.Religion.NA' | translate}}</option>
+                        <option value="ATHEIST">{{'spingularApp.Religion.ATHEIST' | translate}}</option>
+                        <option value="AGNOSTIC">{{'spingularApp.Religion.AGNOSTIC' | translate}}</option>
+                        <option value="CATHOLIC">{{'spingularApp.Religion.CATHOLIC' | translate}}</option>
+                        <option value="JEWISH">{{'spingularApp.Religion.JEWISH' | translate}}</option>
+                        <option value="ISLAMIC">{{'spingularApp.Religion.ISLAMIC' | translate}}</option>
+                        <option value="OTHER">{{'spingularApp.Religion.OTHER' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.ethnicGroup" for="field_ethnicGroup">Ethnic Group</label>
+                    <select class="form-control" name="ethnicGroup" formControlName="ethnicGroup" id="field_ethnicGroup">
+                        <option value="NA">{{'spingularApp.EthnicGroup.NA' | translate}}</option>
+                        <option value="MIXED">{{'spingularApp.EthnicGroup.MIXED' | translate}}</option>
+                        <option value="WHITE">{{'spingularApp.EthnicGroup.WHITE' | translate}}</option>
+                        <option value="LATIN">{{'spingularApp.EthnicGroup.LATIN' | translate}}</option>
+                        <option value="GYPSY">{{'spingularApp.EthnicGroup.GYPSY' | translate}}</option>
+                        <option value="AFRO">{{'spingularApp.EthnicGroup.AFRO' | translate}}</option>
+                        <option value="HINDU">{{'spingularApp.EthnicGroup.HINDU' | translate}}</option>
+                        <option value="ARAB">{{'spingularApp.EthnicGroup.ARAB' | translate}}</option>
+                        <option value="ASIAN">{{'spingularApp.EthnicGroup.ASIAN' | translate}}</option>
+                        <option value="INDIAN">{{'spingularApp.EthnicGroup.INDIAN' | translate}}</option>
+                        <option value="OTHER">{{'spingularApp.EthnicGroup.OTHER' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.studies" for="field_studies">Studies</label>
+                    <select class="form-control" name="studies" formControlName="studies" id="field_studies">
+                        <option value="NA">{{'spingularApp.Studies.NA' | translate}}</option>
+                        <option value="PRIMARY">{{'spingularApp.Studies.PRIMARY' | translate}}</option>
+                        <option value="HIGH_SCHOOL">{{'spingularApp.Studies.HIGH_SCHOOL' | translate}}</option>
+                        <option value="TECHNICAL">{{'spingularApp.Studies.TECHNICAL' | translate}}</option>
+                        <option value="COLLEGE">{{'spingularApp.Studies.COLLEGE' | translate}}</option>
+                        <option value="MASTER">{{'spingularApp.Studies.MASTER' | translate}}</option>
+                        <option value="DOCTORATE">{{'spingularApp.Studies.DOCTORATE' | translate}}</option>
+                        <option value="OTHER">{{'spingularApp.Studies.OTHER' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.sibblings" for="field_sibblings">Sibblings</label>
+                    <input type="number" class="form-control" name="sibblings" id="field_sibblings"
+                           formControlName="sibblings"/>
+                    <div *ngIf="editForm.get('sibblings').invalid && (editForm.get('sibblings').dirty || editForm.get('sibblings').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('sibblings').errors.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: -1 }">
+                            This field should be at least -1.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('sibblings').errors.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 20 }">
+                            This field cannot be more than 20.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('sibblings')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.eyes" for="field_eyes">Eyes</label>
+                    <select class="form-control" name="eyes" formControlName="eyes" id="field_eyes">
+                        <option value="NA">{{'spingularApp.Eyes.NA' | translate}}</option>
+                        <option value="BLUE">{{'spingularApp.Eyes.BLUE' | translate}}</option>
+                        <option value="GREEN">{{'spingularApp.Eyes.GREEN' | translate}}</option>
+                        <option value="BROWN">{{'spingularApp.Eyes.BROWN' | translate}}</option>
+                        <option value="BLACK">{{'spingularApp.Eyes.BLACK' | translate}}</option>
+                        <option value="CHESTNUT">{{'spingularApp.Eyes.CHESTNUT' | translate}}</option>
+                        <option value="OTHER">{{'spingularApp.Eyes.OTHER' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.smoker" for="field_smoker">Smoker</label>
+                    <select class="form-control" name="smoker" formControlName="smoker" id="field_smoker">
+                        <option value="NA">{{'spingularApp.Smoker.NA' | translate}}</option>
+                        <option value="YES">{{'spingularApp.Smoker.YES' | translate}}</option>
+                        <option value="NO">{{'spingularApp.Smoker.NO' | translate}}</option>
+                        <option value="OCCASIONALLY">{{'spingularApp.Smoker.OCCASIONALLY' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.children" for="field_children">Children</label>
+                    <select class="form-control" name="children" formControlName="children" id="field_children">
+                        <option value="NA">{{'spingularApp.Children.NA' | translate}}</option>
+                        <option value="YES">{{'spingularApp.Children.YES' | translate}}</option>
+                        <option value="NO">{{'spingularApp.Children.NO' | translate}}</option>
+                        <option value="GREATER_THAN_18">{{'spingularApp.Children.GREATER_THAN_18' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.futureChildren" for="field_futureChildren">Future Children</label>
+                    <select class="form-control" name="futureChildren" formControlName="futureChildren" id="field_futureChildren">
+                        <option value="NA">{{'spingularApp.FutureChildren.NA' | translate}}</option>
+                        <option value="YES">{{'spingularApp.FutureChildren.YES' | translate}}</option>
+                        <option value="NO">{{'spingularApp.FutureChildren.NO' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.pet" for="field_pet">Pet</label>
+                    <input type="checkbox" class="form-control" name="pet" id="field_pet"
+                           formControlName="pet"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.appprofile.appuser" for="field_appuser">Appuser</label>
+                    <select class="form-control" id="field_appuser" name="appuser" formControlName="appuserId">
+                        <option *ngIf="!editForm.get('appuserId').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="appuserOption.id" *ngFor="let appuserOption of appusers; trackBy: trackAppuserById">{{appuserOption.id}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('appuserId').invalid && (editForm.get('appuserId').dirty || editForm.get('appuserId').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('appuserId').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

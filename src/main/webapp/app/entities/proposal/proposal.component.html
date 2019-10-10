@@ -1,0 +1,92 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="spingularApp.proposal.home.title">Proposals</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-proposal" [routerLink]="['/proposal/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="spingularApp.proposal.home.createLabel">
+            Create a new Proposal
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="proposals?.length === 0">
+        <span jhiTranslate="spingularApp.proposal.home.notFound">No proposals found</span>
+    </div>
+    <div class="table-responsive" *ngIf="proposals?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="creationDate"><span jhiTranslate="spingularApp.proposal.creationDate">Creation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="proposalName"><span jhiTranslate="spingularApp.proposal.proposalName">Proposal Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="proposalType"><span jhiTranslate="spingularApp.proposal.proposalType">Proposal Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="proposalRole"><span jhiTranslate="spingularApp.proposal.proposalRole">Proposal Role</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="releaseDate"><span jhiTranslate="spingularApp.proposal.releaseDate">Release Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="isOpen"><span jhiTranslate="spingularApp.proposal.isOpen">Is Open</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="isAccepted"><span jhiTranslate="spingularApp.proposal.isAccepted">Is Accepted</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="isPaid"><span jhiTranslate="spingularApp.proposal.isPaid">Is Paid</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="appuserId"><span jhiTranslate="spingularApp.proposal.appuser">Appuser</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="postId"><span jhiTranslate="spingularApp.proposal.post">Post</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let proposal of proposals ;trackBy: trackId">
+                <td><a [routerLink]="['/proposal', proposal.id, 'view' ]">{{proposal.id}}</a></td>
+                <td>{{proposal.creationDate | date:'medium'}}</td>
+                <td>{{proposal.proposalName}}</td>
+                <td jhiTranslate="{{'spingularApp.ProposalType.' + proposal.proposalType}}">{{proposal.proposalType}}</td>
+                <td jhiTranslate="{{'spingularApp.ProposalRole.' + proposal.proposalRole}}">{{proposal.proposalRole}}</td>
+                <td>{{proposal.releaseDate | date:'medium'}}</td>
+                <td>{{proposal.isOpen}}</td>
+                <td>{{proposal.isAccepted}}</td>
+                <td>{{proposal.isPaid}}</td>
+                <td>
+                    <div *ngIf="proposal.appuserId">
+                        <a [routerLink]="['/appuser', proposal.appuserId , 'view' ]" >{{proposal.appuserId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="proposal.postId">
+                        <a [routerLink]="['/post', proposal.postId , 'view' ]" >{{proposal.postId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/proposal', proposal.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/proposal', proposal.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/proposal', { outlets: { popup: proposal.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="proposals?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

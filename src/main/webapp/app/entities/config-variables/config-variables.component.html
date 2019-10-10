@@ -1,0 +1,104 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="spingularApp.configVariables.home.title">Config Variables</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-config-variables" [routerLink]="['/config-variables/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="spingularApp.configVariables.home.createLabel">
+            Create a new Config Variables
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="configVariables?.length === 0">
+        <span jhiTranslate="spingularApp.configVariables.home.notFound">No configVariables found</span>
+    </div>
+    <div class="table-responsive" *ngIf="configVariables?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configVarLong1"><span jhiTranslate="spingularApp.configVariables.configVarLong1">Config Var Long 1</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configVarLong2"><span jhiTranslate="spingularApp.configVariables.configVarLong2">Config Var Long 2</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configVarLong3"><span jhiTranslate="spingularApp.configVariables.configVarLong3">Config Var Long 3</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configVarLong4"><span jhiTranslate="spingularApp.configVariables.configVarLong4">Config Var Long 4</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configVarLong5"><span jhiTranslate="spingularApp.configVariables.configVarLong5">Config Var Long 5</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configVarLong6"><span jhiTranslate="spingularApp.configVariables.configVarLong6">Config Var Long 6</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configVarLong7"><span jhiTranslate="spingularApp.configVariables.configVarLong7">Config Var Long 7</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configVarLong8"><span jhiTranslate="spingularApp.configVariables.configVarLong8">Config Var Long 8</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configVarLong9"><span jhiTranslate="spingularApp.configVariables.configVarLong9">Config Var Long 9</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configVarLong10"><span jhiTranslate="spingularApp.configVariables.configVarLong10">Config Var Long 10</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configVarLong11"><span jhiTranslate="spingularApp.configVariables.configVarLong11">Config Var Long 11</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configVarLong12"><span jhiTranslate="spingularApp.configVariables.configVarLong12">Config Var Long 12</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configVarLong13"><span jhiTranslate="spingularApp.configVariables.configVarLong13">Config Var Long 13</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configVarLong14"><span jhiTranslate="spingularApp.configVariables.configVarLong14">Config Var Long 14</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configVarLong15"><span jhiTranslate="spingularApp.configVariables.configVarLong15">Config Var Long 15</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configVarBoolean16"><span jhiTranslate="spingularApp.configVariables.configVarBoolean16">Config Var Boolean 16</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configVarBoolean17"><span jhiTranslate="spingularApp.configVariables.configVarBoolean17">Config Var Boolean 17</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configVarBoolean18"><span jhiTranslate="spingularApp.configVariables.configVarBoolean18">Config Var Boolean 18</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configVarString19"><span jhiTranslate="spingularApp.configVariables.configVarString19">Config Var String 19</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configVarString20"><span jhiTranslate="spingularApp.configVariables.configVarString20">Config Var String 20</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let configVariables of configVariables ;trackBy: trackId">
+                <td><a [routerLink]="['/config-variables', configVariables.id, 'view' ]">{{configVariables.id}}</a></td>
+                <td>{{configVariables.configVarLong1}}</td>
+                <td>{{configVariables.configVarLong2}}</td>
+                <td>{{configVariables.configVarLong3}}</td>
+                <td>{{configVariables.configVarLong4}}</td>
+                <td>{{configVariables.configVarLong5}}</td>
+                <td>{{configVariables.configVarLong6}}</td>
+                <td>{{configVariables.configVarLong7}}</td>
+                <td>{{configVariables.configVarLong8}}</td>
+                <td>{{configVariables.configVarLong9}}</td>
+                <td>{{configVariables.configVarLong10}}</td>
+                <td>{{configVariables.configVarLong11}}</td>
+                <td>{{configVariables.configVarLong12}}</td>
+                <td>{{configVariables.configVarLong13}}</td>
+                <td>{{configVariables.configVarLong14}}</td>
+                <td>{{configVariables.configVarLong15}}</td>
+                <td>{{configVariables.configVarBoolean16}}</td>
+                <td>{{configVariables.configVarBoolean17}}</td>
+                <td>{{configVariables.configVarBoolean18}}</td>
+                <td>{{configVariables.configVarString19}}</td>
+                <td>{{configVariables.configVarString20}}</td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/config-variables', configVariables.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/config-variables', configVariables.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/config-variables', { outlets: { popup: configVariables.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="configVariables?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

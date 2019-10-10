@@ -1,0 +1,116 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="spingularApp.appprofile.home.title">Appprofiles</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-appprofile" [routerLink]="['/appprofile/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="spingularApp.appprofile.home.createLabel">
+            Create a new Appprofile
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="appprofiles?.length === 0">
+        <span jhiTranslate="spingularApp.appprofile.home.notFound">No appprofiles found</span>
+    </div>
+    <div class="table-responsive" *ngIf="appprofiles?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="creationDate"><span jhiTranslate="spingularApp.appprofile.creationDate">Creation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="gender"><span jhiTranslate="spingularApp.appprofile.gender">Gender</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="phone"><span jhiTranslate="spingularApp.appprofile.phone">Phone</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="bio"><span jhiTranslate="spingularApp.appprofile.bio">Bio</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="facebook"><span jhiTranslate="spingularApp.appprofile.facebook">Facebook</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="twitter"><span jhiTranslate="spingularApp.appprofile.twitter">Twitter</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="linkedin"><span jhiTranslate="spingularApp.appprofile.linkedin">Linkedin</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="instagram"><span jhiTranslate="spingularApp.appprofile.instagram">Instagram</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="googlePlus"><span jhiTranslate="spingularApp.appprofile.googlePlus">Google Plus</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="birthdate"><span jhiTranslate="spingularApp.appprofile.birthdate">Birthdate</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="civilStatus"><span jhiTranslate="spingularApp.appprofile.civilStatus">Civil Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="lookingFor"><span jhiTranslate="spingularApp.appprofile.lookingFor">Looking For</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="purpose"><span jhiTranslate="spingularApp.appprofile.purpose">Purpose</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="physical"><span jhiTranslate="spingularApp.appprofile.physical">Physical</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="religion"><span jhiTranslate="spingularApp.appprofile.religion">Religion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="ethnicGroup"><span jhiTranslate="spingularApp.appprofile.ethnicGroup">Ethnic Group</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="studies"><span jhiTranslate="spingularApp.appprofile.studies">Studies</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="sibblings"><span jhiTranslate="spingularApp.appprofile.sibblings">Sibblings</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="eyes"><span jhiTranslate="spingularApp.appprofile.eyes">Eyes</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="smoker"><span jhiTranslate="spingularApp.appprofile.smoker">Smoker</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="children"><span jhiTranslate="spingularApp.appprofile.children">Children</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="futureChildren"><span jhiTranslate="spingularApp.appprofile.futureChildren">Future Children</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="pet"><span jhiTranslate="spingularApp.appprofile.pet">Pet</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="appuserId"><span jhiTranslate="spingularApp.appprofile.appuser">Appuser</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let appprofile of appprofiles ;trackBy: trackId">
+                <td><a [routerLink]="['/appprofile', appprofile.id, 'view' ]">{{appprofile.id}}</a></td>
+                <td>{{appprofile.creationDate | date:'medium'}}</td>
+                <td jhiTranslate="{{'spingularApp.Gender.' + appprofile.gender}}">{{appprofile.gender}}</td>
+                <td>{{appprofile.phone}}</td>
+                <td>{{appprofile.bio}}</td>
+                <td>{{appprofile.facebook}}</td>
+                <td>{{appprofile.twitter}}</td>
+                <td>{{appprofile.linkedin}}</td>
+                <td>{{appprofile.instagram}}</td>
+                <td>{{appprofile.googlePlus}}</td>
+                <td>{{appprofile.birthdate | date:'medium'}}</td>
+                <td jhiTranslate="{{'spingularApp.CivilStatus.' + appprofile.civilStatus}}">{{appprofile.civilStatus}}</td>
+                <td jhiTranslate="{{'spingularApp.Gender.' + appprofile.lookingFor}}">{{appprofile.lookingFor}}</td>
+                <td jhiTranslate="{{'spingularApp.Purpose.' + appprofile.purpose}}">{{appprofile.purpose}}</td>
+                <td jhiTranslate="{{'spingularApp.Physical.' + appprofile.physical}}">{{appprofile.physical}}</td>
+                <td jhiTranslate="{{'spingularApp.Religion.' + appprofile.religion}}">{{appprofile.religion}}</td>
+                <td jhiTranslate="{{'spingularApp.EthnicGroup.' + appprofile.ethnicGroup}}">{{appprofile.ethnicGroup}}</td>
+                <td jhiTranslate="{{'spingularApp.Studies.' + appprofile.studies}}">{{appprofile.studies}}</td>
+                <td>{{appprofile.sibblings}}</td>
+                <td jhiTranslate="{{'spingularApp.Eyes.' + appprofile.eyes}}">{{appprofile.eyes}}</td>
+                <td jhiTranslate="{{'spingularApp.Smoker.' + appprofile.smoker}}">{{appprofile.smoker}}</td>
+                <td jhiTranslate="{{'spingularApp.Children.' + appprofile.children}}">{{appprofile.children}}</td>
+                <td jhiTranslate="{{'spingularApp.FutureChildren.' + appprofile.futureChildren}}">{{appprofile.futureChildren}}</td>
+                <td>{{appprofile.pet}}</td>
+                <td>
+                    <div *ngIf="appprofile.appuserId">
+                        <a [routerLink]="['/appuser', appprofile.appuserId , 'view' ]" >{{appprofile.appuserId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/appprofile', appprofile.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/appprofile', appprofile.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/appprofile', { outlets: { popup: appprofile.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="appprofiles?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

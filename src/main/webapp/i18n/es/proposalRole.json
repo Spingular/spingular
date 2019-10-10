@@ -1,0 +1,11 @@
+{
+  "spingularApp": {
+    "ProposalRole": {
+      "null": "",
+      "USER": "USER",
+      "ORGANIZER": "ORGANIZER",
+      "MANAGER": "MANAGER",
+      "ADMIN": "ADMIN"
+    }
+  }
+}

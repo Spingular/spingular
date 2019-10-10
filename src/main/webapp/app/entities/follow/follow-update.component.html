@@ -1,0 +1,58 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-follow-heading" jhiTranslate="spingularApp.follow.home.createOrEditLabel">Create or edit a Follow</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.follow.creationDate" for="field_creationDate">Creation Date</label>
+                    <div class="d-flex">
+                        <input id="field_creationDate" type="datetime-local" class="form-control" name="creationDate" formControlName="creationDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.follow.followed" for="field_followed">Followed</label>
+                    <select class="form-control" id="field_followed" name="followed" formControlName="followedId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="appuserOption.id" *ngFor="let appuserOption of appusers; trackBy: trackAppuserById">{{appuserOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.follow.following" for="field_following">Following</label>
+                    <select class="form-control" id="field_following" name="following" formControlName="followingId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="appuserOption.id" *ngFor="let appuserOption of appusers; trackBy: trackAppuserById">{{appuserOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.follow.cfollowed" for="field_cfollowed">Cfollowed</label>
+                    <select class="form-control" id="field_cfollowed" name="cfollowed" formControlName="cfollowedId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="communityOption.id" *ngFor="let communityOption of communities; trackBy: trackCommunityById">{{communityOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.follow.cfollowing" for="field_cfollowing">Cfollowing</label>
+                    <select class="form-control" id="field_cfollowing" name="cfollowing" formControlName="cfollowingId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="communityOption.id" *ngFor="let communityOption of communities; trackBy: trackCommunityById">{{communityOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

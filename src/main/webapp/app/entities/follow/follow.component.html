@@ -1,0 +1,90 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="spingularApp.follow.home.title">Follows</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-follow" [routerLink]="['/follow/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="spingularApp.follow.home.createLabel">
+            Create a new Follow
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="follows?.length === 0">
+        <span jhiTranslate="spingularApp.follow.home.notFound">No follows found</span>
+    </div>
+    <div class="table-responsive" *ngIf="follows?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="creationDate"><span jhiTranslate="spingularApp.follow.creationDate">Creation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="followedId"><span jhiTranslate="spingularApp.follow.followed">Followed</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="followingId"><span jhiTranslate="spingularApp.follow.following">Following</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="cfollowedId"><span jhiTranslate="spingularApp.follow.cfollowed">Cfollowed</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="cfollowingId"><span jhiTranslate="spingularApp.follow.cfollowing">Cfollowing</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let follow of follows ;trackBy: trackId">
+                <td><a [routerLink]="['/follow', follow.id, 'view' ]">{{follow.id}}</a></td>
+                <td>{{follow.creationDate | date:'medium'}}</td>
+                <td>
+                    <div *ngIf="follow.followedId">
+                        <a [routerLink]="['/appuser', follow.followedId , 'view' ]" >{{follow.followedId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="follow.followingId">
+                        <a [routerLink]="['/appuser', follow.followingId , 'view' ]" >{{follow.followingId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="follow.cfollowedId">
+                        <a [routerLink]="['/community', follow.cfollowedId , 'view' ]" >{{follow.cfollowedId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="follow.cfollowingId">
+                        <a [routerLink]="['/community', follow.cfollowingId , 'view' ]" >{{follow.cfollowingId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/follow', follow.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/follow', follow.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/follow', { outlets: { popup: follow.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="follows?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

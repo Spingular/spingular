@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="blockuser">
+            <h2><span jhiTranslate="spingularApp.blockuser.detail.title">Blockuser</span> {{blockuser.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="spingularApp.blockuser.creationDate">Creation Date</span></dt>
+                <dd>
+                    <span>{{blockuser.creationDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.blockuser.blockeduser">Blockeduser</span></dt>
+                <dd>
+                    <div *ngIf="blockuser.blockeduserId">
+                        <a [routerLink]="['/appuser', blockuser.blockeduserId, 'view']">{{blockuser.blockeduserId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.blockuser.blockinguser">Blockinguser</span></dt>
+                <dd>
+                    <div *ngIf="blockuser.blockinguserId">
+                        <a [routerLink]="['/appuser', blockuser.blockinguserId, 'view']">{{blockuser.blockinguserId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.blockuser.cblockeduser">Cblockeduser</span></dt>
+                <dd>
+                    <div *ngIf="blockuser.cblockeduserId">
+                        <a [routerLink]="['/community', blockuser.cblockeduserId, 'view']">{{blockuser.cblockeduserId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.blockuser.cblockinguser">Cblockinguser</span></dt>
+                <dd>
+                    <div *ngIf="blockuser.cblockinguserId">
+                        <a [routerLink]="['/community', blockuser.cblockinguserId, 'view']">{{blockuser.cblockinguserId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/blockuser', blockuser.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

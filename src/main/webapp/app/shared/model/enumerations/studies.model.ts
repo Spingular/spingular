@@ -1,0 +1,10 @@
+export const enum Studies {
+  NA = 'NA',
+  PRIMARY = 'PRIMARY',
+  HIGH_SCHOOL = 'HIGH_SCHOOL',
+  TECHNICAL = 'TECHNICAL',
+  COLLEGE = 'COLLEGE',
+  MASTER = 'MASTER',
+  DOCTORATE = 'DOCTORATE',
+  OTHER = 'OTHER'
+}

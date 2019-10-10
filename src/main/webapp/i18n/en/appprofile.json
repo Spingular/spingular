@@ -1,0 +1,45 @@
+{
+  "spingularApp": {
+    "appprofile": {
+      "home": {
+        "title": "Appprofiles",
+        "createLabel": "Create a new Appprofile",
+        "createOrEditLabel": "Create or edit a Appprofile",
+        "notFound": "No Appprofiles found"
+      },
+      "created": "A new Appprofile is created with identifier {{ param }}",
+      "updated": "A Appprofile is updated with identifier {{ param }}",
+      "deleted": "A Appprofile is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Appprofile {{ id }}?"
+      },
+      "detail": {
+        "title": "Appprofile"
+      },
+      "creationDate": "Creation Date",
+      "gender": "Gender",
+      "phone": "Phone",
+      "bio": "Bio",
+      "facebook": "Facebook",
+      "twitter": "Twitter",
+      "linkedin": "Linkedin",
+      "instagram": "Instagram",
+      "googlePlus": "Google Plus",
+      "birthdate": "Birthdate",
+      "civilStatus": "Civil Status",
+      "lookingFor": "Looking For",
+      "purpose": "Purpose",
+      "physical": "Physical",
+      "religion": "Religion",
+      "ethnicGroup": "Ethnic Group",
+      "studies": "Studies",
+      "sibblings": "Sibblings",
+      "eyes": "Eyes",
+      "smoker": "Smoker",
+      "children": "Children",
+      "futureChildren": "Future Children",
+      "pet": "Pet",
+      "appuser": "Appuser"
+    }
+  }
+}

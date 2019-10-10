@@ -1,0 +1,202 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-post-heading" jhiTranslate="spingularApp.post.home.createOrEditLabel">Create or edit a Post</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.post.creationDate" for="field_creationDate">Creation Date</label>
+                    <div class="d-flex">
+                        <input id="field_creationDate" type="datetime-local" class="form-control" name="creationDate" formControlName="creationDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                    <div *ngIf="editForm.get('creationDate').invalid && (editForm.get('creationDate').dirty || editForm.get('creationDate').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('creationDate').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('creationDate').errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.post.publicationDate" for="field_publicationDate">Publication Date</label>
+                    <div class="d-flex">
+                        <input id="field_publicationDate" type="datetime-local" class="form-control" name="publicationDate" formControlName="publicationDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.post.headline" for="field_headline">Headline</label>
+                    <input type="text" class="form-control" name="headline" id="field_headline"
+                           formControlName="headline"/>
+                    <div *ngIf="editForm.get('headline').invalid && (editForm.get('headline').dirty || editForm.get('headline').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('headline').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('headline').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 2 }">
+                        This field is required to be at least 2 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('headline').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 100 }">
+                        This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.post.leadtext" for="field_leadtext">Leadtext</label>
+                    <input type="text" class="form-control" name="leadtext" id="field_leadtext"
+                           formControlName="leadtext"/>
+                    <div *ngIf="editForm.get('leadtext').invalid && (editForm.get('leadtext').dirty || editForm.get('leadtext').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('leadtext').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 2 }">
+                        This field is required to be at least 2 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('leadtext').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 1000 }">
+                        This field cannot be longer than 1000 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.post.bodytext" for="field_bodytext">Bodytext</label>
+                    <input type="text" class="form-control" name="bodytext" id="field_bodytext"
+                           formControlName="bodytext"/>
+                    <div *ngIf="editForm.get('bodytext').invalid && (editForm.get('bodytext').dirty || editForm.get('bodytext').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('bodytext').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('bodytext').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 2 }">
+                        This field is required to be at least 2 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('bodytext').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 65000 }">
+                        This field cannot be longer than 65000 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.post.quote" for="field_quote">Quote</label>
+                    <input type="text" class="form-control" name="quote" id="field_quote"
+                           formControlName="quote"/>
+                    <div *ngIf="editForm.get('quote').invalid && (editForm.get('quote').dirty || editForm.get('quote').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('quote').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 2 }">
+                        This field is required to be at least 2 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('quote').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 1000 }">
+                        This field cannot be longer than 1000 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.post.conclusion" for="field_conclusion">Conclusion</label>
+                    <input type="text" class="form-control" name="conclusion" id="field_conclusion"
+                           formControlName="conclusion"/>
+                    <div *ngIf="editForm.get('conclusion').invalid && (editForm.get('conclusion').dirty || editForm.get('conclusion').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('conclusion').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 2 }">
+                        This field is required to be at least 2 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('conclusion').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 2000 }">
+                        This field cannot be longer than 2000 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.post.linkText" for="field_linkText">Link Text</label>
+                    <input type="text" class="form-control" name="linkText" id="field_linkText"
+                           formControlName="linkText"/>
+                    <div *ngIf="editForm.get('linkText').invalid && (editForm.get('linkText').dirty || editForm.get('linkText').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('linkText').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 2 }">
+                        This field is required to be at least 2 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('linkText').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 1000 }">
+                        This field cannot be longer than 1000 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.post.linkURL" for="field_linkURL">Link URL</label>
+                    <input type="text" class="form-control" name="linkURL" id="field_linkURL"
+                           formControlName="linkURL"/>
+                    <div *ngIf="editForm.get('linkURL').invalid && (editForm.get('linkURL').dirty || editForm.get('linkURL').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('linkURL').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 2 }">
+                        This field is required to be at least 2 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('linkURL').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 1000 }">
+                        This field cannot be longer than 1000 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.post.image" for="field_image">Image</label>
+                    <div>
+                        <img [src]="'data:' + editForm.get('imageContentType').value + ';base64,' + editForm.get('image').value" style="max-height: 100px;" *ngIf="editForm.get('image').value" alt="post image"/>
+                        <div *ngIf="editForm.get('image').value" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{editForm.get('imageContentType').value}}, {{byteSize(editForm.get('image').value)}}</span>
+                            <button type="button" (click)="clearInputImage('image', 'imageContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_image" (change)="setFileData($event, 'image', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="image" id="field_image"
+                           formControlName="image"/>
+                    <input type="hidden" class="form-control" name="imageContentType" id="field_imageContentType"
+                           formControlName="imageContentType" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.post.appuser" for="field_appuser">Appuser</label>
+                    <select class="form-control" id="field_appuser" name="appuser" formControlName="appuserId">
+                        <option *ngIf="!editForm.get('appuserId').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="appuserOption.id" *ngFor="let appuserOption of appusers; trackBy: trackAppuserById">{{appuserOption.id}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('appuserId').invalid && (editForm.get('appuserId').dirty || editForm.get('appuserId').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('appuserId').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.post.blog" for="field_blog">Blog</label>
+                    <select class="form-control" id="field_blog" name="blog" formControlName="blogId">
+                        <option *ngIf="!editForm.get('blogId').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="blogOption.id" *ngFor="let blogOption of blogs; trackBy: trackBlogById">{{blogOption.title}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('blogId').invalid && (editForm.get('blogId').dirty || editForm.get('blogId').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('blogId').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

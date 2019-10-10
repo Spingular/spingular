@@ -1,0 +1,42 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="appphoto">
+            <h2><span jhiTranslate="spingularApp.appphoto.detail.title">Appphoto</span> {{appphoto.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="spingularApp.appphoto.creationDate">Creation Date</span></dt>
+                <dd>
+                    <span>{{appphoto.creationDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appphoto.image">Image</span></dt>
+                <dd>
+                    <div *ngIf="appphoto.image">
+                        <a (click)="openFile(appphoto.imageContentType, appphoto.image)">
+                            <img [src]="'data:' + appphoto.imageContentType + ';base64,' + appphoto.image" style="max-width: 100%;" alt="appphoto image"/>
+                        </a>
+                        {{appphoto.imageContentType}}, {{byteSize(appphoto.image)}}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="spingularApp.appphoto.appuser">Appuser</span></dt>
+                <dd>
+                    <div *ngIf="appphoto.appuserId">
+                        <a [routerLink]="['/appuser', appphoto.appuserId, 'view']">{{appphoto.appuserId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/appphoto', appphoto.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

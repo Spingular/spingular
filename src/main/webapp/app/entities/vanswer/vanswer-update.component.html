@@ -1,0 +1,90 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-vanswer-heading" jhiTranslate="spingularApp.vanswer.home.createOrEditLabel">Create or edit a Vanswer</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.vanswer.creationDate" for="field_creationDate">Creation Date</label>
+                    <div class="d-flex">
+                        <input id="field_creationDate" type="datetime-local" class="form-control" name="creationDate" formControlName="creationDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                    <div *ngIf="editForm.get('creationDate').invalid && (editForm.get('creationDate').dirty || editForm.get('creationDate').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('creationDate').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('creationDate').errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.vanswer.urlVanswer" for="field_urlVanswer">Url Vanswer</label>
+                    <input type="text" class="form-control" name="urlVanswer" id="field_urlVanswer"
+                           formControlName="urlVanswer"/>
+                    <div *ngIf="editForm.get('urlVanswer').invalid && (editForm.get('urlVanswer').dirty || editForm.get('urlVanswer').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('urlVanswer').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('urlVanswer').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 2 }">
+                        This field is required to be at least 2 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('urlVanswer').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 500 }">
+                        This field cannot be longer than 500 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.vanswer.accepted" for="field_accepted">Accepted</label>
+                    <input type="checkbox" class="form-control" name="accepted" id="field_accepted"
+                           formControlName="accepted"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.vanswer.appuser" for="field_appuser">Appuser</label>
+                    <select class="form-control" id="field_appuser" name="appuser" formControlName="appuserId">
+                        <option *ngIf="!editForm.get('appuserId').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="appuserOption.id" *ngFor="let appuserOption of appusers; trackBy: trackAppuserById">{{appuserOption.id}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('appuserId').invalid && (editForm.get('appuserId').dirty || editForm.get('appuserId').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('appuserId').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="spingularApp.vanswer.vquestion" for="field_vquestion">Vquestion</label>
+                    <select class="form-control" id="field_vquestion" name="vquestion" formControlName="vquestionId">
+                        <option *ngIf="!editForm.get('vquestionId').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="vquestionOption.id" *ngFor="let vquestionOption of vquestions; trackBy: trackVquestionById">{{vquestionOption.id}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('vquestionId').invalid && (editForm.get('vquestionId').dirty || editForm.get('vquestionId').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('vquestionId').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

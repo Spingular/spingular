@@ -1,0 +1,37 @@
+{
+  "spingularApp": {
+    "post": {
+      "home": {
+        "title": "Posts",
+        "createLabel": "Create a new Post",
+        "createOrEditLabel": "Create or edit a Post",
+        "notFound": "No Posts found"
+      },
+      "created": "A new Post is created with identifier {{ param }}",
+      "updated": "A Post is updated with identifier {{ param }}",
+      "deleted": "A Post is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Post {{ id }}?"
+      },
+      "detail": {
+        "title": "Post"
+      },
+      "creationDate": "Creation Date",
+      "publicationDate": "Publication Date",
+      "headline": "Headline",
+      "leadtext": "Leadtext",
+      "bodytext": "Bodytext",
+      "quote": "Quote",
+      "conclusion": "Conclusion",
+      "linkText": "Link Text",
+      "linkURL": "Link URL",
+      "image": "Image",
+      "comment": "Comment",
+      "proposal": "Proposal",
+      "appuser": "Appuser",
+      "blog": "Blog",
+      "tag": "Tag",
+      "topic": "Topic"
+    }
+  }
+}
