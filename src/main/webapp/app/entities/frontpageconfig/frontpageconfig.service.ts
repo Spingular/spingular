@@ -9,9 +9,12 @@ import { map } from 'rxjs/operators';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IFrontpageconfig } from 'app/shared/model/frontpageconfig.model';
+import { ICustomFrontpageconfig } from 'app/shared/model/customfrontpageconfig.model';
 
 type EntityResponseType = HttpResponse<IFrontpageconfig>;
 type EntityArrayResponseType = HttpResponse<IFrontpageconfig[]>;
+type CustomEntityResponseType = HttpResponse<ICustomFrontpageconfig>;
+type CustomEntityArrayResponseType = HttpResponse<ICustomFrontpageconfig[]>;
 
 @Injectable({ providedIn: 'root' })
 export class FrontpageconfigService {
@@ -39,6 +42,12 @@ export class FrontpageconfigService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
+  findIncludingPosts(id: number): Observable<CustomEntityResponseType> {
+    return this.http
+      .get<ICustomFrontpageconfig>(`${this.resourceUrl}/${id}/posts`, { observe: 'response' })
+      .pipe(map((res: CustomEntityResponseType) => this.customConvertDateFromServer(res)));
+  }
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http
@@ -62,6 +71,11 @@ export class FrontpageconfigService {
     if (res.body) {
       res.body.creationDate = res.body.creationDate != null ? moment(res.body.creationDate) : null;
     }
+    return res;
+  }
+
+  private customConvertDateFromServer(res: CustomEntityResponseType): CustomEntityResponseType {
+    res.body.creationDate = res.body.creationDate != null ? moment(res.body.creationDate) : null;
     return res;
   }
 
