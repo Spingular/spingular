@@ -25,8 +25,9 @@ public class NotificationDTO implements Serializable {
 
     private Boolean isDelivered;
 
-
     private Long appuserId;
+    
+    private Long userId;
 
     public Long getId() {
         return id;
@@ -84,7 +85,15 @@ public class NotificationDTO implements Serializable {
         this.appuserId = appuserId;
     }
 
-    @Override
+    public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -115,6 +124,7 @@ public class NotificationDTO implements Serializable {
             ", notificationText='" + getNotificationText() + "'" +
             ", isDelivered='" + isIsDelivered() + "'" +
             ", appuser=" + getAppuserId() +
+            ", user=" + getUserId() +
             "}";
     }
 }

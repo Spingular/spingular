@@ -8,13 +8,15 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Photo} and its DTO {@link PhotoDTO}.
  */
-@Mapper(componentModel = "spring", uses = {AlbumMapper.class, CalbumMapper.class})
+@Mapper(componentModel = "spring", uses = {AlbumMapper.class, CalbumMapper.class, AppuserMapper.class, UserMapper.class})
 public interface PhotoMapper extends EntityMapper<PhotoDTO, Photo> {
 
     @Mapping(source = "album.id", target = "albumId")
     @Mapping(source = "album.title", target = "albumTitle")
     @Mapping(source = "calbum.id", target = "calbumId")
     @Mapping(source = "calbum.title", target = "calbumTitle")
+    @Mapping(source = "album.appuser.user.id", target = "albumUserId")				
+    @Mapping(source = "calbum.community.appuser.user.id", target = "calbumUserId")
     PhotoDTO toDto(Photo photo);
 
     @Mapping(source = "albumId", target = "album")

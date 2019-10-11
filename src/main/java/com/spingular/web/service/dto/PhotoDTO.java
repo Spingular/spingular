@@ -27,6 +27,10 @@ public class PhotoDTO implements Serializable {
     private Long calbumId;
 
     private String calbumTitle;
+    
+    private Long albumUserId;
+
+    private Long calbumUserId;
 
     public Long getId() {
         return id;
@@ -92,7 +96,23 @@ public class PhotoDTO implements Serializable {
         this.calbumTitle = calbumTitle;
     }
 
-    @Override
+    public Long getAlbumUserId() {
+		return albumUserId;
+	}
+
+	public void setAlbumUserId(Long albumUserId) {
+		this.albumUserId = albumUserId;
+	}
+
+	public Long getCalbumUserId() {
+		return calbumUserId;
+	}
+
+	public void setCalbumUserId(Long calbumUserId) {
+		this.calbumUserId = calbumUserId;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -123,6 +143,8 @@ public class PhotoDTO implements Serializable {
             ", album='" + getAlbumTitle() + "'" +
             ", calbum=" + getCalbumId() +
             ", calbum='" + getCalbumTitle() + "'" +
+            ", albumUserId=" + getAlbumUserId() +
+            ", calbumUserId=" + getCalbumUserId() +
             "}";
     }
 }

@@ -8,10 +8,11 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Appprofile} and its DTO {@link AppprofileDTO}.
  */
-@Mapper(componentModel = "spring", uses = {AppuserMapper.class})
+@Mapper(componentModel = "spring", uses = {AppuserMapper.class, UserMapper.class})
 public interface AppprofileMapper extends EntityMapper<AppprofileDTO, Appprofile> {
 
     @Mapping(source = "appuser.id", target = "appuserId")
+    @Mapping(source = "appuser.user.id", target = "userId")
     AppprofileDTO toDto(Appprofile appprofile);
 
     @Mapping(source = "appuserId", target = "appuser")

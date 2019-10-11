@@ -50,6 +50,12 @@ public class PostDTO implements Serializable {
     private Long blogId;
 
     private String blogTitle;
+    
+    private String userLogin;
+
+    private String userFirstName;
+
+    private String userLastName;
 
     public Long getId() {
         return id;
@@ -171,7 +177,31 @@ public class PostDTO implements Serializable {
         this.blogTitle = blogTitle;
     }
 
-    @Override
+    public String getUserLogin() {
+		return userLogin;
+	}
+
+	public void setUserLogin(String userLogin) {
+		this.userLogin = userLogin;
+	}
+
+	public String getUserFirstName() {
+		return userFirstName;
+	}
+
+	public void setUserFirstName(String userFirstName) {
+		this.userFirstName = userFirstName;
+	}
+
+	public String getUserLastName() {
+		return userLastName;
+	}
+
+	public void setUserLastName(String userLastName) {
+		this.userLastName = userLastName;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -209,6 +239,9 @@ public class PostDTO implements Serializable {
             ", appuser=" + getAppuserId() +
             ", blog=" + getBlogId() +
             ", blog='" + getBlogTitle() + "'" +
+            ", userLogin=" + getUserLogin() +
+            ", userFirstName=" + getUserFirstName() +
+            ", userLastName=" + getUserLastName() +
             "}";
     }
 }

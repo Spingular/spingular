@@ -3,12 +3,15 @@ package com.spingular.web.web.rest;
 import com.spingular.web.service.FrontpageconfigService;
 import com.spingular.web.web.rest.errors.BadRequestAlertException;
 import com.spingular.web.service.dto.FrontpageconfigDTO;
+import com.spingular.web.service.dto.CustomFrontpageconfigDTO;
 import com.spingular.web.service.dto.FrontpageconfigCriteria;
 import com.spingular.web.service.FrontpageconfigQueryService;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import io.micrometer.core.annotation.Timed;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -107,6 +110,20 @@ public class FrontpageconfigResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    /**
+    * GET  /frontpageconfigs/:id/posts : get the "id" frontpageconfig, including posts
+    *
+    * @param id the id of the frontpageconfigDTO to retrieve
+    * @return the ResponseEntity with status 200 (OK) and with body the frontpageconfigDTO, or with status 404 (Not Found)
+    */
+    @GetMapping("/frontpageconfigs/{id}/posts")
+    @Timed
+    public ResponseEntity<CustomFrontpageconfigDTO> getFrontpageconfigIncludingPosts(@PathVariable Long id) {
+        log.debug("REST request to get Frontpageconfig : {}", id);
+        Optional<CustomFrontpageconfigDTO> frontpageconfigDTO = frontpageconfigService.findOneIncludingPosts(id);
+        return ResponseUtil.wrapOrNotFound(frontpageconfigDTO);
+    }
+ 
     /**
     * {@code GET  /frontpageconfigs/count} : count all the frontpageconfigs.
     *

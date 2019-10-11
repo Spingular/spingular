@@ -3,7 +3,9 @@ package com.spingular.web.service.impl;
 import com.spingular.web.service.FrontpageconfigService;
 import com.spingular.web.domain.Frontpageconfig;
 import com.spingular.web.repository.FrontpageconfigRepository;
+import com.spingular.web.service.dto.CustomFrontpageconfigDTO;
 import com.spingular.web.service.dto.FrontpageconfigDTO;
+import com.spingular.web.service.mapper.CustomFrontpageconfigMapper;
 import com.spingular.web.service.mapper.FrontpageconfigMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,12 +29,29 @@ public class FrontpageconfigServiceImpl implements FrontpageconfigService {
     private final FrontpageconfigRepository frontpageconfigRepository;
 
     private final FrontpageconfigMapper frontpageconfigMapper;
+    
+    private final CustomFrontpageconfigMapper customFrontpageconfigMapper;
 
-    public FrontpageconfigServiceImpl(FrontpageconfigRepository frontpageconfigRepository, FrontpageconfigMapper frontpageconfigMapper) {
+    public FrontpageconfigServiceImpl(FrontpageconfigRepository frontpageconfigRepository, FrontpageconfigMapper frontpageconfigMapper, 
+    		CustomFrontpageconfigMapper customFrontpageconfigMapper) {
         this.frontpageconfigRepository = frontpageconfigRepository;
         this.frontpageconfigMapper = frontpageconfigMapper;
+        this.customFrontpageconfigMapper = customFrontpageconfigMapper;
     }
 
+    /**
+     * Get one frontpageconfig by id, including the posts.
+     *
+     * @param id the id of the entity
+     * @return the entity
+     */
+     @Transactional(readOnly = true)
+     public Optional<CustomFrontpageconfigDTO> findOneIncludingPosts(Long id) {
+         log.debug("Request to get Frontpageconfig : {}", id);
+         return frontpageconfigRepository.findById(id)
+             .map(customFrontpageconfigMapper::toDto);
+     }
+ 
     /**
      * Save a frontpageconfig.
      *

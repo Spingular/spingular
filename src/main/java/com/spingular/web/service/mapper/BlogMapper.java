@@ -8,12 +8,13 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Blog} and its DTO {@link BlogDTO}.
  */
-@Mapper(componentModel = "spring", uses = {AppuserMapper.class, CommunityMapper.class})
+@Mapper(componentModel = "spring", uses = {CommunityMapper.class, AppuserMapper.class, UserMapper.class})
 public interface BlogMapper extends EntityMapper<BlogDTO, Blog> {
 
     @Mapping(source = "appuser.id", target = "appuserId")
     @Mapping(source = "community.id", target = "communityId")
     @Mapping(source = "community.communityName", target = "communityCommunityName")
+    @Mapping(source = "community.appuser.user.id", target = "userId")
     BlogDTO toDto(Blog blog);
 
     @Mapping(target = "posts", ignore = true)
