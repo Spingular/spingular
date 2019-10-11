@@ -70,11 +70,11 @@ public class Post implements Serializable {
     @Column(name = "image_content_type")
     private String imageContentType;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Comment> comments = new HashSet<>();
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Proposal> proposals = new HashSet<>();
 
@@ -88,12 +88,12 @@ public class Post implements Serializable {
     @JsonIgnoreProperties("posts")
     private Blog blog;
 
-    @ManyToMany(mappedBy = "posts")
+    @ManyToMany(mappedBy = "posts", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JsonIgnore
     private Set<Tag> tags = new HashSet<>();
 
-    @ManyToMany(mappedBy = "posts")
+    @ManyToMany(mappedBy = "posts", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JsonIgnore
     private Set<Topic> topics = new HashSet<>();

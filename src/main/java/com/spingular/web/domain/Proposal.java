@@ -60,7 +60,7 @@ public class Proposal implements Serializable {
     @Column(name = "is_paid")
     private Boolean isPaid;
 
-    @OneToMany(mappedBy = "proposal")
+    @OneToMany(mappedBy = "proposal", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ProposalVote> proposalVotes = new HashSet<>();
 

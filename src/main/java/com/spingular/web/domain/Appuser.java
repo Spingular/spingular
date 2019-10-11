@@ -32,102 +32,102 @@ public class Appuser implements Serializable {
     @Column(name = "assigned_votes_points")
     private Long assignedVotesPoints;
 
-    @OneToOne(optional = false)    @NotNull
-
+    @OneToOne(optional = false)    
+    @NotNull
     @JoinColumn(unique = true)
     private User user;
 
-    @OneToOne(mappedBy = "appuser")
+    @OneToOne(mappedBy = "appuser", cascade = CascadeType.REMOVE)
     @JsonIgnore
     private Appprofile appprofile;
 
-    @OneToOne(mappedBy = "appuser")
+    @OneToOne(mappedBy = "appuser", cascade = CascadeType.REMOVE)
     @JsonIgnore
     private Appphoto appphoto;
 
-    @OneToMany(mappedBy = "appuser")
+    @OneToMany(mappedBy = "appuser", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Community> communities = new HashSet<>();
 
-    @OneToMany(mappedBy = "appuser")
+    @OneToMany(mappedBy = "appuser", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Blog> blogs = new HashSet<>();
 
-    @OneToMany(mappedBy = "appuser")
+    @OneToMany(mappedBy = "appuser", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Notification> notifications = new HashSet<>();
 
-    @OneToMany(mappedBy = "appuser")
+    @OneToMany(mappedBy = "appuser", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Album> albums = new HashSet<>();
 
-    @OneToMany(mappedBy = "appuser")
+    @OneToMany(mappedBy = "appuser", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Comment> comments = new HashSet<>();
 
-    @OneToMany(mappedBy = "appuser")
+    @OneToMany(mappedBy = "appuser", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Post> posts = new HashSet<>();
 
-    @OneToMany(mappedBy = "sender")
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Message> senders = new HashSet<>();
 
-    @OneToMany(mappedBy = "receiver")
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Message> receivers = new HashSet<>();
 
-    @OneToMany(mappedBy = "followed")
+    @OneToMany(mappedBy = "followed", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Follow> followeds = new HashSet<>();
 
-    @OneToMany(mappedBy = "following")
+    @OneToMany(mappedBy = "following", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Follow> followings = new HashSet<>();
 
-    @OneToMany(mappedBy = "blockeduser")
+    @OneToMany(mappedBy = "blockeduser", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Blockuser> blockedusers = new HashSet<>();
 
-    @OneToMany(mappedBy = "blockinguser")
+    @OneToMany(mappedBy = "blockinguser", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Blockuser> blockingusers = new HashSet<>();
 
-    @OneToMany(mappedBy = "appuser")
+    @OneToMany(mappedBy = "appuser", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Vtopic> vtopics = new HashSet<>();
 
-    @OneToMany(mappedBy = "appuser")
+    @OneToMany(mappedBy = "appuser", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Vquestion> vquestions = new HashSet<>();
 
-    @OneToMany(mappedBy = "appuser")
+    @OneToMany(mappedBy = "appuser", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Vanswer> vanswers = new HashSet<>();
 
-    @OneToMany(mappedBy = "appuser")
+    @OneToMany(mappedBy = "appuser", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Vthumb> vthumbs = new HashSet<>();
 
-    @OneToMany(mappedBy = "appuser")
+    @OneToMany(mappedBy = "appuser", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Proposal> proposals = new HashSet<>();
 
-    @OneToMany(mappedBy = "appuser")
+    @OneToMany(mappedBy = "appuser", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ProposalVote> proposalVotes = new HashSet<>();
 
-    @ManyToMany(mappedBy = "appusers")
+    @ManyToMany(mappedBy = "appusers", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JsonIgnore
     private Set<Interest> interests = new HashSet<>();
 
-    @ManyToMany(mappedBy = "appusers")
+    @ManyToMany(mappedBy = "appusers", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JsonIgnore
     private Set<Activity> activities = new HashSet<>();
 
-    @ManyToMany(mappedBy = "appusers")
+    @ManyToMany(mappedBy = "appusers", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JsonIgnore
     private Set<Celeb> celebs = new HashSet<>();

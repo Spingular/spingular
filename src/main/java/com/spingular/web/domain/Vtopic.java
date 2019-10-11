@@ -38,7 +38,7 @@ public class Vtopic implements Serializable {
     @Column(name = "vtopic_description", length = 250)
     private String vtopicDescription;
 
-    @OneToMany(mappedBy = "vtopic")
+    @OneToMany(mappedBy = "vtopic", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Vquestion> vquestions = new HashSet<>();
 

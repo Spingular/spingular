@@ -38,11 +38,11 @@ public class Vquestion implements Serializable {
     @Column(name = "vquestion_description", length = 250)
     private String vquestionDescription;
 
-    @OneToMany(mappedBy = "vquestion")
+    @OneToMany(mappedBy = "vquestion", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Vanswer> vanswers = new HashSet<>();
 
-    @OneToMany(mappedBy = "vquestion")
+    @OneToMany(mappedBy = "vquestion", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Vthumb> vthumbs = new HashSet<>();
 
