@@ -3,8 +3,10 @@
     "blog": {
       "home": {
         "title": "Blogs",
+        "myLabel": "My Blog",
         "createLabel": "Create a new Blog",
         "createOrEditLabel": "Create or edit a Blog",
+        "search": "Search for Blog",
         "notFound": "No Blogs found"
       },
       "created": "A new Blog is created with identifier {{ param }}",

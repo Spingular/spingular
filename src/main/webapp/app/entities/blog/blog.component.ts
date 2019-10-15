@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiDataUtils } from 'ng-jhipster';
+import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { IBlog } from 'app/shared/model/blog.model';
 import { AccountService } from 'app/core/auth/account.service';
@@ -31,9 +31,14 @@ export class BlogComponent implements OnInit, OnDestroy {
   previousPage: any;
   reverse: any;
 
+  currentSearch: string;
+  owner: any;
+  isAdmin: boolean;
+
   constructor(
     protected blogService: BlogService,
     protected parseLinks: JhiParseLinks,
+    protected jhiAlertService: JhiAlertService,
     protected accountService: AccountService,
     protected activatedRoute: ActivatedRoute,
     protected dataUtils: JhiDataUtils,
@@ -50,13 +55,29 @@ export class BlogComponent implements OnInit, OnDestroy {
   }
 
   loadAll() {
+    if (this.currentSearch) {
+      this.blogService
+        .query({
+          page: this.page - 1,
+          'title.contains': this.currentSearch,
+          size: this.itemsPerPage,
+          sort: this.sort()
+        })
+        .subscribe(
+          (res: HttpResponse<IBlog[]>) => this.paginateBlogs(res.body, res.headers),
+          (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
     this.blogService
       .query({
         page: this.page - 1,
         size: this.itemsPerPage,
         sort: this.sort()
       })
-      .subscribe((res: HttpResponse<IBlog[]>) => this.paginateBlogs(res.body, res.headers));
+      .subscribe(
+        (res: HttpResponse<IBlog[]>) => this.paginateBlogs(res.body, res.headers),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
   }
 
   loadPage(page: number) {
@@ -71,6 +92,7 @@ export class BlogComponent implements OnInit, OnDestroy {
       queryParams: {
         page: this.page,
         size: this.itemsPerPage,
+        search: this.currentSearch,
         sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
       }
     });
@@ -89,10 +111,29 @@ export class BlogComponent implements OnInit, OnDestroy {
     this.loadAll();
   }
 
+  search(query) {
+    if (!query) {
+      return this.clear();
+    }
+    this.page = 0;
+    this.currentSearch = query;
+    this.router.navigate([
+      '/blog',
+      {
+        search: this.currentSearch,
+        page: this.page,
+        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+      }
+    ]);
+    this.loadAll();
+  }
+
   ngOnInit() {
     this.loadAll();
     this.accountService.identity().subscribe(account => {
       this.currentAccount = account;
+      this.owner = this.currentAccount.id;
+      this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
     });
     this.registerChangeInBlogs();
   }
@@ -125,9 +166,30 @@ export class BlogComponent implements OnInit, OnDestroy {
     return result;
   }
 
+  myBlogs() {
+    const query = {
+      page: this.page - 1,
+      size: this.itemsPerPage,
+      sort: this.sort()
+    };
+    if (this.currentAccount.id != null) {
+      query['userId.equals'] = this.currentAccount.id;
+    }
+    this.blogService
+      .query(query)
+      .subscribe(
+        (res: HttpResponse<IBlog[]>) => this.paginateBlogs(res.body, res.headers),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+  }
+
   protected paginateBlogs(data: IBlog[], headers: HttpHeaders) {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.blogs = data;
+  }
+
+  protected onError(errorMessage: string) {
+    this.jhiAlertService.error(errorMessage, null, null);
   }
 }

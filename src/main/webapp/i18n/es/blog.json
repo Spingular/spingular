@@ -3,25 +3,27 @@
     "blog": {
       "home": {
         "title": "Blogs",
+        "myLabel": "Mi Blog",
         "createLabel": "Crear nuevo Blog",
         "createOrEditLabel": "Crear o editar Blog",
-        "notFound": "No Blogs found"
+        "search": "Buscar un Blog",
+        "notFound": "No se ha encontrado ningún Blog"
       },
       "created": "Un nuevo Blog ha sido creado con el identificador {{ param }}",
       "updated": "Un Blog ha sido actualizado con el identificador {{ param }}",
       "deleted": "Un Blog ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Blog {{ id }}?"
+        "question": "¿Seguro que quiere eliminar el Blog {{ id }}?"
       },
       "detail": {
         "title": "Blog"
       },
-      "creationDate": "Creation Date",
-      "title": "Title",
-      "image": "Image",
+      "creationDate": "Fecha de Creación",
+      "title": "Título",
+      "image": "Imágen",
       "post": "Post",
       "appuser": "Appuser",
-      "community": "Community"
+      "community": "Communidad"
     }
   }
 }

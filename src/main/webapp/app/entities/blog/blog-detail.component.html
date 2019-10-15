@@ -1,31 +1,20 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="blog">
-            <h2><span jhiTranslate="spingularApp.blog.detail.title">Blog</span> {{blog.id}}</h2>
+            <h2><span jhiTranslate="spingularApp.blog.detail.title">Blog</span>{{blog.title}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
                 <dt><span jhiTranslate="spingularApp.blog.creationDate">Creation Date</span></dt>
                 <dd>
-                    <span>{{blog.creationDate}}</span>
+                    <span>{{blog.creationDate | date:'MMM d, y, h:mm a'}} & ID: {{blog.id}}</span>
                 </dd>
-                <dt><span jhiTranslate="spingularApp.blog.title">Title</span></dt>
-                <dd>
-                    <span>{{blog.title}}</span>
-                </dd>
-                <dt><span jhiTranslate="spingularApp.blog.image">Image</span></dt>
+                <dd><span></span></dd>
                 <dd>
                     <div *ngIf="blog.image">
                         <a (click)="openFile(blog.imageContentType, blog.image)">
                             <img [src]="'data:' + blog.imageContentType + ';base64,' + blog.image" style="max-width: 100%;" alt="blog image"/>
                         </a>
-                        {{blog.imageContentType}}, {{byteSize(blog.image)}}
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="spingularApp.blog.appuser">Appuser</span></dt>
-                <dd>
-                    <div *ngIf="blog.appuserId">
-                        <a [routerLink]="['/appuser', blog.appuserId, 'view']">{{blog.appuserId}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="spingularApp.blog.community">Community</span></dt>
@@ -36,6 +25,49 @@
                 </dd>
             </dl>
 
+            <div class="table-responsive" *ngIf="posts">
+                <table class="table table-striped">
+                    <thead>
+                    <th><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th><span jhiTranslate="spingularApp.post.creationDate">Creation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th><span jhiTranslate="spingularApp.post.headline">Headline</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th><span jhiTranslate="spingularApp.post.image">Image</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th></th>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let post of posts">
+                        <td><a [routerLink]="['/post', post.id, 'view' ]">{{post.id}}</a></td>
+                        <td>{{post.creationDate | date:'MMM d, y, h:mm a'}}</td>
+                        <td><a [routerLink]="['/post', post.id, 'view' ]">{{post.headline}}</a></td>
+                        <td>
+                            <a *ngIf="post.image" (click)="openFile(post.imageContentType, post.image)">
+                                <img [src]="'data:' + post.imageContentType + ';base64,' + post.image" style="max-height: 30px;" alt="post image"/>
+                            </a>
+                            <!-- <span *ngIf="post.image">{{post.imageContentType}}, {{byteSize(post.image)}}</span>  -->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div [hidden]="posts?.length === 0">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+            <!-- 
+            <div *ngIf="posts && posts.length">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+            -->
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">

@@ -15,6 +15,7 @@ import { IAppuser } from 'app/shared/model/appuser.model';
 import { AppuserService } from 'app/entities/appuser/appuser.service';
 import { ICommunity } from 'app/shared/model/community.model';
 import { CommunityService } from 'app/entities/community/community.service';
+import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
   selector: 'jhi-blog-update',
@@ -24,8 +25,14 @@ export class BlogUpdateComponent implements OnInit {
   isSaving: boolean;
 
   appusers: IAppuser[];
+  appuser: IAppuser;
 
   communities: ICommunity[];
+
+  currentAccount: any;
+  owner: any;
+  isAdmin: boolean;
+  creationDate: string;
 
   editForm = this.fb.group({
     id: [],
@@ -45,21 +52,41 @@ export class BlogUpdateComponent implements OnInit {
     protected communityService: CommunityService,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    protected accountService: AccountService
   ) {}
 
   ngOnInit() {
     this.isSaving = false;
+    this.accountService.identity().subscribe(
+      account => {
+        this.currentAccount = account;
+        this.owner = this.currentAccount.id;
+        this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+        const query = {};
+        if (this.currentAccount.id != null) {
+          query['userId.equals'] = this.currentAccount.id;
+        }
+        this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
+          this.appuser = res.body[0];
+          const query2 = {};
+          if (this.appuser.userId != null) {
+            query2['userId.equals'] = this.appuser.userId;
+          }
+          this.appuserService
+            .query(query2)
+            .pipe(
+              filter((mayBeOk: HttpResponse<IAppuser[]>) => mayBeOk.ok),
+              map((response: HttpResponse<IAppuser[]>) => response.body)
+            )
+            .subscribe((res2: IAppuser[]) => (this.appusers = res2), (res2: HttpErrorResponse) => this.onError(res2.message));
+        });
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
     this.activatedRoute.data.subscribe(({ blog }) => {
       this.updateForm(blog);
     });
-    this.appuserService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IAppuser[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IAppuser[]>) => response.body)
-      )
-      .subscribe((res: IAppuser[]) => (this.appusers = res), (res: HttpErrorResponse) => this.onError(res.message));
     this.communityService
       .query()
       .pipe(
