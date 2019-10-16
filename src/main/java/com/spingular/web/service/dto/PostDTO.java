@@ -56,6 +56,10 @@ public class PostDTO implements Serializable {
     private String userFirstName;
 
     private String userLastName;
+    
+    @Lob
+    private byte[] userImage;
+    private String userImageContentType;
 
     public Long getId() {
         return id;
@@ -201,6 +205,22 @@ public class PostDTO implements Serializable {
 		this.userLastName = userLastName;
 	}
 
+	public byte[] getUserImage() {
+		return userImage;
+	}
+
+	public void setUserImage(byte[] userImage) {
+		this.userImage = userImage;
+	}
+
+	public String getUserImageContentType() {
+		return userImageContentType;
+	}
+
+	public void setUserImageContentType(String userImageContentType) {
+		this.userImageContentType = userImageContentType;
+	}
+
 	@Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -242,6 +262,7 @@ public class PostDTO implements Serializable {
             ", userLogin=" + getUserLogin() +
             ", userFirstName=" + getUserFirstName() +
             ", userLastName=" + getUserLastName() +
+            ", userImage='" + getUserImage() + "'" +
             "}";
     }
 }

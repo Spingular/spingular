@@ -4,8 +4,10 @@
       "home": {
         "title": "Posts",
         "createLabel": "Crear nuevo Post",
+        "myLabel": "Mis Posts",
         "createOrEditLabel": "Crear o editar Post",
-        "notFound": "No Posts found"
+        "notFound": "Posts no encontrado",
+        "search": "Buscar un Post"
       },
       "created": "Un nuevo Post ha sido creado con el identificador {{ param }}",
       "updated": "Un Post ha sido actualizado con el identificador {{ param }}",
@@ -24,7 +26,7 @@
       "quote": "Quote",
       "conclusion": "Conclusion",
       "linkText": "Link Text",
-      "linkURL": "Link URL",
+      "linkURL": "Link URL: https://example.com/",
       "image": "Image",
       "comment": "Comment",
       "proposal": "Proposal",

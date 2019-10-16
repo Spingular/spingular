@@ -3,7 +3,7 @@ import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/ht
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { filter, map } from 'rxjs/operators';
+// import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { IBlog } from 'app/shared/model/blog.model';
@@ -52,21 +52,25 @@ export class BlogComponent implements OnInit, OnDestroy {
       this.reverse = data.pagingParams.ascending;
       this.predicate = data.pagingParams.predicate;
     });
+    this.currentSearch =
+      this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search'] ? this.activatedRoute.snapshot.params['search'] : '';
   }
 
   loadAll() {
     if (this.currentSearch) {
-      this.blogService
-        .query({
-          page: this.page - 1,
-          'title.contains': this.currentSearch,
-          size: this.itemsPerPage,
-          sort: this.sort()
-        })
-        .subscribe(
-          (res: HttpResponse<IBlog[]>) => this.paginateBlogs(res.body, res.headers),
-          (res: HttpErrorResponse) => this.onError(res.message)
-        );
+      const query = {
+        page: this.page - 1,
+        size: this.itemsPerPage,
+        sort: this.sort()
+      };
+      query['title.contains'] = this.currentSearch;
+      this.blogService.query(query).subscribe(
+        (res: HttpResponse<IBlog[]>) => {
+          this.blogs = res.body;
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+      return;
     }
     this.blogService
       .query({
@@ -92,7 +96,6 @@ export class BlogComponent implements OnInit, OnDestroy {
       queryParams: {
         page: this.page,
         size: this.itemsPerPage,
-        search: this.currentSearch,
         sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
       }
     });
@@ -101,6 +104,7 @@ export class BlogComponent implements OnInit, OnDestroy {
 
   clear() {
     this.page = 0;
+    this.currentSearch = '';
     this.router.navigate([
       '/blog',
       {
@@ -173,7 +177,7 @@ export class BlogComponent implements OnInit, OnDestroy {
       sort: this.sort()
     };
     if (this.currentAccount.id != null) {
-      query['userId.equals'] = this.currentAccount.id;
+      query['appuserId.equals'] = this.currentAccount.id;
     }
     this.blogService
       .query(query)

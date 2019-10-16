@@ -1,5 +1,7 @@
 package com.spingular.web.service.dto;
 import java.time.Instant;
+
+import javax.persistence.Lob;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -27,6 +29,10 @@ public class CommentDTO implements Serializable {
     private String commenterFirstName;
 
     private String commenterLastName;
+    
+    @Lob
+    private byte[] commenterImage;
+    private String commenterImageContentType;
     
     public Long getId() {
         return id;
@@ -92,6 +98,22 @@ public class CommentDTO implements Serializable {
 		this.commenterLastName = commenterLastName;
 	}
 
+	public byte[] getCommenterImage() {
+		return commenterImage;
+	}
+
+	public void setCommenterImage(byte[] commenterImage) {
+		this.commenterImage = commenterImage;
+	}
+
+	public String getCommenterImageContentType() {
+		return commenterImageContentType;
+	}
+
+	public void setCommenterImageContentType(String commenterImageContentType) {
+		this.commenterImageContentType = commenterImageContentType;
+	}
+
 	@Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -124,6 +146,7 @@ public class CommentDTO implements Serializable {
             ", post=" + getPostId() +
             ", commenterFirstName=" + getCommenterFirstName() +
             ", commenterLastName=" + getCommenterLastName() +
+            ", commenterImage='" + getCommenterImage() + "'" +
             "}";
     }
 }

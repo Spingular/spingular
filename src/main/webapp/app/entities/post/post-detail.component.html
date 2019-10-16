@@ -1,80 +1,347 @@
 <div class="row justify-content-center">
-    <div class="col-8">
+    <div class="col-lg-8 col-md-12">
         <div *ngIf="post">
-            <h2><span jhiTranslate="spingularApp.post.detail.title">Post</span> {{post.id}}</h2>
-            <hr>
-            <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="spingularApp.post.creationDate">Creation Date</span></dt>
-                <dd>
-                    <span>{{post.creationDate}}</span>
-                </dd>
-                <dt><span jhiTranslate="spingularApp.post.publicationDate">Publication Date</span></dt>
-                <dd>
-                    <span>{{post.publicationDate}}</span>
-                </dd>
-                <dt><span jhiTranslate="spingularApp.post.headline">Headline</span></dt>
-                <dd>
-                    <span>{{post.headline}}</span>
-                </dd>
-                <dt><span jhiTranslate="spingularApp.post.leadtext">Leadtext</span></dt>
-                <dd>
-                    <span>{{post.leadtext}}</span>
-                </dd>
-                <dt><span jhiTranslate="spingularApp.post.bodytext">Bodytext</span></dt>
-                <dd>
-                    <span>{{post.bodytext}}</span>
-                </dd>
-                <dt><span jhiTranslate="spingularApp.post.quote">Quote</span></dt>
-                <dd>
-                    <span>{{post.quote}}</span>
-                </dd>
-                <dt><span jhiTranslate="spingularApp.post.conclusion">Conclusion</span></dt>
-                <dd>
-                    <span>{{post.conclusion}}</span>
-                </dd>
-                <dt><span jhiTranslate="spingularApp.post.linkText">Link Text</span></dt>
-                <dd>
-                    <span>{{post.linkText}}</span>
-                </dd>
-                <dt><span jhiTranslate="spingularApp.post.linkURL">Link URL</span></dt>
-                <dd>
-                    <span>{{post.linkURL}}</span>
-                </dd>
-                <dt><span jhiTranslate="spingularApp.post.image">Image</span></dt>
-                <dd>
-                    <div *ngIf="post.image">
-                        <a (click)="openFile(post.imageContentType, post.image)">
-                            <img [src]="'data:' + post.imageContentType + ';base64,' + post.image" style="max-width: 100%;" alt="post image"/>
-                        </a>
-                        {{post.imageContentType}}, {{byteSize(post.image)}}
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="spingularApp.post.appuser">Appuser</span></dt>
-                <dd>
-                    <div *ngIf="post.appuserId">
-                        <a [routerLink]="['/appuser', post.appuserId, 'view']">{{post.appuserId}}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="spingularApp.post.blog">Blog</span></dt>
-                <dd>
-                    <div *ngIf="post.blogId">
-                        <a [routerLink]="['/blog', post.blogId, 'view']">{{post.blogTitle}}</a>
-                    </div>
-                </dd>
-            </dl>
+		    <!-- News Content -->
+		    <div class="container">
+		          <div class="row">
+		            <!-- Articles Content -->
+		            <div class="col-lg-9 g-mb-50 g-mb-0--lg">
+		              <article class="g-mb-60">
+		                <header class="g-mb-30">
+		                  <h2 class="h1 g-mb-15">
+		                  	{{post.headline}}
+			                  	<button *ngIf="owner === post.appuserId || isAdmin == true"
+		                        		type="submit"
+		                                [routerLink]="['/post', post.id, 'edit']"
+		                                class="btn btn-primary btn-sm">
+		                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+		                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+		                        </button>
+	                        </h2>
+		
+		                  <ul *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']" class="list-inline d-sm-flex g-color-gray-dark-v4 mb-0">
+		                    <li class="list-inline-item" *ngIf="post && appprofile">
+		                      <a [routerLink]="['/appprofile', appprofile.id, 'view']" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover">{{post.userFirstName}} {{post.userLastName}}</a>
+		                    </li>
+		                    <li class="list-inline-item g-mx-10">/</li>
+		                    <li class="list-inline-item">
+		                      {{post.creationDate | date:'MMM d, y, h:mm a'}}
+		                    </li>
+		                    <li class="list-inline-item g-mx-10">/</li>
+		                    <li class="list-inline-item g-mr-10">
+		                      <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#comments">
+		                        <li class="icon-finance-206 u-line-icon-pro align-middle g-pos-rel g-top-1 mr-1" *ngIf="comments">{{comments.length}} Comments</li>
+		                      </a>
+		                    </li>
+		                    <li class="list-inline-item ml-auto">
+		                      <!-- <i class="icon-eye u-line-icon-pro align-middle mr-1"></i> Views 3821 -->
+		                    </li>
+		                  </ul>
+		
+		                  <hr class="g-brd-gray-light-v4 g-my-15">
+          		          <h6 class="g-color-gray-dark-v1 g-mb-15" *ngIf="post.linkURL">
+		                    <strong class="g-mr-5">Source:</strong> <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="{{post.linkURL}}" target="_blank">{{post.linkText}}</a>
+		                  </h6>
 
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-            </button>
+		                  <ul class="list-inline text-uppercase mb-0">
+		                    <!-- <li class="list-inline-item g-mr-10">
+		                      <strong class="align-middle g-font-size-24">423</strong>
+		                    </li>
+		                    <li class="list-inline-item g-mr-10">
+		                      <span class="g-color-gray-dark-v5">|</span>
+		                    </li>  -->
+		                    <li class="list-inline-item g-mr-10">
+		                      <a class="btn u-btn-facebook g-font-size-12 rounded g-px-20--sm g-py-10" href="https://www.facebook.com/sharer/sharer.php?u=example.org" target="_blank">
+		                        <i class="fa fa-facebook g-mr-5--sm"></i> <span class="g-hidden-xs-down">Share on Facebook</span>
+		                      </a>
+		                    </li>
+		                    <li class="list-inline-item g-mr-10">
+		                      <a class="btn u-btn-twitter g-font-size-12 rounded g-px-20--sm g-py-10" href="https://twitter.com/share?url=example.org" target="_blank">
+		                        <i class="fa fa-twitter g-mr-5--sm"></i> <span class="g-hidden-xs-down">Tweet on Twitter</span>
+		                      </a>
+		                    </li>
+		                    <!-- <li class="list-inline-item">
+		                      <a class="btn u-btn-lightred g-font-size-12 rounded g-py-10" href="#!">
+		                        <i class="fa fa-pinterest"></i>
+		                      </a>
+		                    </li>  -->
+		                  </ul>
+		                </header>
+		
+		                <div class="g-font-size-16 g-line-height-1_8 g-mb-30">
+		                  <figure class="u-shadow-v25 g-mb-30">
+		                    <div *ngIf="post.image">
+		                        <a (click)="openFile(post.imageContentType, post.image)">
+		                            <img [src]="'data:' + post.imageContentType + ';base64,' + post.image" style="max-width: 100%;" alt="post image"/>
+		                        </a>
+			                </div>
+		                  </figure>
+		                  	<p class="g-color-gray-dark-v2" [innerHTML]="post.bodytext"></p>                
+		                  <div class="g-width-70x--md g-my-40">
+		                    <blockquote class="blockquote g-brd-left g-brd-2 g-brd-gray-light-v4 g-brd-primary--hover text-uppercase g-font-size-22 g-transition-0_2 g-pl-20 g-mb-30">
+		                      <p class="g-color-primary">{{post.quote}}</p>
+		                      <!-- <footer class="blockquote-footer g-font-size-12">John Doe</footer> -->
+		                    </blockquote>
+		                  </div>
+		                </div>
+		
+		                <!-- Sources & Tags -->
+   						<div *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']" class="g-mb-30" style="width: 100%; overflow: hidden;">
+		                  <h6 class="g-color-gray-dark-v1">
+                 			    <button id="jh-create-entity" style="margin-top: 15px;"
+									*ngIf="owner === post.appuserId" 
+									class="btn btn-primary float-right jh-create-entity create-topic"
+									[routerLink]="['/topic/new']" [queryParams]="{ 'postIdEquals': post.id }">
+									<fa-icon [icon]="'plus'"></fa-icon>
+								</button>
+								<strong class="g-mr-5" style="float: left; margin-top: 24px; font-size: 16px;">Topics:</strong>
+		                    	<span *ngFor="let topic of post.topics"
+							            class="g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-white--hover" 
+							            style="font-size: 13px; font-weight: bold; cursor: pointer; float:left; padding: 8px 10px; border-radius: 5px; border: solid 1px; 
+							            margin-right: 15px; overflow: hidden; display: inherit; width: fit-content; margin-top: 15px;">
+					                    <fa-icon *ngIf="owner === post.appuserId" (click)="removePostTopic(topic.id, post.id)" [icon]="'times'" class="g-color-red--hover"></fa-icon>
+								        <span [routerLink]="['/topic', topic.id, 'view' ]" style="padding-left: 10px;">{{topic.topicName}}</span>
+							    </span>
+		                  </h6>
+		                </div>
+		                <div *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']" class="g-mb-30" style="width: 100%; overflow: hidden;">
+		                  <h6 class="g-color-gray-dark-v1">
+                 			    <button id="jh-create-entity" style="margin-top: 15px;"
+									*ngIf="owner === post.appuserId" 
+									class="btn btn-primary float-right jh-create-entity create-tag"
+									[routerLink]="['/tag/new']" [queryParams]="{ 'postIdEquals': post.id }">
+									<fa-icon [icon]="'plus'"></fa-icon>
+								</button>
+		                    	<strong class="g-mr-5" style="float: left; margin-top: 24px; font-size: 16px;">Tags:</strong>
+		                    	<span  *ngFor="let tag of post.tags"
+							            class="g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-white--hover" 
+							            style="font-size: 13px; font-weight: bold; cursor: pointer; float:left; padding: 8px 10px; border-radius: 5px; border: solid 1px; 
+							            margin-right: 15px; overflow: hidden; display: inherit; width: fit-content; margin-top: 15px;">
+					                    <fa-icon *ngIf="owner === post.appuserId" (click)="removePostTag(tag.id, post.id)" [icon]="'times'" class="g-color-red--hover"></fa-icon>
+								        <span [routerLink]="['/tag', tag.id, 'view' ]" style="padding-left: 10px;">{{tag.tagName}}</span>
+							    </span>
+		                  </h6>
+		                </div>
+		                <!-- End Sources & Tags -->
+		
+		                <hr class="g-brd-gray-light-v4">
+		
+		                <!-- Social Shares -->
+		                <div class="g-mb-30">
+		                  <ul class="list-inline text-uppercase mb-0">
+		                    <!-- <li class="list-inline-item g-mr-10">
+		                      <strong class="align-middle g-font-size-24">423</strong>
+		                    </li>
+		                    <li class="list-inline-item g-mr-10">
+		                      <span class="g-color-gray-dark-v5">|</span>
+		                    </li>  -->
+		                    <li class="list-inline-item g-mr-10">
+		                      <a class="btn u-btn-facebook g-font-size-12 rounded g-px-20--sm g-py-10" href="https://www.facebook.com/sharer/sharer.php?u=example.org" target="_blank">
+		                        <i class="fa fa-facebook g-mr-5--sm"></i> <span class="g-hidden-xs-down">Share on Facebook</span>
+		                      </a>
+		                    </li>
+		                    <li class="list-inline-item g-mr-10">
+		                      <a class="btn u-btn-twitter g-font-size-12 rounded g-px-20--sm g-py-10" href="https://twitter.com/share?url=example.org" target="_blank">
+		                        <i class="fa fa-twitter g-mr-5--sm"></i> <span class="g-hidden-xs-down">Tweet on Twitter</span>
+		                      </a>
+		                    </li>
+		                    <!-- <li class="list-inline-item">
+		                      <a class="btn u-btn-lightred g-font-size-12 rounded g-py-10" href="#!">
+		                        <i class="fa fa-pinterest"></i>
+		                      </a>
+		                    </li>  -->
+		                  </ul>
+		                </div>
+		                <!-- End Social Shares -->
+		
+		                <hr class="g-brd-gray-light-v4 g-mb-40">
+		
+		                <!-- Related Articles -->
+		                <!-- UNDER DEVELOPMENT -->
+		
+		                <!-- Author Block -->
+		                <div class="g-mb-60">
+		                  <div class="u-heading-v3-1 g-mb-30">
+		                    <h2 *ngIf="owner===0" class="h5 u-heading-v3__title g-color-gray-dark-v1 text-uppercase g-brd-primary">Please log in</h2>
+		                    <h2 *ngIf="owner!=0" class="h5 u-heading-v3__title g-color-gray-dark-v1 text-uppercase g-brd-primary">About The Author</h2>
+		                  </div>
+		                  <div *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']" class="media g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-20">
+		                    <div *ngIf="appprofile">
+		                        <a [routerLink]="['/uprofile', appprofile.id, 'view']">
+																<img [src]="'data:' + post.userImageContentType + ';base64,' + post.userImage" style="max-width: 100%;" alt="post.userImage"/>
+		                        </a>
+			                </div>
 
-            <button type="button"
-                    [routerLink]="['/post', post.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
+		                    <div class="media-body" *ngIf="appprofile">
+		                      <h4 class="g-color-gray-dark-v1 g-mb-15">
+		                        <a class="u-link-v5 g-color-gray-dark-v1 g-color-primary--hover" [routerLink]="['/uprofile', appprofile.id, 'view']">{{post.userFirstName}} {{post.userLastName}}</a>
+		                      </h4>
+		
+		                      <div class="g-mb-15">
+		                        <p class="g-color-gray-dark-v2">{{appprofile.bio}}</p>
+		                      </div>
+		
+		                      <!-- <ul class="list-inline mb-0">
+		                        <li class="list-inline-item g-mr-10">
+		                          <a class="u-icon-v3 u-icon-size--xs g-font-size-12 g-bg-gray-light-v5 g-bg-primary--hover g-color-gray-dark-v5 g-color-white--hover rounded-circle" href="#!">
+		                            <i class="fa fa-facebook"></i>
+		                          </a>
+		                        </li>
+		                        <li class="list-inline-item g-mr-10">
+		                          <a class="u-icon-v3 u-icon-size--xs g-font-size-12 g-bg-gray-light-v5 g-bg-primary--hover g-color-gray-dark-v5 g-color-white--hover rounded-circle" href="#!">
+		                            <i class="fa fa-instagram"></i>
+		                          </a>
+		                        </li>
+		                        <li class="list-inline-item g-mr-10">
+		                          <a class="u-icon-v3 u-icon-size--xs g-font-size-12 g-bg-gray-light-v5 g-bg-primary--hover g-color-gray-dark-v5 g-color-white--hover rounded-circle" href="#!">
+		                            <i class="fa fa-twitter"></i>
+		                          </a>
+		                        </li>
+		                      </ul> -->
+		                    </div>
+		                  </div>
+		                </div>
+		                <!-- End Author Block -->
+		
+		                <!-- Comments -->
+		                <div *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']" class="g-mb-60">
+		                  <div class="u-heading-v3-1 g-mb-30" id="comments">
+		                    <h2 class="h5 u-heading-v3__title g-color-gray-dark-v1 text-uppercase g-brd-primary" *ngIf="comments">{{comments.length}} Comments</h2>
+		                  </div>
+		
+		                   <!-- Comment 1 -->
+			                  <div class="media g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-20" *ngFor="let comment of comments">
+			                  	<a class="u-link-v5 g-color-gray-dark-v1 g-color-primary--hover" [routerLink]="['/uprofile', comment.appprofileId, 'view']">
+		                            <img class="d-flex u-shadow-v25 g-width-50 g-height-50 rounded-circle g-mr-15" [src]="'data:' + comment.commenterImageContentType + ';base64,' + comment.commenterImage" style="max-width: 100%;" alt="comment.commenterImage"/>
+		                        </a>
+			                    <div class="media-body">
+			                      <div class="g-mb-15">
+			                        <h5 class="d-flex justify-content-between align-items-center g-font-size-16 g-color-gray-dark-v1 mb-0" [routerLink]="['/uprofile', comment.uprofileId, 'view']">
+			                          <span class="d-block g-mr-10">{{comment.commenterFirstName}} {{comment.commenterLastName}}</span>
+			                        </h5>
+			                        <span class="g-color-gray-dark-v4 g-font-size-12">{{comment.creationDate | date:'MMM d, y, h:mm a'}}</span>
+			                      </div>
+			
+			                      <div class="g-mb-15">
+			                      	<p class="g-color-gray-dark-v2" [innerHTML]="comment.commentText"></p>
+			                      </div>
+			<!--
+			                      <ul class="list-inline d-sm-flex my-0">
+			                        <li class="list-inline-item g-mr-20">
+			                          <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+			                            <i class="icon-like g-pos-rel g-top-1 g-mr-3"></i> 214
+			                          </a>
+			                        </li>
+			                        <li class="list-inline-item g-mr-20">
+			                          <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+			                            <i class="icon-dislike g-pos-rel g-top-1 g-mr-3"></i> 35
+			                          </a>
+			                        </li>
+			                        <li class="list-inline-item ml-auto">
+			                          <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+			                            <i class="icon-note g-pos-rel g-top-1 g-mr-3"></i> Reply
+			                          </a>
+			                        </li>
+			                      </ul>
+			-->
+			                    </div>
+			                  </div>
+			                  <!-- End Comment 1 -->
+		                      <div *ngIf="comments && comments.length">
+							        <div class="row justify-content-center">
+													<!--<jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>-->
+													<jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+							        </div>
+							        <div class="row justify-content-center">
+							            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+							        </div>
+							    </div>
+						<!--  
+		                  <div class="text-center g-mt-30">
+		                    <a class="btn u-btn-outline-primary g-font-size-12 text-uppercase g-px-25 g-py-13" href="#!">
+		                      <i class="icon-finance-206 u-line-icon-pro align-middle g-pos-rel g-top-1 mr-2"></i> Load More Comments
+		                    </a>
+		                  </div>
+		                  -->
+		                  
+		                <!-- </div> -->
+		                <!-- Comments -->
+		
+		                <!-- Add Comment -->
+		                <div class="g-mb-60" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']">
+		                  <div class="u-heading-v3-1 g-mb-30">
+		                    <h2 class="h5 u-heading-v3__title g-color-gray-dark-v1 text-uppercase g-brd-primary">Add a Comment</h2>
+		                  </div>
+						<!--
+		                  <form>
+		                    <div class="g-mb-30">
+		                      <textarea class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v4 g-brd-primary--focus g-resize-none rounded-3 g-pa-15" rows="12" placeholder="Your Message"></textarea>
+		                    </div>
+		
+		                    <a class="btn u-btn-primary g-font-size-12 text-uppercase g-px-25 g-py-13" href="#!">
+		                      <i class="icon-finance-206 u-line-icon-pro align-middle g-pos-rel g-top-1 mr-2"></i> Add a Comment
+		                    </a>
+		                  </form>
+						  -->
+						<!-- ADDED STUFF Comment -->
+						
+						<div class="row justify-content-center">
+						    <div class="col-8">
+						        <form name="editForm" role="form" novalidate (ngSubmit)="saveComment()" #editForm="ngForm">
+						            <div>
+						                <jhi-alert-error></jhi-alert-error>
+						                
+						                <!--
+						                <div class="form-group" [hidden]="!comment.id">
+						                    <label for="id" jhiTranslate="global.field.id">ID</label>
+						                    <input type="text" class="form-control" id="id" name="id"
+						                        [(ngModel)]="comment.id" readonly />
+						                </div>
+						                -->
+						                <div class="form-group">
+						                    <label class="form-control-label" jhiTranslate="spingularApp.comment.commentText" for="field_commentText">Comment Text</label>
+						                    <textarea type="text" rows="10" cols="50" class="form-control" name="commentText" id="field_commentText"
+						                        [(ngModel)]="comment.commentText" required minlength="2" maxlength="65000">
+							                    <div [hidden]="!(editForm.controls.commentText?.dirty && editForm.controls.commentText?.invalid)">
+							                        <small class="form-text text-danger"
+							                        [hidden]="!editForm.controls.commentText?.errors?.required" jhiTranslate="entity.validation.required">
+							                        This field is required.
+							                        </small>
+							                        <small class="form-text text-danger"
+							                        [hidden]="!editForm.controls.commentText?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 2 }">
+							                        This field is required to be at least 2 characters.
+							                        </small>
+							                        <small class="form-text text-danger"
+							                        [hidden]="!editForm.controls.commentText?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 65000 }">
+							                        This field cannot be longer than 65000 characters.
+							                        </small>
+							                    </div>
+							      			</textarea>           
+						                </div>
+						                <div [hidden]="!(editForm.controls.uprofile?.dirty && editForm.controls.uprofile?.invalid)">
+						                    <small class="form-text text-danger"
+						                        [hidden]="!editForm.controls.uprofile?.errors?.required" jhiTranslate="entity.validation.required">
+						                        This field is required.
+						                    </small>
+						                </div>
+						                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+						                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+						                </button>
+						            </div>
+										</form>
+								</div>
+						</div>
+						
+						<!-- End ADDED STUFF Comment --> 
+		                </div>
+		                <!-- End Add Comment -->
+		              </article>
+		              <div id="stickyblock-end"></div>
+		            </div>
+		            <!-- End Articles Content -->
+		          </div>{{post |json}}
+		        </div>
+			<!-- End News Content -->
         </div>
     </div>
 </div>

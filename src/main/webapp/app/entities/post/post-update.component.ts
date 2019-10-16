@@ -19,6 +19,7 @@ import { ITag } from 'app/shared/model/tag.model';
 import { TagService } from 'app/entities/tag/tag.service';
 import { ITopic } from 'app/shared/model/topic.model';
 import { TopicService } from 'app/entities/topic/topic.service';
+import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
   selector: 'jhi-post-update',
@@ -28,12 +29,17 @@ export class PostUpdateComponent implements OnInit {
   isSaving: boolean;
 
   appusers: IAppuser[];
+  appuser: IAppuser;
 
   blogs: IBlog[];
 
   tags: ITag[];
 
   topics: ITopic[];
+
+  currentAccount: any;
+  owner: any;
+  isAdmin: boolean;
 
   editForm = this.fb.group({
     id: [],
@@ -62,28 +68,47 @@ export class PostUpdateComponent implements OnInit {
     protected topicService: TopicService,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    protected accountService: AccountService
   ) {}
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ post }) => {
-      this.updateForm(post);
+      this.accountService.identity().subscribe(account => {
+        this.currentAccount = account;
+        this.owner = this.currentAccount.id;
+        this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+        const query = {};
+        if (this.currentAccount.id != null) {
+          query['userId.equals'] = this.currentAccount.id;
+        }
+        this.appuserService.query(query).subscribe(
+          (res: HttpResponse<IAppuser[]>) => {
+            this.appusers = res.body;
+            this.appuser = this.appusers[0];
+            const query2 = {};
+            if (this.currentAccount.id != null) {
+              query2['appuserId.equals'] = this.appuser.id;
+            }
+            this.blogService
+              .query(query2)
+              .pipe(
+                filter((mayBeOk: HttpResponse<IBlog[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IBlog[]>) => response.body)
+              )
+              .subscribe(
+                (res2: IBlog[]) => {
+                  this.blogs = res2;
+                  this.updateForm(post);
+                },
+                (res2: HttpErrorResponse) => this.onError(res2.message)
+              );
+          },
+          (res: HttpErrorResponse) => this.onError(res.message)
+        );
+      });
     });
-    this.appuserService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IAppuser[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IAppuser[]>) => response.body)
-      )
-      .subscribe((res: IAppuser[]) => (this.appusers = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.blogService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IBlog[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IBlog[]>) => response.body)
-      )
-      .subscribe((res: IBlog[]) => (this.blogs = res), (res: HttpErrorResponse) => this.onError(res.message));
     this.tagService
       .query()
       .pipe(

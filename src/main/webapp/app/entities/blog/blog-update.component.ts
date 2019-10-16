@@ -58,42 +58,41 @@ export class BlogUpdateComponent implements OnInit {
 
   ngOnInit() {
     this.isSaving = false;
-    this.accountService.identity().subscribe(
-      account => {
-        this.currentAccount = account;
-        this.owner = this.currentAccount.id;
-        this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
-        const query = {};
-        if (this.currentAccount.id != null) {
-          query['userId.equals'] = this.currentAccount.id;
-        }
-        this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
-          this.appuser = res.body[0];
-          const query2 = {};
-          if (this.appuser.userId != null) {
-            query2['userId.equals'] = this.appuser.userId;
-          }
-          this.appuserService
-            .query(query2)
-            .pipe(
-              filter((mayBeOk: HttpResponse<IAppuser[]>) => mayBeOk.ok),
-              map((response: HttpResponse<IAppuser[]>) => response.body)
-            )
-            .subscribe((res2: IAppuser[]) => (this.appusers = res2), (res2: HttpErrorResponse) => this.onError(res2.message));
-        });
-      },
-      (res: HttpErrorResponse) => this.onError(res.message)
-    );
     this.activatedRoute.data.subscribe(({ blog }) => {
-      this.updateForm(blog);
+      this.accountService.identity().subscribe(
+        account => {
+          this.currentAccount = account;
+          this.owner = this.currentAccount.id;
+          this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+          const query = {};
+          if (this.currentAccount.id != null) {
+            query['userId.equals'] = this.currentAccount.id;
+          }
+          this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
+            this.appusers = res.body;
+            this.appuser = this.appusers[0];
+            const query2 = {};
+            if (this.currentAccount.id != null) {
+              query2['appuserId.equals'] = this.appuser.id;
+            }
+            this.communityService
+              .query(query2)
+              .pipe(
+                filter((mayBeOk: HttpResponse<ICommunity[]>) => mayBeOk.ok),
+                map((response: HttpResponse<ICommunity[]>) => response.body)
+              )
+              .subscribe(
+                (res2: ICommunity[]) => {
+                  this.communities = res2;
+                  this.updateForm(blog);
+                },
+                (res2: HttpErrorResponse) => this.onError(res2.message)
+              );
+          });
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
     });
-    this.communityService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<ICommunity[]>) => mayBeOk.ok),
-        map((response: HttpResponse<ICommunity[]>) => response.body)
-      )
-      .subscribe((res: ICommunity[]) => (this.communities = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(blog: IBlog) {

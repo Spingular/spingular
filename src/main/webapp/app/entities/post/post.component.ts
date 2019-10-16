@@ -1,16 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiDataUtils } from 'ng-jhipster';
+// import { filter, map } from 'rxjs/operators';
+import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { IPost } from 'app/shared/model/post.model';
-import { AccountService } from 'app/core/auth/account.service';
-
-import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { PostService } from './post.service';
+import { IAppuser } from 'app/shared/model/appuser.model';
+import { AppuserService } from 'app/entities/appuser/appuser.service';
+
+import { AccountService } from 'app/core/auth/account.service';
+import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 
 @Component({
   selector: 'jhi-post',
@@ -19,6 +21,9 @@ import { PostService } from './post.service';
 export class PostComponent implements OnInit, OnDestroy {
   currentAccount: any;
   posts: IPost[];
+  appusers: IAppuser[];
+  appuser: IAppuser;
+
   error: any;
   success: any;
   eventSubscriber: Subscription;
@@ -31,6 +36,13 @@ export class PostComponent implements OnInit, OnDestroy {
   previousPage: any;
   reverse: any;
 
+  currentSearch: string;
+  owner: any;
+  isAdmin: boolean;
+
+  arrayAux = [];
+  arrayIds = [];
+
   constructor(
     protected postService: PostService,
     protected parseLinks: JhiParseLinks,
@@ -38,7 +50,9 @@ export class PostComponent implements OnInit, OnDestroy {
     protected activatedRoute: ActivatedRoute,
     protected dataUtils: JhiDataUtils,
     protected router: Router,
-    protected eventManager: JhiEventManager
+    protected eventManager: JhiEventManager,
+    protected jhiAlertService: JhiAlertService,
+    protected appuserService: AppuserService
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -47,16 +61,76 @@ export class PostComponent implements OnInit, OnDestroy {
       this.reverse = data.pagingParams.ascending;
       this.predicate = data.pagingParams.predicate;
     });
+    this.currentSearch =
+      this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search'] ? this.activatedRoute.snapshot.params['search'] : '';
   }
 
   loadAll() {
+    if (this.currentSearch) {
+      const query = {
+        page: this.page - 1,
+        size: this.itemsPerPage,
+        sort: this.sort()
+      };
+      query['headline.contains'] = this.currentSearch;
+      this.postService.query(query).subscribe(
+        (res: HttpResponse<IPost[]>) => {
+          this.posts = res.body;
+          const query2 = {
+            page: this.page - 1,
+            size: this.itemsPerPage,
+            sort: this.sort()
+          };
+          query2['bodytext.contains'] = this.currentSearch;
+          this.postService.query(query2).subscribe(
+            (res2: HttpResponse<IPost[]>) => {
+              this.posts = this.filterArray(this.posts.concat(res2.body));
+              const query3 = {
+                page: this.page - 1,
+                size: this.itemsPerPage,
+                sort: this.sort()
+              };
+              query3['conclusion.contains'] = this.currentSearch;
+              this.postService.query(query3).subscribe(
+                (res3: HttpResponse<IPost[]>) => {
+                  this.posts = this.filterArray(this.posts.concat(res3.body));
+                },
+                (res3: HttpErrorResponse) => this.onError(res3.message)
+              );
+            },
+            (res2: HttpErrorResponse) => this.onError(res2.message)
+          );
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+      return;
+    }
     this.postService
       .query({
         page: this.page - 1,
         size: this.itemsPerPage,
         sort: this.sort()
       })
-      .subscribe((res: HttpResponse<IPost[]>) => this.paginatePosts(res.body, res.headers));
+      .subscribe(
+        (res: HttpResponse<IPost[]>) => this.paginatePosts(res.body, res.headers),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+  }
+
+  private filterArray(posts) {
+    this.arrayAux = [];
+    this.arrayIds = [];
+    posts.map(x => {
+      if (this.arrayIds.length >= 1 && this.arrayIds.includes(x.id) === false) {
+        this.arrayAux.push(x);
+        this.arrayIds.push(x.id);
+      } else if (this.arrayIds.length === 0) {
+        this.arrayAux.push(x);
+        this.arrayIds.push(x.id);
+      }
+    });
+    //        console.log('CONSOLOG: M:filterInterests & O: this.follows : ', this.arrayIds, this.arrayAux);
+    return this.arrayAux;
   }
 
   loadPage(page: number) {
@@ -79,6 +153,7 @@ export class PostComponent implements OnInit, OnDestroy {
 
   clear() {
     this.page = 0;
+    this.currentSearch = '';
     this.router.navigate([
       '/post',
       {
@@ -89,11 +164,41 @@ export class PostComponent implements OnInit, OnDestroy {
     this.loadAll();
   }
 
+  search(query) {
+    if (!query) {
+      return this.clear();
+    }
+    this.page = 0;
+    this.currentSearch = query;
+    this.router.navigate([
+      '/post',
+      {
+        search: this.currentSearch,
+        page: this.page,
+        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+      }
+    ]);
+    this.loadAll();
+  }
+
   ngOnInit() {
     this.loadAll();
-    this.accountService.identity().subscribe(account => {
-      this.currentAccount = account;
-    });
+    this.accountService.identity().subscribe(
+      account => {
+        this.currentAccount = account;
+        this.owner = this.currentAccount.id;
+        this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+        const query = {};
+        if (this.currentAccount.id != null) {
+          query['userId.equals'] = this.currentAccount.id;
+        }
+        this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
+          this.appusers = res.body;
+          this.appuser = this.appusers[0];
+        });
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
     this.registerChangeInPosts();
   }
 
@@ -125,9 +230,28 @@ export class PostComponent implements OnInit, OnDestroy {
     return result;
   }
 
+  myPosts() {
+    const query = {
+      page: this.page - 1,
+      size: this.itemsPerPage,
+      sort: this.sort()
+    };
+    query['appuserId.equals'] = this.currentAccount.id;
+    this.postService
+      .query(query)
+      .subscribe(
+        (res: HttpResponse<IPost[]>) => this.paginatePosts(res.body, res.headers),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+  }
+
   protected paginatePosts(data: IPost[], headers: HttpHeaders) {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.posts = data;
+  }
+
+  protected onError(errorMessage: string) {
+    this.jhiAlertService.error(errorMessage, null, null);
   }
 }
