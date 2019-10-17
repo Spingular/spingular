@@ -2,23 +2,25 @@
   "spingularApp": {
     "comment": {
       "home": {
-        "title": "Comments",
-        "createLabel": "Crear nuevo Comment",
-        "createOrEditLabel": "Crear o editar Comment",
-        "notFound": "No Comments found"
+        "title": "Comentarios",
+        "createLabel": "Crear nuevo Comentario",
+        "myLabel": "Mis Comentarios",
+        "createOrEditLabel": "Crear o editar Comentario",
+        "search": "Buscar Comentarios",
+        "notFound": "No se encontraron Comentarios"
       },
-      "created": "Un nuevo Comment ha sido creado con el identificador {{ param }}",
-      "updated": "Un Comment ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Comment ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Comentario ha sido creado con el identificador {{ param }}",
+      "updated": "Un Comentario ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Comentario ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Comment {{ id }}?"
+        "question": "¿Seguro que quiere eliminar el Comentario {{ id }}?"
       },
       "detail": {
-        "title": "Comment"
+        "title": "Comentario"
       },
-      "creationDate": "Creation Date",
-      "commentText": "Comment Text",
-      "isOffensive": "Is Offensive",
+      "creationDate": "Fecha de Creación",
+      "commentText": "Texto del Comentario",
+      "isOffensive": "Es Ofensivo",
       "appuser": "Appuser",
       "post": "Post"
     }

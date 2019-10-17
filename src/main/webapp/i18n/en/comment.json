@@ -3,8 +3,10 @@
     "comment": {
       "home": {
         "title": "Comments",
+        "myLabel": "My Comments",
         "createLabel": "Create a new Comment",
         "createOrEditLabel": "Create or edit a Comment",
+        "search": "Search for Comment",
         "notFound": "No Comments found"
       },
       "created": "A new Comment is created with identifier {{ param }}",

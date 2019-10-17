@@ -1,15 +1,36 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="spingularApp.comment.home.title">Comments</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-comment" [routerLink]="['/comment/new']">
+            <button style="margin:5px;" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="myComments()">
+        <fa-icon [icon]="'plus'"></fa-icon>
+        <span  jhiTranslate="spingularApp.comment.home.myLabel">
+        My Comments
+        </span>
+        </button>
+        <!-- <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-comment" [routerLink]="['/comment/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="spingularApp.comment.home.createLabel">
             Create a new Comment
             </span>
-        </button>
+        </button> -->
     </h2>
     <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'spingularApp.post.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
     <br/>
     <div class="alert alert-warning" *ngIf="comments?.length === 0">
         <span jhiTranslate="spingularApp.comment.home.notFound">No comments found</span>
@@ -51,7 +72,7 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button type="submit"
+                        <!-- <button type="submit"
                                 [routerLink]="['/comment', comment.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
@@ -64,7 +85,7 @@
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
+                        </button> -->
                     </div>
                 </td>
             </tr>
