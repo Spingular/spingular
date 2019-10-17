@@ -27,8 +27,8 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="spingularApp.cmessage.messageText" for="field_messageText">Message Text</label>
-                    <input type="text" class="form-control" name="messageText" id="field_messageText"
-                           formControlName="messageText"/>
+                    <textarea type="text" class="form-control" name="messageText" id="field_messageText"
+                           formControlName="messageText">
                     <div *ngIf="editForm.get('messageText').invalid && (editForm.get('messageText').dirty || editForm.get('messageText').touched)">
                         <small class="form-text text-danger"
                                *ngIf="editForm.get('messageText').errors.required" jhiTranslate="entity.validation.required">
@@ -43,8 +43,9 @@
                         This field cannot be longer than 8000 characters.
                         </small>
                     </div>
+                    </textarea>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label class="form-control-label" jhiTranslate="spingularApp.cmessage.isDelivered" for="field_isDelivered">Is Delivered</label>
                     <input type="checkbox" class="form-control" name="isDelivered" id="field_isDelivered"
                            formControlName="isDelivered"/>
@@ -63,7 +64,7 @@
                         <option [ngValue]="null"></option>
                         <option [ngValue]="communityOption.id" *ngFor="let communityOption of communities; trackBy: trackCommunityById">{{communityOption.id}}</option>
                     </select>
-                </div>
+                </div> -->
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

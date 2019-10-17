@@ -7,11 +7,11 @@
             <dl class="row-md jh-entity-details">
                 <dt><span jhiTranslate="spingularApp.cmessage.creationDate">Creation Date</span></dt>
                 <dd>
-                    <span>{{cmessage.creationDate}}</span>
+                    <span>{{cmessage.creationDate | date:'MMM d, y, h:mm a'}}</span>
                 </dd>
                 <dt><span jhiTranslate="spingularApp.cmessage.messageText">Message Text</span></dt>
                 <dd>
-                    <span>{{cmessage.messageText}}</span>
+                    <span [innerHTML]="cmessage.messageText"></span>
                 </dd>
                 <dt><span jhiTranslate="spingularApp.cmessage.isDelivered">Is Delivered</span></dt>
                 <dd>
@@ -37,11 +37,11 @@
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
-            <button type="button"
+            <!-- <button type="button"
                     [routerLink]="['/cmessage', cmessage.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
+            </button> -->
         </div>
     </div>
 </div>

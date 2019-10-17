@@ -2,9 +2,11 @@
   "spingularApp": {
     "cmessage": {
       "home": {
-        "title": "Cmessages",
-        "createLabel": "Create a new Cmessage",
-        "createOrEditLabel": "Create or edit a Cmessage",
+        "title": "Community Messages",
+        "myLabel": "My Community Messages",
+        "createLabel": "Create a new Community Messages",
+        "createOrEditLabel": "Create or edit a Community Messages",
+        "search": "Search for Community Messages",
         "notFound": "No Cmessages found"
       },
       "created": "A new Cmessage is created with identifier {{ param }}",

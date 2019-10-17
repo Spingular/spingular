@@ -2,23 +2,25 @@
   "spingularApp": {
     "cmessage": {
       "home": {
-        "title": "Cmessages",
-        "createLabel": "Crear nuevo Cmessage",
-        "createOrEditLabel": "Crear o editar Cmessage",
-        "notFound": "No Cmessages found"
+        "title": "Mensajes a la Comunidad",
+        "myLabel": "Mis Mensajes a la Comunidad",
+        "createLabel": "Crear nuevo Mensajes a la Comunidad",
+        "createOrEditLabel": "Crear o editar Mensajes a la Comunidad",
+        "search": "Buscar un Mensajes a la Comunidad",
+        "notFound": "No se ha encontrado ningún Mensajes a la Comunidad"
       },
-      "created": "Un nuevo Cmessage ha sido creado con el identificador {{ param }}",
-      "updated": "Un Cmessage ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Cmessage ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Mensajes a la Comunidad ha sido creado con el identificador {{ param }}",
+      "updated": "Un Mensajes a la Comunidad ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Mensajes a la Comunidad ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Cmessage {{ id }}?"
+        "question": "¿Seguro que quiere eliminar el Mensaje a la Comunidad {{ id }}?"
       },
       "detail": {
-        "title": "Cmessage"
+        "title": "Mensajes a la Comunidad"
       },
-      "creationDate": "Creation Date",
-      "messageText": "Message Text",
-      "isDelivered": "Is Delivered",
+      "creationDate": "Fecha de Creación",
+      "messageText": "Texto de Mensajes a la Comunidad",
+      "isDelivered": "Ha sido Entregado",
       "csender": "Csender",
       "creceiver": "Creceiver"
     }

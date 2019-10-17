@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-    <div class="col-8">
+    <div class="col-8" *ngIf="isAllowedUser; else blockedResults">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-message-heading" jhiTranslate="spingularApp.message.home.createOrEditLabel">Create or edit a Message</h2>
             <div>
@@ -27,8 +27,8 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="spingularApp.message.messageText" for="field_messageText">Message Text</label>
-                    <input type="text" class="form-control" name="messageText" id="field_messageText"
-                           formControlName="messageText"/>
+                    <textarea type="text" class="form-control" name="messageText" id="field_messageText"
+                           formControlName="messageText"></textarea>
                     <div *ngIf="editForm.get('messageText').invalid && (editForm.get('messageText').dirty || editForm.get('messageText').touched)">
                         <small class="form-text text-danger"
                                *ngIf="editForm.get('messageText').errors.required" jhiTranslate="entity.validation.required">
@@ -44,7 +44,7 @@
                         </small>
                     </div>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label class="form-control-label" jhiTranslate="spingularApp.message.isDelivered" for="field_isDelivered">Is Delivered</label>
                     <input type="checkbox" class="form-control" name="isDelivered" id="field_isDelivered"
                            formControlName="isDelivered"/>
@@ -63,7 +63,7 @@
                         <option [ngValue]="null"></option>
                         <option [ngValue]="appuserOption.id" *ngFor="let appuserOption of appusers; trackBy: trackAppuserById">{{appuserOption.id}}</option>
                     </select>
-                </div>
+                </div> -->
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
@@ -75,4 +75,7 @@
             </div>
         </form>
     </div>
+    <ng-template #blockedResults>		
+	  <h2 id="page-heading" jhiTranslate="jhipsterpressApp.message.home.blockedByuser">Your messages are blocked by this user</h2>		
+	</ng-template>
 </div>

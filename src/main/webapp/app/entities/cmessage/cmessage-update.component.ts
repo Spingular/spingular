@@ -14,6 +14,12 @@ import { CmessageService } from './cmessage.service';
 import { ICommunity } from 'app/shared/model/community.model';
 import { CommunityService } from 'app/entities/community/community.service';
 
+import { IAppuser } from 'app/shared/model/appuser.model';
+import { AppuserService } from 'app/entities/appuser/appuser.service';
+import { IBlockuser } from 'app/shared/model/blockuser.model';
+import { BlockuserService } from 'app/entities/blockuser/blockuser.service';
+import { AccountService } from 'app/core/auth/account.service';
+
 @Component({
   selector: 'jhi-cmessage-update',
   templateUrl: './cmessage-update.component.html'
@@ -21,7 +27,26 @@ import { CommunityService } from 'app/entities/community/community.service';
 export class CmessageUpdateComponent implements OnInit {
   isSaving: boolean;
 
-  communities: ICommunity[];
+  communities: ICommunity[] = [];
+  community: ICommunity[];
+  appusers: IAppuser[];
+  appuser: IAppuser;
+  blockusers: IBlockuser[];
+
+  creationDate: string;
+  currentAccount: any;
+  owner: any;
+  isAdmin: boolean;
+  isBlocked: boolean;
+  blockedByUser: string;
+
+  nameParamFollows: any;
+  valueParamFollows: number;
+
+  routeData: any;
+  alerts: any[];
+
+  private _cmessage: ICmessage;
 
   editForm = this.fb.group({
     id: [],
@@ -37,13 +62,70 @@ export class CmessageUpdateComponent implements OnInit {
     protected cmessageService: CmessageService,
     protected communityService: CommunityService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    protected appuserService: AppuserService,
+    protected blockuserService: BlockuserService,
+    protected accountService: AccountService
+  ) {
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params.communityIdEquals != null) {
+        this.nameParamFollows = 'communityId';
+        this.valueParamFollows = params.communityIdEquals;
+      }
+    });
+  }
+
+  // ngOnInit() {
+  //   this.isSaving = false;
+  //   this.activatedRoute.data.subscribe(({ cmessage }) => {
+  //     this.updateForm(cmessage);
+  //   });
+  //   this.communityService
+  //     .query()
+  //     .pipe(
+  //       filter((mayBeOk: HttpResponse<ICommunity[]>) => mayBeOk.ok),
+  //       map((response: HttpResponse<ICommunity[]>) => response.body)
+  //     )
+  //     .subscribe((res: ICommunity[]) => (this.communities = res), (res: HttpErrorResponse) => this.onError(res.message));
+  // }
 
   ngOnInit() {
+    this.accountService.identity().subscribe(
+      account => {
+        this.currentAccount = account;
+        this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+        const query = {};
+        if (this.currentAccount.id != null) {
+          query['userId.equals'] = this.currentAccount.id;
+        }
+        this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
+          this.appusers = res.body;
+          this.appuser = this.appusers[0];
+          this.owner = this.appuser.id;
+        });
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ cmessage }) => {
       this.updateForm(cmessage);
+      this.cmessage = cmessage;
+      this.creationDate = moment().format(DATE_TIME_FORMAT);
+      this.cmessage.creationDate = moment(this.creationDate);
+      this.cmessage.creceiverId = Number(this.valueParamFollows);
+      this.cmessage.csenderId = this.appuser.id;
+      this.isBlockUser().subscribe(
+        (res: HttpResponse<IBlockuser[]>) => {
+          this.blockusers = res.body;
+          if (this.blockusers.length > 0) {
+            this.isBlocked = true;
+            this.valueParamFollows = null;
+            this.onWarning('BLOCKED BY USER');
+            return this.blockusers[0];
+          }
+        },
+        (res3: HttpErrorResponse) => this.onError(res3.message)
+      );
     });
     this.communityService
       .query()
@@ -52,6 +134,16 @@ export class CmessageUpdateComponent implements OnInit {
         map((response: HttpResponse<ICommunity[]>) => response.body)
       )
       .subscribe((res: ICommunity[]) => (this.communities = res), (res: HttpErrorResponse) => this.onError(res.message));
+  }
+
+  private isBlockUser() {
+    this.isBlocked = false;
+    const query = {};
+    if (this.currentAccount.id != null) {
+      query['blockeduserId.in'] = Number(this.valueParamFollows);
+      query['blockinguserId.in'] = this.currentAccount.id;
+    }
+    return this.blockuserService.query(query);
   }
 
   updateForm(cmessage: ICmessage) {
@@ -108,7 +200,32 @@ export class CmessageUpdateComponent implements OnInit {
     this.jhiAlertService.error(errorMessage, null, null);
   }
 
+  private onWarning(errorMessage: string) {
+    this.alerts = [];
+    this.alerts.push(
+      this.jhiAlertService.addAlert(
+        {
+          type: 'info',
+          msg: errorMessage,
+          timeout: 5000,
+          toast: false,
+          scoped: true
+        },
+        this.alerts
+      )
+    );
+  }
+
   trackCommunityById(index: number, item: ICommunity) {
     return item.id;
+  }
+
+  get cmessage() {
+    return this._cmessage;
+  }
+
+  set cmessage(cmessage: ICmessage) {
+    this._cmessage = cmessage;
+    this.creationDate = moment(cmessage.creationDate).format(DATE_TIME_FORMAT);
   }
 }

@@ -3,8 +3,10 @@
     "message": {
       "home": {
         "title": "Messages",
+        "myLabel": "My Messages",
         "createLabel": "Create a new Message",
         "createOrEditLabel": "Create or edit a Message",
+        "search": "Search for Messages",
         "notFound": "No Messages found"
       },
       "created": "A new Message is created with identifier {{ param }}",
