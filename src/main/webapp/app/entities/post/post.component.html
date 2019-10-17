@@ -79,14 +79,14 @@
 	                            <fa-icon [icon]="'eye'"></fa-icon>
 	                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
 	                        </button>
-	                        <button *ngIf="owner === post.userId || isAdmin == true"
+	                        <button *ngIf="owner === post.appuserId || isAdmin == true"
 	                        		type="submit"
 	                                [routerLink]="['/post', post.id, 'edit']"
 	                                class="btn btn-primary btn-sm">
 	                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
 	                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
 	                        </button>
-	                        <button *ngIf="owner === post.userId || isAdmin == true"
+	                        <button *ngIf="owner === post.appuserId || isAdmin == true"
 	                        		type="submit"
 	                                [routerLink]="['/', 'post', { outlets: { popup: post.id + '/delete'} }]"
 	                                replaceUrl="true"
@@ -189,13 +189,13 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button type="submit"
+                        <button type="submit" *ngIf="owner === post.appuserId || isAdmin == true"
                                 [routerLink]="['/post', post.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
+                        <button type="submit" *ngIf="owner === post.appuserId || isAdmin == true"
                                 [routerLink]="['/post', { outlets: { popup: post.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"

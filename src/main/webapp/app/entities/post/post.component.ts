@@ -186,7 +186,6 @@ export class PostComponent implements OnInit, OnDestroy {
     this.accountService.identity().subscribe(
       account => {
         this.currentAccount = account;
-        this.owner = this.currentAccount.id;
         this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
         const query = {};
         if (this.currentAccount.id != null) {
@@ -195,6 +194,7 @@ export class PostComponent implements OnInit, OnDestroy {
         this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
           this.appusers = res.body;
           this.appuser = this.appusers[0];
+          this.owner = this.appuser.id;
         });
       },
       (res: HttpErrorResponse) => this.onError(res.message)

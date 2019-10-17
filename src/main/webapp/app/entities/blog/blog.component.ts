@@ -7,10 +7,12 @@ import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { IBlog } from 'app/shared/model/blog.model';
-import { AccountService } from 'app/core/auth/account.service';
-
-import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { BlogService } from './blog.service';
+import { IAppuser } from 'app/shared/model/appuser.model';
+import { AppuserService } from 'app/entities/appuser/appuser.service';
+
+import { AccountService } from 'app/core/auth/account.service';
+import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 
 @Component({
   selector: 'jhi-blog',
@@ -19,6 +21,9 @@ import { BlogService } from './blog.service';
 export class BlogComponent implements OnInit, OnDestroy {
   currentAccount: any;
   blogs: IBlog[];
+  appusers: IAppuser[];
+  appuser: IAppuser;
+
   error: any;
   success: any;
   eventSubscriber: Subscription;
@@ -43,7 +48,8 @@ export class BlogComponent implements OnInit, OnDestroy {
     protected activatedRoute: ActivatedRoute,
     protected dataUtils: JhiDataUtils,
     protected router: Router,
-    protected eventManager: JhiEventManager
+    protected eventManager: JhiEventManager,
+    protected appuserService: AppuserService
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -134,11 +140,22 @@ export class BlogComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadAll();
-    this.accountService.identity().subscribe(account => {
-      this.currentAccount = account;
-      this.owner = this.currentAccount.id;
-      this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
-    });
+    this.accountService.identity().subscribe(
+      account => {
+        this.currentAccount = account;
+        this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+        const query = {};
+        if (this.currentAccount.id != null) {
+          query['userId.equals'] = this.currentAccount.id;
+        }
+        this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
+          this.appusers = res.body;
+          this.appuser = this.appusers[0];
+          this.owner = this.appuser.id;
+        });
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
     this.registerChangeInBlogs();
   }
 
