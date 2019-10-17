@@ -5,7 +5,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+// import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
@@ -13,6 +13,7 @@ import { INotification, Notification } from 'app/shared/model/notification.model
 import { NotificationService } from './notification.service';
 import { IAppuser } from 'app/shared/model/appuser.model';
 import { AppuserService } from 'app/entities/appuser/appuser.service';
+import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
   selector: 'jhi-notification-update',
@@ -22,6 +23,14 @@ export class NotificationUpdateComponent implements OnInit {
   isSaving: boolean;
 
   appusers: IAppuser[];
+  appuser: IAppuser;
+  owner: any;
+  isAdmin: boolean;
+
+  notification: INotification;
+  currentAccount: any;
+  creationDate: string;
+  notificationDate: string;
 
   editForm = this.fb.group({
     id: [],
@@ -38,6 +47,7 @@ export class NotificationUpdateComponent implements OnInit {
     protected notificationService: NotificationService,
     protected appuserService: AppuserService,
     protected activatedRoute: ActivatedRoute,
+    protected accountService: AccountService,
     private fb: FormBuilder
   ) {}
 
@@ -46,13 +56,22 @@ export class NotificationUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ notification }) => {
       this.updateForm(notification);
     });
-    this.appuserService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IAppuser[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IAppuser[]>) => response.body)
-      )
-      .subscribe((res: IAppuser[]) => (this.appusers = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.accountService.identity().subscribe(
+      account => {
+        this.currentAccount = account;
+        this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+        const query = {};
+        if (this.currentAccount.id != null) {
+          query['userId.equals'] = this.currentAccount.id;
+        }
+        this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
+          this.appusers = res.body;
+          this.appuser = this.appusers[0];
+          this.owner = this.appuser.id;
+        });
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
   }
 
   updateForm(notification: INotification) {
@@ -73,6 +92,8 @@ export class NotificationUpdateComponent implements OnInit {
 
   save() {
     this.isSaving = true;
+    // this.notification.creationDate = this.creationDate != null ? moment(this.creationDate, DATE_TIME_FORMAT) : null;
+    // this.notification.notificationDate = this.notificationDate != null ? moment(this.notificationDate, DATE_TIME_FORMAT) : null;
     const notification = this.createFromForm();
     if (notification.id !== undefined) {
       this.subscribeToSaveResponse(this.notificationService.update(notification));

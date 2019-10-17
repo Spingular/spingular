@@ -5,6 +5,7 @@
         "title": "Notifications",
         "createLabel": "Create a new Notification",
         "createOrEditLabel": "Create or edit a Notification",
+        "search": "Search for Notifications",
         "notFound": "No Notifications found"
       },
       "created": "A new Notification is created with identifier {{ param }}",

@@ -2,25 +2,26 @@
   "spingularApp": {
     "notification": {
       "home": {
-        "title": "Notifications",
-        "createLabel": "Crear nuevo Notification",
-        "createOrEditLabel": "Crear o editar Notification",
-        "notFound": "No Notifications found"
+        "title": "Notificaciones",
+        "createLabel": "Crear nueva Notificación",
+        "createOrEditLabel": "Crear o editar Notificación",
+        "search": "Buscar Notificaciones",
+        "notFound": "No se han encontrado Notificaciones"
       },
-      "created": "Un nuevo Notification ha sido creado con el identificador {{ param }}",
-      "updated": "Un Notification ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Notification ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nueva Notificación ha sido creado con el identificador {{ param }}",
+      "updated": "Una Notificación ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Una Notificación ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Notification {{ id }}?"
+        "question": "¿Seguro que quiere eliminar la Notificación {{ id }}?"
       },
       "detail": {
-        "title": "Notification"
+        "title": "Notificación"
       },
-      "creationDate": "Creation Date",
-      "notificationDate": "Notification Date",
-      "notificationReason": "Notification Reason",
-      "notificationText": "Notification Text",
-      "isDelivered": "Is Delivered",
+      "creationDate": "Fecha de Creación",
+      "notificationDate": "Fecha de Notificación",
+      "notificationReason": "Razón Notificación",
+      "notificationText": "Texto Notificación",
+      "isDelivered": "Ha sido Entregada",
       "appuser": "Appuser"
     }
   }

@@ -7,11 +7,11 @@
             <dl class="row-md jh-entity-details">
                 <dt><span jhiTranslate="spingularApp.notification.creationDate">Creation Date</span></dt>
                 <dd>
-                    <span>{{notification.creationDate}}</span>
+                    <span>{{notification.creationDate | date:'MMM d, y, h:mm a'}}</span>
                 </dd>
                 <dt><span jhiTranslate="spingularApp.notification.notificationDate">Notification Date</span></dt>
                 <dd>
-                    <span>{{notification.notificationDate}}</span>
+                    <span>{{notification.notificationDate | date:'MMM d, y, h:mm a'}}</span>
                 </dd>
                 <dt><span jhiTranslate="spingularApp.notification.notificationReason">Notification Reason</span></dt>
                 <dd>
@@ -19,7 +19,7 @@
                 </dd>
                 <dt><span jhiTranslate="spingularApp.notification.notificationText">Notification Text</span></dt>
                 <dd>
-                    <span>{{notification.notificationText}}</span>
+                    <span [innerHTML]="notification.notificationText"></span>
                 </dd>
                 <dt><span jhiTranslate="spingularApp.notification.isDelivered">Is Delivered</span></dt>
                 <dd>
@@ -39,11 +39,11 @@
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
-            <button type="button"
+            <!-- <button type="button"
                     [routerLink]="['/notification', notification.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
+            </button> -->
         </div>
     </div>
 </div>

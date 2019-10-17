@@ -43,7 +43,7 @@
                     </select>
                     <div *ngIf="editForm.get('notificationReason').invalid && (editForm.get('notificationReason').dirty || editForm.get('notificationReason').touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('notificationReason').errors.required" jhiTranslate="entity.validation.required">
+                            *ngIf="editForm.get('notificationReason').errors.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                     </div>
