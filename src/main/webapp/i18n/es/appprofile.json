@@ -2,44 +2,59 @@
   "spingularApp": {
     "appprofile": {
       "home": {
-        "title": "Appprofiles",
-        "createLabel": "Crear nuevo Appprofile",
-        "createOrEditLabel": "Crear o editar Appprofile",
-        "notFound": "No Appprofiles found"
+        "title": "Perfil",
+        "createLabel": "Crear nuevo Perfil",
+        "createOrEditLabel": "Crear o editar Perfil",
+        "myLabel": "Mi Perfil",
+        "search": "Buscar un Perfil",
+        "search1Criteria": "Un criterio: buscar Perfil:",
+        "searchMultiCriteria": "Multicriterio: buscar Perfil:",
+        "searchResults": "Resultados de la Búsqueda:",
+        "searchBio": "Buscar texto en la Bio",
+        "searchGender": "Buscar un Perfil",
+        "notFound": "No se encontró ningún Perfil"
       },
-      "created": "Un nuevo Appprofile ha sido creado con el identificador {{ param }}",
-      "updated": "Un Appprofile ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Appprofile ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Perfil ha sido creado con el identificador {{ param }}",
+      "updated": "Un Perfil ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Perfil ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Appprofile {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Perfil {{ id }}?"
       },
       "detail": {
-        "title": "Appprofile"
+        "title": "Perfil"
       },
-      "creationDate": "Creation Date",
-      "gender": "Gender",
-      "phone": "Phone",
+      "creationDate": "Fecha de Creación",
+      "gender": "Género",
+      "phone": "Teléfono",
       "bio": "Bio",
       "facebook": "Facebook",
       "twitter": "Twitter",
       "linkedin": "Linkedin",
       "instagram": "Instagram",
       "googlePlus": "Google Plus",
-      "birthdate": "Birthdate",
-      "civilStatus": "Civil Status",
-      "lookingFor": "Looking For",
-      "purpose": "Purpose",
-      "physical": "Physical",
-      "religion": "Religion",
-      "ethnicGroup": "Ethnic Group",
-      "studies": "Studies",
-      "sibblings": "Sibblings",
-      "eyes": "Eyes",
-      "smoker": "Smoker",
-      "children": "Children",
-      "futureChildren": "Future Children",
-      "pet": "Pet",
-      "appuser": "Appuser"
+      "birthdate": "Cumpleaños",
+      "civilStatus": "Estado Civil",
+      "lookingFor": "Buscando...",
+      "purpose": "Propósito",
+      "physical": "Físico",
+      "religion": "Religión",
+      "ethnicGroup": "Grupo Étnico",
+      "image": "Imágen",
+      "follow": "Follow",
+      "unfollow": "UnFollow",
+      "blockuser": "Bloquear Usuario",
+      "unblockuser": "Desbloquear Usuario",
+      "studies": "Estudios",
+      "sibblings": "Hermanos",
+      "eyes": "Ojos",
+      "smoker": "Fumador",
+      "children": "Hijos",
+      "futureChildren": "Hijos deseados",
+      "pet": "Mascota",
+      "appuser": "Appuser",
+      "interest": "Intereses",
+      "activity": "Actividades",
+      "celeb": "Celebridades"
     }
   }
 }

@@ -1,5 +1,7 @@
 package com.spingular.web.service.dto;
 import java.time.Instant;
+
+import javax.persistence.Lob;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -81,10 +83,16 @@ public class AppprofileDTO implements Serializable {
     private Long appuserId;
     
     private Long userId;
+    
+    private String userLogin;
 
     private String userFirstName;
 
-    private String userLastName;  
+    private String userLastName;
+    
+    @Lob
+    private byte[] userImage;
+    private String userImageContentType;
 
     public Long getId() {
         return id;
@@ -278,20 +286,28 @@ public class AppprofileDTO implements Serializable {
         this.pet = pet;
     }
 
-    public Long getAppuserId() {
-        return appuserId;
-    }
+	public Long getAppuserId() {
+		return appuserId;
+	}
 
-    public void setAppuserId(Long appuserId) {
-        this.appuserId = appuserId;
-    }
+	public void setAppuserId(Long appuserId) {
+		this.appuserId = appuserId;
+	}
 
-    public Long getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+
+	public String getUserLogin() {
+		return userLogin;
+	}
+
+	public void setUserLogin(String userLogin) {
+		this.userLogin = userLogin;
 	}
 
 	public String getUserFirstName() {
@@ -308,6 +324,22 @@ public class AppprofileDTO implements Serializable {
 
 	public void setUserLastName(String userLastName) {
 		this.userLastName = userLastName;
+	}
+	
+	public byte[] getUserImage() {
+		return userImage;
+	}
+
+	public void setUserImage(byte[] userImage) {
+		this.userImage = userImage;
+	}
+
+	public String getUserImageContentType() {
+		return userImageContentType;
+	}
+
+	public void setUserImageContentType(String userImageContentType) {
+		this.userImageContentType = userImageContentType;
 	}
 
 	@Override
@@ -358,10 +390,12 @@ public class AppprofileDTO implements Serializable {
             ", children='" + getChildren() + "'" +
             ", futureChildren='" + getFutureChildren() + "'" +
             ", pet='" + isPet() + "'" +
-            ", appuser=" + getAppuserId() +
-            ", user=" + getUserId() +
-            ", userFirstName="+ userFirstName +
-            ", userLastName=" + userLastName +
+            ", appuserId=" + getAppuserId() +
+            ", userId=" + getUserId() +
+            ", userLogin=" + getUserLogin() +
+            ", userFirstName=" + getUserFirstName() +
+            ", userLastName=" + getUserLastName() +
+            ", userImage=" + getUserImage() +
             "}";
     }
 }

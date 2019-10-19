@@ -1,3 +1,401 @@
+<!-- 
+<p>valueParamUserId = {{valueParamUserId | json}}</p>
+<p>currentAccount = {{currentAccount | json}}</p>
+<p>isAdmin = {{isAdmin | json}}</p>
+<p>loggedUser = {{loggedUser | json}}</p>
+<p>owner = {{owner | json}}</p>
+<p>appprofile = {{appprofile | json}}</p>
+<p>consultedProfile = {{consultedProfile | json}}</p>
+<p>interests = {{interests | json}}</p>
+<p>activities = {{activities | json}}</p>
+<p>celebs = {{celebs | json}}</p>
+<p>isFollowing = {{isFollowing | json}}</p>
+<p>isBlocked = {{isBlocked | json}}</p>
+<p>query2['followedId.in'] = loggedUser.id = {{loggedUser.id | json}}</p>
+<p>query2['followingId.in'] = consultedProfile.appuserId = {{consultedProfile.appuserId | json}}</p>
+-->
+
+    <section class="g-mb-100">
+      <div class="container">
+        <div class="row">
+          <!-- Profile Sidebar -->
+          <div class="col-lg-3 g-mb-50 g-mb-0--lg">
+            <!-- User Image -->
+            <div class="u-block-hover g-pos-rel">
+              <figure>
+              	<div *ngIf="appprofile?.userImage">
+                     <a (click)="openFile(appprofile.userImageContentType, appprofile.userImage)">
+                         <img [src]="'data:' + appprofile.userImageContentType + ';base64,' + appprofile.userImage" style="max-width: 100%;" alt="appprofile userImage"/>
+                     </a>
+                 </div>
+              </figure>
+
+              <!-- Figure Caption -->
+              <figcaption class="u-block-hover__additional--fade g-bg-black-opacity-0_5 g-pa-30">
+                <div class="u-block-hover__additional--fade u-block-hover__additional--fade-up g-flex-middle">
+                  <!-- Figure Social Icons -->
+                  <ul class="list-inline text-center g-flex-middle-item--bottom g-mb-20">
+                    <li class="list-inline-item align-middle g-mx-7">
+                      <a class="u-icon-v1 u-icon-size--md g-color-white" href="#!">
+                        <i class="icon-note u-line-icon-pro"></i>
+                      </a>
+                    </li>
+                    <li class="list-inline-item align-middle g-mx-7">
+                      <a class="u-icon-v1 u-icon-size--md g-color-white" href="#!">
+                        <i class="icon-notebook u-line-icon-pro"></i>
+                      </a>
+                    </li>
+                    <li class="list-inline-item align-middle g-mx-7">
+                      <a class="u-icon-v1 u-icon-size--md g-color-white" href="#!">
+                        <i class="icon-settings u-line-icon-pro"></i>
+                      </a>
+                    </li>
+                  </ul>
+                  <!-- End Figure Social Icons -->
+                </div>
+              </figcaption>
+              <!-- End Figure Caption -->
+
+              <!-- User Info -->
+              <span class="g-pos-abs g-top-20 g-left-0">
+                  <a class="btn btn-sm u-btn-primary rounded-0">{{appprofile.userFirstName}} {{appprofile.userLastName}}</a>
+                  <!--  <small class="d-block g-bg-black g-color-white g-pa-5">Project Manager</small> -->
+                </span>
+              <!-- End User Info -->
+            </div>
+            <!-- User Image -->
+
+            <!-- Sidebar Navigation -->
+            <div class="list-group list-group-border-0 g-mb-40">
+              <!-- Overall 
+              <a [routerLink]="['/appprofile', appprofile.id, 'view' ]" class="list-group-item list-group-item-action justify-content-between">
+                <span><i class="icon-home g-pos-rel g-top-1 g-mr-8"></i> Profile</span>
+                -- <span class="u-label g-font-size-11 g-bg-gray-dark-v2 g-rounded-20 g-px-10">2</span> --
+              </a>
+              -- End Overall -->
+
+              <!-- Profile 
+              <a href="page-profile-profile-1.html" class="list-group-item list-group-item-action justify-content-between">
+                <span><i class="icon-cursor g-pos-rel g-top-1 g-mr-8"></i> Profile</span>
+              </a>
+              End Profile -->
+
+              <!-- Following Contacts http://localhost:9000/api/follows?followedId.equals=1 -->
+              <a [routerLink]="['/follow/following']" [queryParams]="{ 'followedIdEquals': appprofile.id }" class="list-group-item list-group-item-action justify-content-between">
+                <span><i class="icon-notebook g-pos-rel g-top-1 g-mr-8"></i> Following</span>
+              </a>
+              <!-- End Following Contacts -->
+              
+              <!-- Follower Contacts  http://localhost:9000/api/follows?followingId.equals=1 -->
+              <a [routerLink]="['/follow/follower']" [queryParams]="{ 'followingIdEquals': appprofile.id }" class="list-group-item list-group-item-action justify-content-between">
+                <span><i class="icon-notebook g-pos-rel g-top-1 g-mr-8"></i> Followers</span>
+              </a>
+              <!-- End Follower Contacts -->
+
+              <!-- My Notifications --
+              <a [routerLink]="['/notification']" [queryParams]="{ 'userIdEquals': appprofile.userId }" class="list-group-item list-group-item-action justify-content-between">
+                <span><i class="icon-layers g-pos-rel g-top-1 g-mr-8"></i> Notifications</span>
+              </a>
+              End My Notifications -->
+              
+              <!-- Reviews
+              <a href="page-profile-reviews-1.html" class="list-group-item list-group-item-action justify-content-between">
+                <span><i class="icon-heart g-pos-rel g-top-1 g-mr-8"></i> Reviews</span>
+              </a>
+              End Reviews -->
+
+              <!-- Blocking Users -->
+              <a [routerLink]="['/appprofile/appprofilesearch']" class="list-group-item list-group-item-action justify-content-between">
+                <span><i class="icon-magnifier g-pos-rel g-top-1 g-mr-8"></i> Advanced Search</span>
+              </a>
+              <!-- End Blocking Users -->
+              
+              <!-- Blocking Users -->
+              <a [routerLink]="['/blockuser/blockinguser']" [queryParams]="{ 'blockinguserIdEquals': appprofile.id }" class="list-group-item list-group-item-action justify-content-between">
+                <span><i class="icon-fire g-pos-rel g-top-1 g-mr-8"></i> Blocking Users</span>
+              </a>
+              <!-- End Blocking Users -->
+
+              <!-- Blocked Users -->
+              <a [routerLink]="['/blockuser/blockeduser']" [queryParams]="{ 'blockeduserIdEquals': appprofile.id }" class="list-group-item list-group-item-action justify-content-between">
+                <span><i class="icon-fire g-pos-rel g-top-1 g-mr-8"></i> Blocked Users</span>
+              </a>
+              <!-- End Blocked Users -->
+
+              <!-- Messages http://localhost:9000/api/messages?appprofileId.equals=1-->
+              <a [routerLink]="['/message/new']" [queryParams]="{ 'appprofileIdEquals': appprofile.id }" class="list-group-item justify-content-between active">
+                <span><i class="icon-settings g-pos-rel g-top-1 g-mr-8"></i> Send a Message</span>
+                <span class="u-label g-font-size-11 g-bg-cyan g-rounded-20 g-px-8"></span>
+              </a>
+              <!-- End Messages -->
+              
+              <!-- Settings 
+              <a href="page-profile-settings-1.html" class="list-group-item justify-content-between active">
+                <span><i class="icon-settings g-pos-rel g-top-1 g-mr-8"></i> Settings</span>
+                <span class="u-label g-font-size-11 g-bg-cyan g-rounded-20 g-px-8">3</span>
+              </a>
+              End Settings -->
+            </div>
+            <!-- End Sidebar Navigation -->
+          </div>
+          <!-- End Profile Sidebar -->
+
+          <!-- Profile Content -->
+          <div class="col-lg-9">
+
+			 <div class="row justify-content-center">
+				    <div class="col-8">
+				        <div *ngIf="appprofile">
+				            <h2>
+				            	<span jhiTranslate="spingularApp.appprofile.detail.title">Profile</span>:
+				             {{appprofile.userFirstName}} {{appprofile.userLastName}}
+				            </h2>
+				            <div>
+  					            <span *ngIf="appprofile.id!==loggedProfileId">
+						            <button *ngIf="isFollowing === true" id="jh-my-entity" class="btn btn-outline-primary float-left jh-create-entity create-blog" (click)="unFollowing()">
+									    <span jhiTranslate="spingularApp.appprofile.unfollow">
+									    UnFollow
+									    </span>
+									</button>
+									<button *ngIf="isFollowing === false" id="jh-my-entity" class="btn btn-primary float-left jh-create-entity create-blog" (click)="following()">
+									    <span jhiTranslate="spingularApp.appprofile.follow">
+									    Follow
+									    </span>
+									</button>
+									
+									<button *ngIf="isBlocked === true" id="jh-my-entity" class="btn btn-outline-primary float-right jh-create-entity create-blog" (click)="unBlocking()">
+									    <span jhiTranslate="spingularApp.appprofile.unblockuser">
+									    UnBlockUser
+									    </span>
+									</button>
+									<button *ngIf="isBlocked === false" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="blocking()">
+									    <span jhiTranslate="spingularApp.appprofile.blockuser">
+									    BlockUser
+									    </span>
+									</button>
+								</span>
+							</div>
+				            <hr>
+				            <jhi-alert-error></jhi-alert-error>
+				            <dl class="row-md jh-entity-details">
+
+				                <!-- Interests -->
+								<div class="g-mb-30" style="width: 100%; overflow: hidden;">
+								  <h6 class="g-color-gray-dark-v1">
+   								    <button id="jh-create-entity" style="margin-top: 15px;"
+   								    		*ngIf="owner === appprofile.userId" 
+									        class="btn btn-primary float-right jh-create-entity create-interest" 
+									        [routerLink]="['/interest/new']" [queryParams]="{ 'appprofileIdEquals': appprofile.id }">
+										<fa-icon [icon]="'plus'"></fa-icon>
+									</button>
+								    <strong class="g-color-primary g-mr-5" style="float: left; margin-top: 24px; font-size: 16px;">Interests:</strong>
+								    <span *ngFor="let interest of interests" 
+								    		class="g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-white--hover" 
+								    		style="font-size: 13px; font-weight: bold; cursor: pointer; float:left; padding: 8px 10px; border-radius: 5px; border: solid 1px; 
+								    		margin-right: 15px; overflow: hidden; display: inherit; width: fit-content; margin-top: 15px;">	
+	    							    <fa-icon *ngIf="owner === appprofile.userId" (click)="removeProfileInterest(interest.id, appprofile.id)" [icon]="'times'" class="g-color-red--hover"></fa-icon>
+	    							    <span [routerLink]="['/interest', interest.id, 'view' ]" style="padding-left: 10px;">{{interest.interestName}}</span>
+								    </span>
+								  </h6>
+								</div>
+								<!-- End Interests -->
+								
+								<!-- Activities -->
+								<div class="g-mb-30" style="width: 100%; overflow: hidden;">
+								  <h6 class="g-color-gray-dark-v1">
+								  	<button id="jh-create-entity" 
+   								    		style="margin-top: 15px;"
+   								    		*ngIf="owner === appprofile.userId" 
+									        class="btn btn-primary float-right jh-create-entity create-interest" 
+									        [routerLink]="['/activity/new']" [queryParams]="{ 'appprofileIdEquals': appprofile.id }">
+										<fa-icon [icon]="'plus'"></fa-icon>
+									</button>
+								    <strong class="g-color-primary g-mr-5" style="float: left; margin-top: 24px; font-size: 16px;">Activities:</strong>
+								    <span *ngFor="let activity of activities" class="g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-white--hover" 
+								    		style="font-size: 13px; font-weight: bold; cursor: pointer; float:left; padding: 8px 10px; border-radius: 5px; border: solid 1px; margin-right: 15px; overflow: hidden; display: inherit; width: fit-content; margin-top: 15px;">	
+	    							    <fa-icon *ngIf="owner === appprofile.userId" (click)="removeProfileActivity(activity.id, appprofile.id)" [icon]="'times'" class="g-color-red--hover"></fa-icon>
+	    							    <span [routerLink]="['/activity', activity.id, 'view' ]" style="padding-left: 10px;" >{{activity.activityName}}</span>
+								    </span>
+								  </h6>
+								</div>
+								<!-- End Activities -->
+								
+								<!-- Celebs -->
+								<div class="g-mb-30" style="width: 100%; overflow: hidden;">
+								  <h6 class="g-color-gray-dark-v1">
+								  		<button id="jh-create-entity" 
+   								    		style="margin-top: 15px;"
+   								    		*ngIf="owner === appprofile.userId" 
+									        class="btn btn-primary float-right jh-create-entity create-interest" 
+									        [routerLink]="['/celeb/new']" [queryParams]="{ 'appprofileIdEquals': appprofile.id }">
+											<fa-icon [icon]="'plus'"></fa-icon>
+										</button>
+								    <strong class="g-color-primary g-mr-5" style="float: left; margin-top: 24px; font-size: 16px;">Celebs:</strong>
+								    <span *ngFor="let celeb of celebs" class="g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-white--hover" 
+								    		style="font-size: 13px; font-weight: bold; cursor: pointer; float:left; padding: 8px 10px; border-radius: 5px; border: solid 1px; margin-right: 15px; overflow: hidden; display: inherit; width: fit-content; margin-top: 15px;">	
+	    							    <fa-icon *ngIf="owner === appprofile.userId" (click)="removeProfileCeleb(celeb.id, appprofile.id)" [icon]="'times'" class="g-color-red--hover"></fa-icon>
+	    							    <span [routerLink]="['/celeb', celeb.id, 'view' ]" style="padding-left: 10px;" >{{celeb.celebName}}</span>
+								    </span>
+								  </h6>
+								</div>
+								<!-- End Celebs -->
+				                
+				                <dt><span *ngIf="appprofile.bio" jhiTranslate="spingularApp.appprofile.bio">Bio</span></dt>
+				                <dd>
+				                    <span>{{appprofile.bio}}</span>
+				                </dd>
+				                
+				                <dt><span *ngIf="appprofile.birthdate" jhiTranslate="spingularApp.appprofile.birthdate">Birthdate</span></dt>
+				                <dd>
+				                    <span>{{appprofile.birthdate | date}}</span>
+				                </dd>
+				                
+				                <dt><span *ngIf="appprofile.facebook" jhiTranslate="spingularApp.appprofile.facebook">Facebook</span></dt>
+				                <dd>
+				                    <span>{{appprofile.facebook}}</span>
+				                </dd>
+				                <dt><span *ngIf="appprofile.twitter" jhiTranslate="spingularApp.appprofile.twitter">Twitter</span></dt>				                
+				                <dd>
+				                    <span>{{appprofile.twitter}}</span>
+				                </dd>
+				                <dt><span *ngIf="appprofile.linkedin" jhiTranslate="spingularApp.appprofile.linkedin">Linked In</span></dt>				                
+				                <dd>
+				                    <span>{{appprofile.linkedin}}</span>
+				                </dd>
+				                <dt><span *ngIf="appprofile.instagram" jhiTranslate="spingularApp.appprofile.instagram">Instagram</span></dt>				                
+				                <dd>
+				                    <span>{{appprofile.instagram}}</span>
+				                </dd>
+				                <dt><span *ngIf="appprofile.googlePlus" jhiTranslate="spingularApp.appprofile.googlePlus">Google Plus</span></dt>				                
+				                <dd>
+				                    <span>{{appprofile.googlePlus}}</span>
+				                </dd>
+				                               				                                		                
+				                <!-- 
+				                <dt><span jhiTranslate="spingularApp.appprofile.creationDate">Creation Date</span></dt>
+				                <dd>
+				                    <span>{{appprofile.creationDate}}</span>
+				                </dd>
+				                 -->
+				                <!-- 
+				                <dt><span jhiTranslate="spingularApp.appprofile.image">Image</span></dt>
+				                <dd>
+				                    <div *ngIf="appprofile.image">
+				                        <a (click)="openFile(appprofile.imageContentType, appprofile.image)">
+				                            <img [src]="'data:' + appprofile.imageContentType + ';base64,' + appprofile.image" style="max-width: 100%;" alt="appprofile image"/>
+				                        </a>
+				                        {{appprofile.imageContentType}}, {{byteSize(appprofile.image)}}
+				                    </div>
+				                </dd>
+				                -->
+				                
+				                
+				                <h3><span class="g-color-primary">Relationships:</span></h3>
+				                
+				                <dt><span *ngIf="appprofile.civilStatus" jhiTranslate="spingularApp.appprofile.civilStatus">Civil Status</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'spingularApp.CivilStatus.' + appprofile.civilStatus}}">{{appprofile.civilStatus}}</span>
+				                </dd>
+				                
+								<dt><span *ngIf="appprofile.gender" jhiTranslate="spingularApp.appprofile.gender">Gender</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'spingularApp.Gender.' + appprofile.gender}}">{{appprofile.gender}}</span>
+				                </dd>
+			                
+				                <dt><span *ngIf="appprofile.lookingFor" jhiTranslate="spingularApp.appprofile.lookingFor">Looking For</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'spingularApp.Gender.' + appprofile.lookingFor}}">{{appprofile.lookingFor}}</span>
+				                </dd>
+				                <dt><span *ngIf="appprofile.purpose" jhiTranslate="spingularApp.appprofile.purpose">Purpose</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'spingularApp.Purpose.' + appprofile.purpose}}">{{appprofile.purpose}}</span>
+				                </dd>
+				                
+				                <h3><span class="g-color-primary">Family:</span></h3>
+				                
+
+				                <dt><span *ngIf="appprofile.sibblings" jhiTranslate="spingularApp.appprofile.sibblings">Sibblings</span></dt>
+				                <dd>
+				                    <span>{{appprofile.sibblings}}</span>
+				                </dd>
+				                <dt><span *ngIf="appprofile.children" jhiTranslate="spingularApp.appprofile.children">Children</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'spingularApp.Children.' + appprofile.children}}">{{appprofile.children}}</span>
+				                </dd>
+				                <dt><span *ngIf="appprofile.futureChildren" jhiTranslate="spingularApp.appprofile.futureChildren">Future Children</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'spingularApp.FutureChildren.' + appprofile.futureChildren}}">{{appprofile.futureChildren}}</span>
+				                </dd>
+				                <dt><span *ngIf="appprofile.pet" jhiTranslate="spingularApp.appprofile.pet">Pet</span></dt>
+				                <dd>
+				                    <span *ngIf="appprofile.pet===true">{{appprofile.pet}}</span>
+				                </dd>
+				                
+				                <h3><span class="g-color-primary">Physical:</span></h3>
+				                
+				                <dt><span *ngIf="appprofile.physical" jhiTranslate="spingularApp.appprofile.physical">Physical</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'spingularApp.Physical.' + appprofile.physical}}">{{appprofile.physical}}</span>
+				                </dd>
+				                <dt><span *ngIf="appprofile.eyes" jhiTranslate="spingularApp.appprofile.eyes">Eyes</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'spingularApp.Eyes.' + appprofile.eyes}}">{{appprofile.eyes}}</span>
+				                </dd>
+				                
+				                <h3><span class="g-color-primary">Cultural:</span></h3>
+				                
+				                <dt><span *ngIf="appprofile.religion" jhiTranslate="spingularApp.appprofile.religion">Religion</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'spingularApp.Religion.' + appprofile.religion}}">{{appprofile.religion}}</span>
+				                </dd>
+				                <dt><span *ngIf="appprofile.ethnicGroup" jhiTranslate="spingularApp.appprofile.ethnicGroup">Ethnic Group</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'spingularApp.EthnicGroup.' + appprofile.ethnicGroup}}">{{appprofile.ethnicGroup}}</span>
+				                </dd>
+				                
+				                <h3><span class="g-color-primary">Studies:</span></h3>
+				                
+				                <dt><span *ngIf="appprofile.studies" jhiTranslate="spingularApp.appprofile.studies">Studies</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'spingularApp.Studies.' + appprofile.studies}}">{{appprofile.studies}}</span>
+								</dd>
+				                <h3><span class="g-color-primary">Habits:</span></h3>
+				                
+				                <dt><span *ngIf="appprofile.smoker" jhiTranslate="spingularApp.appprofile.smoker">Smoker</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'spingularApp.Smoker.' + appprofile.smoker}}">{{appprofile.smoker}}</span>
+				                </dd>
+				            </dl>
+				
+				            <button type="submit"
+				                    (click)="previousState()"
+				                    class="btn btn-info">
+				                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+				            </button>
+							<!--	
+				            <button type="button"
+				                    [routerLink]="['/appprofile', appprofile.id, 'edit']"
+				                    class="btn btn-primary">
+				                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+				            </button>
+				            -->
+				        </div>
+				    </div>
+				</div>
+              </div>
+
+          </div>
+          <!-- End Profile Content -->
+        </div>
+      <!-- </div> -->
+    </section>
+
+
+
+<!--
+
+
+
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="appprofile">
@@ -118,4 +516,4 @@
             </button>
         </div>
     </div>
-</div>
+</div> -->
