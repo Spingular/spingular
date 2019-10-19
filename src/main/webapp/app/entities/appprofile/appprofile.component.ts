@@ -139,6 +139,13 @@ export class AppprofileComponent implements OnInit, OnDestroy {
         this.currentAccount = account;
         this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
         this.hasProfile = false;
+        const query = {};
+        if (this.currentAccount.id != null) {
+          query['userId.equals'] = this.currentAccount.id;
+        }
+        this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
+          this.owner = res.body[0].id;
+        });
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );

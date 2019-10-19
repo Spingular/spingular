@@ -1,16 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiDataUtils } from 'ng-jhipster';
+// import { filter, map } from 'rxjs/operators';
+import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { IAppphoto } from 'app/shared/model/appphoto.model';
+import { AppphotoService } from './appphoto.service';
+import { IAppuser } from 'app/shared/model/appuser.model';
+import { AppuserService } from 'app/entities/appuser/appuser.service';
 import { AccountService } from 'app/core/auth/account.service';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
-import { AppphotoService } from './appphoto.service';
 
 @Component({
   selector: 'jhi-appphoto',
@@ -31,6 +33,11 @@ export class AppphotoComponent implements OnInit, OnDestroy {
   previousPage: any;
   reverse: any;
 
+  appusers: IAppuser[];
+  appuser: IAppuser;
+  owner: any;
+  isAdmin: boolean;
+
   constructor(
     protected appphotoService: AppphotoService,
     protected parseLinks: JhiParseLinks,
@@ -38,7 +45,9 @@ export class AppphotoComponent implements OnInit, OnDestroy {
     protected activatedRoute: ActivatedRoute,
     protected dataUtils: JhiDataUtils,
     protected router: Router,
-    protected eventManager: JhiEventManager
+    protected eventManager: JhiEventManager,
+    protected jhiAlertService: JhiAlertService,
+    protected appuserService: AppuserService
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -91,9 +100,20 @@ export class AppphotoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadAll();
-    this.accountService.identity().subscribe(account => {
-      this.currentAccount = account;
-    });
+    this.accountService.identity().subscribe(
+      account => {
+        this.currentAccount = account;
+        this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+        const query = {};
+        if (this.currentAccount.id != null) {
+          query['userId.equals'] = this.currentAccount.id;
+        }
+        this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
+          this.owner = res.body[0].id;
+        });
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
     this.registerChangeInAppphotos();
   }
 
@@ -129,5 +149,9 @@ export class AppphotoComponent implements OnInit, OnDestroy {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.appphotos = data;
+  }
+
+  protected onError(errorMessage: string) {
+    this.jhiAlertService.error(errorMessage, null, null);
   }
 }

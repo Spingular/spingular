@@ -1,5 +1,5 @@
 <div>
-    <h2 id="page-heading">
+    <!-- <h2 id="page-heading">
         <span jhiTranslate="spingularApp.appphoto.home.title">Appphotos</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-appphoto" [routerLink]="['/appphoto/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
@@ -7,7 +7,7 @@
             Create a new Appphoto
             </span>
         </button>
-    </h2>
+    </h2> -->
     <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
     <br/>
@@ -48,13 +48,13 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button type="submit"
+                        <button type="submit" *ngIf="owner === appphoto.appuserId || isAdmin == true"
                                 [routerLink]="['/appphoto', appphoto.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
+                        <button type="submit" *ngIf="owner === appphoto.appuserId || isAdmin == true"
                                 [routerLink]="['/appphoto', { outlets: { popup: appphoto.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
