@@ -19,6 +19,7 @@ import { ICactivity } from 'app/shared/model/cactivity.model';
 import { CactivityService } from 'app/entities/cactivity/cactivity.service';
 import { ICceleb } from 'app/shared/model/cceleb.model';
 import { CcelebService } from 'app/entities/cceleb/cceleb.service';
+import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
   selector: 'jhi-community-update',
@@ -28,12 +29,19 @@ export class CommunityUpdateComponent implements OnInit {
   isSaving: boolean;
 
   appusers: IAppuser[];
+  appuser: IAppuser;
 
   cinterests: ICinterest[];
 
   cactivities: ICactivity[];
 
   ccelebs: ICceleb[];
+
+  community: ICommunity;
+  creationDate: string;
+  currentAccount: any;
+  owner: any;
+  isAdmin: boolean;
 
   editForm = this.fb.group({
     id: [],
@@ -56,7 +64,8 @@ export class CommunityUpdateComponent implements OnInit {
     protected ccelebService: CcelebService,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    protected accountService: AccountService
   ) {}
 
   ngOnInit() {
@@ -64,13 +73,36 @@ export class CommunityUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ community }) => {
       this.updateForm(community);
     });
-    this.appuserService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IAppuser[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IAppuser[]>) => response.body)
-      )
-      .subscribe((res: IAppuser[]) => (this.appusers = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.accountService.identity().subscribe(
+      account => {
+        this.currentAccount = account;
+        this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+        const query = {};
+        if (this.currentAccount.id != null) {
+          query['userId.equals'] = this.currentAccount.id;
+        }
+        this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
+          this.appusers = res.body;
+          this.appuser = this.appusers[0];
+          this.owner = res.body[0].id;
+          // this.loggedUser = res.body[0];
+        });
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+    this.activatedRoute.data.subscribe(({ community }) => {
+      this.community = community;
+      this.creationDate = moment().format(DATE_TIME_FORMAT);
+      this.community.creationDate = moment(this.creationDate);
+      //            console.log('CONSOLOG: M:ngOnInit & O: this.community : ', this.community);
+    });
+    // this.appuserService
+    //   .query()
+    //   .pipe(
+    //     filter((mayBeOk: HttpResponse<IAppuser[]>) => mayBeOk.ok),
+    //     map((response: HttpResponse<IAppuser[]>) => response.body)
+    //   )
+    //   .subscribe((res: IAppuser[]) => (this.appusers = res), (res: HttpErrorResponse) => this.onError(res.message));
     this.cinterestService
       .query()
       .pipe(

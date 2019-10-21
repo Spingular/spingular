@@ -4,7 +4,9 @@
       "home": {
         "title": "Communities",
         "createLabel": "Create a new Community",
+        "myLabel": "My Communities",
         "createOrEditLabel": "Create or edit a Community",
+        "search": "Search for Community",
         "notFound": "No Communities found"
       },
       "created": "A new Community is created with identifier {{ param }}",
@@ -14,7 +16,9 @@
         "question": "Are you sure you want to delete Community {{ id }}?"
       },
       "detail": {
-        "title": "Community"
+        "title": "Community",
+        "founder": "Blog Founder",
+        "cblog": "Communitys' Blogs"
       },
       "creationDate": "Creation Date",
       "communityName": "Community Name",
@@ -22,17 +26,19 @@
       "image": "Image",
       "isActive": "Is Active",
       "blog": "Blog",
-      "csender": "Csender",
-      "creceiver": "Creceiver",
-      "cfollowed": "Cfollowed",
-      "cfollowing": "Cfollowing",
-      "cblockeduser": "Cblockeduser",
-      "cblockinguser": "Cblockinguser",
+      "csender": "Comunity Sender",
+      "creceiver": "Comunity Receiver",
+      "cfollowed": "Comunity Followed",
+      "cfollowing": "Following Comunity",
+      "cblockeduser": "Comunity Blockeduser",
+      "cblockinguser": "Comunity Blockinguser",
       "appuser": "Appuser",
-      "calbum": "Calbum",
-      "cinterest": "Cinterest",
-      "cactivity": "Cactivity",
-      "cceleb": "Cceleb"
+      "calbum": "Comunity's Album",
+      "cinterest": "Comunity's Interest",
+      "cactivity": "Comunity's Activity",
+      "cceleb": "Comunity's Celeb",
+      "follow": "Follow",
+      "unfollow": "UnFollow"
     }
   }
 }
