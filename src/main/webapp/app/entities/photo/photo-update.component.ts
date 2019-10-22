@@ -5,7 +5,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+// import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
@@ -15,6 +15,11 @@ import { IAlbum } from 'app/shared/model/album.model';
 import { AlbumService } from 'app/entities/album/album.service';
 import { ICalbum } from 'app/shared/model/calbum.model';
 import { CalbumService } from 'app/entities/calbum/calbum.service';
+import { ICommunity } from 'app/shared/model/community.model';
+import { CommunityService } from 'app/entities/community/community.service';
+import { IAppuser } from 'app/shared/model/appuser.model';
+import { AppuserService } from 'app/entities/appuser/appuser.service';
+import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
   selector: 'jhi-photo-update',
@@ -26,6 +31,15 @@ export class PhotoUpdateComponent implements OnInit {
   albums: IAlbum[];
 
   calbums: ICalbum[];
+
+  photo: IPhoto;
+  communities: ICommunity[];
+  appusers: IAppuser[];
+  appuser: IAppuser;
+  creationDate: string;
+  currentAccount: any;
+  owner: any;
+  isAdmin: boolean;
 
   editForm = this.fb.group({
     id: [],
@@ -44,28 +58,101 @@ export class PhotoUpdateComponent implements OnInit {
     protected calbumService: CalbumService,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    protected accountService: AccountService,
+    protected communityService: CommunityService,
+    protected appuserService: AppuserService
   ) {}
+
+  // ngOnInit() {
+  //   this.isSaving = false;
+  //   this.activatedRoute.data.subscribe(({ photo }) => {
+  //     this.updateForm(photo);
+  //   });
+  //   this.albumService
+  //     .query()
+  //     .pipe(
+  //       filter((mayBeOk: HttpResponse<IAlbum[]>) => mayBeOk.ok),
+  //       map((response: HttpResponse<IAlbum[]>) => response.body)
+  //     )
+  //     .subscribe((res: IAlbum[]) => (this.albums = res), (res: HttpErrorResponse) => this.onError(res.message));
+  //   this.calbumService
+  //     .query()
+  //     .pipe(
+  //       filter((mayBeOk: HttpResponse<ICalbum[]>) => mayBeOk.ok),
+  //       map((response: HttpResponse<ICalbum[]>) => response.body)
+  //     )
+  //     .subscribe((res: ICalbum[]) => (this.calbums = res), (res: HttpErrorResponse) => this.onError(res.message));
+  // }
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ photo }) => {
-      this.updateForm(photo);
+      this.photo = photo;
+      this.creationDate = moment().format(DATE_TIME_FORMAT);
+      this.photo.creationDate = moment(this.creationDate);
     });
-    this.albumService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IAlbum[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IAlbum[]>) => response.body)
-      )
-      .subscribe((res: IAlbum[]) => (this.albums = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.calbumService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<ICalbum[]>) => mayBeOk.ok),
-        map((response: HttpResponse<ICalbum[]>) => response.body)
-      )
-      .subscribe((res: ICalbum[]) => (this.calbums = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.accountService.identity().subscribe(
+      account => {
+        this.currentAccount = account;
+        this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+        const query = {};
+        if (this.currentAccount.id != null) {
+          query['userId.equals'] = this.currentAccount.id;
+        }
+        this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
+          this.owner = res.body[0].id;
+          this.myCommunities();
+          this.myAlbums();
+          // this.loggedUser = res.body[0];
+        });
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+  }
+
+  protected myCommunities() {
+    const query = {};
+    if (this.currentAccount.id != null) {
+      query['appuserId.equals'] = this.owner;
+    }
+    this.communityService.query(query).subscribe(
+      (res: HttpResponse<ICommunity[]>) => {
+        this.communities = res.body;
+        this.communitiesCalbums(this.communities);
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+  }
+
+  protected communitiesCalbums(communities) {
+    const query = {};
+    if (this.communities != null) {
+      const arrayCommmunities = [];
+      this.communities.forEach(community => {
+        arrayCommmunities.push(community.id);
+      });
+      query['communityId.in'] = arrayCommmunities;
+    }
+    this.calbumService.query(query).subscribe(
+      (res: HttpResponse<ICalbum[]>) => {
+        this.calbums = res.body;
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+  }
+
+  protected myAlbums() {
+    const query = {};
+    if (this.currentAccount.id != null) {
+      query['appuserId.equals'] = this.owner;
+    }
+    this.albumService.query(query).subscribe(
+      (res: HttpResponse<IAlbum[]>) => {
+        this.albums = res.body;
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
   }
 
   updateForm(photo: IPhoto) {
