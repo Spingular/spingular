@@ -1,25 +1,27 @@
 {
   "spingularApp": {
     "vtopic": {
+      "add": "Añadir una nueva Pregunta al Tema",
       "home": {
-        "title": "Vtopics",
-        "createLabel": "Crear nuevo Vtopic",
-        "createOrEditLabel": "Crear o editar Vtopic",
-        "notFound": "No Vtopics found"
+        "title": "Temas de las Preguntas",
+        "createLabel": "Crear una nueva Pregunta sobre el Tema",
+        "createOrEditLabel": "Crear o editar una Pregunta sobre el Tema",
+        "notFound": "No se encontraron Preguntas sobre el Tema",
+        "search": "Buscar una Preguntas sobre el Tema"
       },
-      "created": "Un nuevo Vtopic ha sido creado con el identificador {{ param }}",
-      "updated": "Un Vtopic ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Vtopic ha sido eliminado con el identificador {{ param }}",
+      "created": "Una nueva Pregunta sobre el Tema ha sido creado con el identificador {{ param }}",
+      "updated": "Una nueva Pregunta sobre el Tema ha sido actualizada con el identificador {{ param }}",
+      "deleted": "Una nueva Pregunta sobre el Tema ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Vtopic {{ id }}?"
+        "question": "¿Seguro que quiere eliminar la Pregunta sobre el Tema {{ id }}?"
       },
       "detail": {
-        "title": "Vtopic"
+        "title": "Pregunta sobre el Tema"
       },
-      "creationDate": "Creation Date",
-      "vtopicTitle": "Vtopic Title",
-      "vtopicDescription": "Vtopic Description",
-      "vquestion": "Vquestion",
+      "creationDate": "Fecha de Creación",
+      "vtopicTitle": "Título Pregunta sobre el Tema",
+      "vtopicDescription": "Descripción: Pregunta sobre el Tema",
+      "vquestion": "Pregunta",
       "appuser": "Appuser"
     }
   }

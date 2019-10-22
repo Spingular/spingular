@@ -1,3 +1,9 @@
+<!-- vquestion {{vquestions | json}}
+<br/>
+vansser {{vanswer | json}}
+<br/>
+vtopic {{vtopic | json}}
+<br/>-->
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="vtopic">
@@ -25,17 +31,107 @@
                 </dd>
             </dl>
 
+            <h3>
+				<table style="width:100%">
+				  <tr>
+				    <th>
+				        <span jhiTranslate="spingularApp.vtopic.related"></span>{{vtopic.vtopicTitle}}
+				    </th>
+				    <th>
+				        <button id="jh-create-entity"
+				                class="btn btn-outline-primary float-left jh-create-entity create-tag"
+				                [routerLink]="['/vquestion/new']" [queryParams]="{ 'vtopicIdEquals': vtopic.id }">
+				            <fa-icon [icon]="'plus'"></fa-icon> <span jhiTranslate="spingularApp.vtopic.add">Add</span>
+				        </button>
+				    </th> 
+				  </tr>
+				</table>
+			</h3>
+
+			<div id="accordion" class="u-accordion u-accordion-color-primary"
+				role="tablist" aria-multiselectable="true"
+				*ngFor="let vquestion of vquestions; let i = index">
+				<!-- Card -->
+				<div class="card rounded-0 g-brd-none">
+				<!-- ngFor="let value of values; let i = index" -->
+				<!-- (click)="agregar(i)" -->
+					<div id="accordion-heading" (click)="accordionAddItem(i)"
+						class="u-accordion__header g-pa-0" role="tab">
+						<h5 class="mb-0 text-uppercase g-font-size-default g-font-weight-700 g-pa-20a mb-0">
+							<table style="width:100%">
+							  <tr>
+							    <th (click)="changeMenu(i)">
+							        <a class="d-block g-color-main g-text-underline--none--hover"
+							            data-toggle="collapse"
+							            data-parent="#accordion" aria-expanded="true"
+							            aria-controls="accordion-body"> 
+							            <span class=" d-inline-block g-brd-right g-brd-gray-light-v4 g-color-primary text-center g-pa-20">
+							                <i class="fa fa-minus" *ngIf="menu[i]"></i>
+							                <i class="fa fa-plus" *ngIf="!menu[i]"></i> 
+							            </span> 
+							            <span class="d-inline-block g-pa-15">{{vquestion.vquestion}}</span>
+						            </a>
+							    </th>
+							    <!-- 
+                                <th style="width: 110px;">
+							    	<span class="u-icon-v1 g-mr-15 g-mb-15" style="float:right;">
+						                <i class="fa fa-thumbs-down" (click)="registerQuestionThumbDown(vquestion.id)" style="float:left; margin-left:3px;"></i>
+						                <div style="font-size: 18px; float: left; margin-top: 6px; margin-left: 4px;">{{vquestion.vthumbs | thumbcounter:'vthumbDown':true}}</div>
+						            </span>
+						            <span class="u-icon-v1 g-mr-15 g-mb-15">
+						                <i class="fa fa-thumbs-up" (click)="registerQuestionThumbUp(vquestion.id)" style="float:left; margin-left:3px;"></i>
+						                <div style="font-size: 18px; float: left; margin-top: 6px; margin-left: 4px;">{{vquestion.vthumbs | thumbcounter:'vthumbUp':true}}</div>
+						            </span>
+							    </th> -->
+							  </tr>
+							</table>
+						</h5>
+					</div>
+					<!-- [ngStyle]="{display: mostrar(i) ? 'block' : 'none' }" -->
+					<div id="accordion-body"
+							[ngStyle]="{display: accordionShowItem(i) ? 'block' : 'none' }"
+							role="tabpanel" 
+							aria-labelledby="accordion-heading">
+								<button id="jh-create-entity"
+									class="btn btn-outline-primary btn-block float-left jh-create-entity create-tag"
+									[routerLink]="['/vanswer/new']" [queryParams]="{ 'vquestionIdEquals': vquestion.id }">
+									<fa-icon [icon]="'plus'"></fa-icon> <span jhiTranslate="spingularApp.vanswer.add">Add</span>
+								</button>
+						<div *ngFor="let vanswer of vquestion.vanswers" class="u-accordion__body g-bg-gray-light-v5 g-px-50 g-py-30">
+							<table style="width:100%">
+							  <tr>
+							    <th>
+							        <a href="http://{{vanswer.urlVanswer}}" target="_blank">{{vanswer.urlVanswer | slice:0:17}}</a>
+                                </th>
+                                <!-- 
+							    <th style="width: 110px;">
+							        <span class="u-icon-v1 g-mr-15 g-mb-15">
+							            <i class="fa fa-thumbs-up" (click)="registerAnswerThumbUp(vanswer.id)" style="float:left; margin-left:7px;"> </i>
+							            <span style="margin-left: 5px; font-size:18px;">{{vanswer.vthumbs | thumbcounter:'vthumbUp':true}}</span>
+							        </span>
+							        <span class="u-icon-v1 g-mr-15 g-mb-15">
+							            <i class="fa fa-thumbs-down" (click)="registerAnswerThumbDown(vanswer.id)" style="float:left; margin-left:7px;"> </i> 
+							            <span style="margin-left: 5px; font-size:18px;">{{vanswer.vthumbs | thumbcounter:'vthumbDown':true}}</span>
+							        </span>
+							    </th>  -->
+							  </tr>
+							</table>
+						</div>
+					</div>
+				</div>
+            </div>
+            
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
-            <button type="button"
+            <!-- <button type="button"
                     [routerLink]="['/vtopic', vtopic.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
+            </button> -->
         </div>
     </div>
 </div>
