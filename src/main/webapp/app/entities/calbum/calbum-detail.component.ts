@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 // import { Subscription } from 'rxjs';
-import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import { JhiAlertService } from 'ng-jhipster';
 
 import { ICalbum } from 'app/shared/model/calbum.model';
 import { IPhoto } from 'app/shared/model/photo.model';
@@ -33,7 +33,6 @@ export class CalbumDetailComponent implements OnInit {
   protected usersCalbumsPhotos() {
     const query = {};
     if (this.calbum != null) {
-      const arrayAlbums = [];
       query['calbumId.in'] = this.calbum.id;
     }
     this.photoService.query(query).subscribe(
