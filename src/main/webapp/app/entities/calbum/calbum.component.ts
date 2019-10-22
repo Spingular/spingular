@@ -1,16 +1,20 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
+// import { filter, map } from 'rxjs/operators';
+import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { ICalbum } from 'app/shared/model/calbum.model';
+import { CalbumService } from './calbum.service';
+import { ICommunity } from 'app/shared/model/community.model';
+import { CommunityService } from '../community/community.service';
 import { AccountService } from 'app/core/auth/account.service';
+import { IAppuser } from 'app/shared/model/appuser.model';
+import { AppuserService } from 'app/entities/appuser/appuser.service';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
-import { CalbumService } from './calbum.service';
 
 @Component({
   selector: 'jhi-calbum',
@@ -31,13 +35,23 @@ export class CalbumComponent implements OnInit, OnDestroy {
   previousPage: any;
   reverse: any;
 
+  communities: ICommunity[];
+  arrayCommmunities = [];
+  appusers: IAppuser[];
+  appuser: IAppuser;
+  owner: any;
+  isAdmin: boolean;
+
   constructor(
     protected calbumService: CalbumService,
     protected parseLinks: JhiParseLinks,
     protected accountService: AccountService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected eventManager: JhiEventManager
+    protected eventManager: JhiEventManager,
+    protected jhiAlertService: JhiAlertService,
+    protected appuserService: AppuserService,
+    protected communityService: CommunityService
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -49,13 +63,27 @@ export class CalbumComponent implements OnInit, OnDestroy {
   }
 
   loadAll() {
-    this.calbumService
-      .query({
-        page: this.page - 1,
-        size: this.itemsPerPage,
-        sort: this.sort()
-      })
-      .subscribe((res: HttpResponse<ICalbum[]>) => this.paginateCalbums(res.body, res.headers));
+    const query = {};
+    if (this.currentAccount.id != null) {
+      query['appuserId.equals'] = this.owner;
+    }
+    this.communityService.query(query).subscribe((res: HttpResponse<ICommunity[]>) => {
+      this.communities = res.body;
+      const query2 = {};
+      if (this.communities != null) {
+        this.arrayCommmunities = [];
+        this.communities.forEach(community => {
+          this.arrayCommmunities.push(community.id);
+        });
+        query2['communityId.in'] = this.arrayCommmunities;
+      }
+      this.calbumService
+        .query(query2)
+        .subscribe(
+          (res2: HttpResponse<ICalbum[]>) => this.paginateCalbums(res2.body, res2.headers),
+          (res2: HttpErrorResponse) => this.onError(res2.message)
+        );
+    });
   }
 
   loadPage(page: number) {
@@ -89,10 +117,21 @@ export class CalbumComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.loadAll();
-    this.accountService.identity().subscribe(account => {
-      this.currentAccount = account;
-    });
+    this.accountService.identity().subscribe(
+      account => {
+        this.currentAccount = account;
+        this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+        const query = {};
+        if (this.currentAccount.id != null) {
+          query['userId.equals'] = this.currentAccount.id;
+        }
+        this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
+          this.owner = res.body[0].id;
+          this.loadAll();
+        });
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
     this.registerChangeInCalbums();
   }
 
@@ -120,5 +159,9 @@ export class CalbumComponent implements OnInit, OnDestroy {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.calbums = data;
+  }
+
+  protected onError(errorMessage: string) {
+    this.jhiAlertService.error(errorMessage, null, null);
   }
 }

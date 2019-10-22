@@ -5,7 +5,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+// import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
@@ -13,6 +13,9 @@ import { ICalbum, Calbum } from 'app/shared/model/calbum.model';
 import { CalbumService } from './calbum.service';
 import { ICommunity } from 'app/shared/model/community.model';
 import { CommunityService } from 'app/entities/community/community.service';
+import { IAppuser } from 'app/shared/model/appuser.model';
+import { AppuserService } from 'app/entities/appuser/appuser.service';
+import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
   selector: 'jhi-calbum-update',
@@ -22,6 +25,13 @@ export class CalbumUpdateComponent implements OnInit {
   isSaving: boolean;
 
   communities: ICommunity[];
+  calbum: ICalbum;
+  appusers: IAppuser[];
+  appuser: IAppuser;
+  owner: any;
+  isAdmin: boolean;
+  creationDate: string;
+  currentAccount: any;
 
   editForm = this.fb.group({
     id: [],
@@ -35,7 +45,9 @@ export class CalbumUpdateComponent implements OnInit {
     protected calbumService: CalbumService,
     protected communityService: CommunityService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    protected appuserService: AppuserService,
+    protected accountService: AccountService
   ) {}
 
   ngOnInit() {
@@ -43,13 +55,35 @@ export class CalbumUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ calbum }) => {
       this.updateForm(calbum);
     });
-    this.communityService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<ICommunity[]>) => mayBeOk.ok),
-        map((response: HttpResponse<ICommunity[]>) => response.body)
-      )
-      .subscribe((res: ICommunity[]) => (this.communities = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.accountService.identity().subscribe(
+      account => {
+        this.currentAccount = account;
+        this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+        const query = {};
+        if (this.currentAccount.id != null) {
+          query['userId.equals'] = this.currentAccount.id;
+        }
+        this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
+          this.owner = res.body[0].id;
+          this.myCommunities();
+          // this.loggedUser = res.body[0];
+        });
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+  }
+
+  private myCommunities() {
+    const query = {};
+    if (this.currentAccount.id != null) {
+      query['appuserId.equals'] = this.owner;
+    }
+    this.communityService.query(query).subscribe(
+      (res: HttpResponse<ICommunity[]>) => {
+        this.communities = res.body;
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
   }
 
   updateForm(calbum: ICalbum) {
