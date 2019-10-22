@@ -5,7 +5,8 @@
         "title": "Feedbacks",
         "createLabel": "Crear nuevo Feedback",
         "createOrEditLabel": "Crear o editar Feedback",
-        "notFound": "No Feedbacks found"
+        "notFound": "No Feedbacks found",
+        "search": "Buscar un Feedback"
       },
       "created": "Un nuevo Feedback ha sido creado con el identificador {{ param }}",
       "updated": "Un Feedback ha sido actualizado con el identificador {{ param }}",
@@ -16,8 +17,8 @@
       "detail": {
         "title": "Feedback"
       },
-      "creationDate": "Creation Date",
-      "name": "Name",
+      "creationDate": "Fecha de Creación",
+      "name": "Nombre",
       "email": "Email",
       "feedback": "Feedback"
     }

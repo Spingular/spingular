@@ -5,7 +5,8 @@
         "title": "Newsletters",
         "createLabel": "Create a new Newsletter",
         "createOrEditLabel": "Create or edit a Newsletter",
-        "notFound": "No Newsletters found"
+        "notFound": "No Newsletters found",
+        "search": "Search for a Newsletter email"
       },
       "created": "A new Newsletter is created with identifier {{ param }}",
       "updated": "A Newsletter is updated with identifier {{ param }}",

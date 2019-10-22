@@ -7,7 +7,7 @@
             <dl class="row-md jh-entity-details">
                 <dt><span jhiTranslate="spingularApp.feedback.creationDate">Creation Date</span></dt>
                 <dd>
-                    <span>{{feedback.creationDate}}</span>
+                    <span>{{feedback.creationDate | date:'MMM d, y, h:mm a'}}</span>
                 </dd>
                 <dt><span jhiTranslate="spingularApp.feedback.name">Name</span></dt>
                 <dd>
@@ -29,11 +29,11 @@
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
-            <button type="button"
+            <!-- <button type="button"
                     [routerLink]="['/feedback', feedback.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
+            </button> -->
         </div>
     </div>
 </div>

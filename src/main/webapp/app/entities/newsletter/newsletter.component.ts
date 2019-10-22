@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
+// import { filter, map } from 'rxjs/operators';
+import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { INewsletter } from 'app/shared/model/newsletter.model';
 import { AccountService } from 'app/core/auth/account.service';
@@ -31,13 +31,16 @@ export class NewsletterComponent implements OnInit, OnDestroy {
   previousPage: any;
   reverse: any;
 
+  currentSearch: string;
+
   constructor(
     protected newsletterService: NewsletterService,
     protected parseLinks: JhiParseLinks,
     protected accountService: AccountService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected eventManager: JhiEventManager
+    protected eventManager: JhiEventManager,
+    protected jhiAlertService: JhiAlertService
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -46,16 +49,52 @@ export class NewsletterComponent implements OnInit, OnDestroy {
       this.reverse = data.pagingParams.ascending;
       this.predicate = data.pagingParams.predicate;
     });
+    this.currentSearch =
+      this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search'] ? this.activatedRoute.snapshot.params['search'] : '';
   }
 
   loadAll() {
+    if (this.currentSearch) {
+      this.newsletterService
+        .query({
+          page: this.page - 1,
+          'email.contains': this.currentSearch,
+          size: this.itemsPerPage,
+          sort: this.sort()
+        })
+        .subscribe(
+          (res: HttpResponse<INewsletter[]>) => this.paginateNewsletters(res.body, res.headers),
+          (res: HttpErrorResponse) => this.onError(res.message)
+        );
+      return;
+    }
     this.newsletterService
       .query({
         page: this.page - 1,
         size: this.itemsPerPage,
         sort: this.sort()
       })
-      .subscribe((res: HttpResponse<INewsletter[]>) => this.paginateNewsletters(res.body, res.headers));
+      .subscribe(
+        (res: HttpResponse<INewsletter[]>) => this.paginateNewsletters(res.body, res.headers),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+  }
+
+  search(query) {
+    if (!query) {
+      return this.clear();
+    }
+    this.page = 0;
+    this.currentSearch = query;
+    this.router.navigate([
+      '/newsletter',
+      {
+        search: this.currentSearch,
+        page: this.page,
+        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+      }
+    ]);
+    this.loadAll();
   }
 
   loadPage(page: number) {
@@ -78,6 +117,7 @@ export class NewsletterComponent implements OnInit, OnDestroy {
 
   clear() {
     this.page = 0;
+    this.currentSearch = '';
     this.router.navigate([
       '/newsletter',
       {
@@ -120,5 +160,9 @@ export class NewsletterComponent implements OnInit, OnDestroy {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.newsletters = data;
+  }
+
+  protected onError(errorMessage: string) {
+    this.jhiAlertService.error(errorMessage, null, null);
   }
 }

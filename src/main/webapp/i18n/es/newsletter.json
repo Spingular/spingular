@@ -3,20 +3,21 @@
     "newsletter": {
       "home": {
         "title": "Newsletters",
-        "createLabel": "Crear nuevo Newsletter",
+        "createLabel": "Crear nueva Newsletter",
         "createOrEditLabel": "Crear o editar Newsletter",
-        "notFound": "No Newsletters found"
+        "notFound": "No se encontrarion Newsletters",
+        "search": "Buscar un email entre Newsletters"
       },
-      "created": "Un nuevo Newsletter ha sido creado con el identificador {{ param }}",
-      "updated": "Un Newsletter ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Newsletter ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nueva Newsletter ha sido creada con el identificador {{ param }}",
+      "updated": "Una Newsletter ha sido actualizada con el identificador {{ param }}",
+      "deleted": "Una Newsletter ha sido eliminada con el identificador {{ param }}",
       "delete": {
         "question": "¿Seguro que quiere eliminar Newsletter {{ id }}?"
       },
       "detail": {
         "title": "Newsletter"
       },
-      "creationDate": "Creation Date",
+      "creationDate": "Fecha de Creación",
       "email": "Email"
     }
   }
