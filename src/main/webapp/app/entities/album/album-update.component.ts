@@ -5,7 +5,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+// import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
@@ -13,6 +13,7 @@ import { IAlbum, Album } from 'app/shared/model/album.model';
 import { AlbumService } from './album.service';
 import { IAppuser } from 'app/shared/model/appuser.model';
 import { AppuserService } from 'app/entities/appuser/appuser.service';
+import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
   selector: 'jhi-album-update',
@@ -22,6 +23,11 @@ export class AlbumUpdateComponent implements OnInit {
   isSaving: boolean;
 
   appusers: IAppuser[];
+  appuser: IAppuser;
+  creationDate: string;
+  currentAccount: any;
+  owner: any;
+  isAdmin: boolean;
 
   editForm = this.fb.group({
     id: [],
@@ -35,7 +41,8 @@ export class AlbumUpdateComponent implements OnInit {
     protected albumService: AlbumService,
     protected appuserService: AppuserService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    protected accountService: AccountService
   ) {}
 
   ngOnInit() {
@@ -43,13 +50,20 @@ export class AlbumUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ album }) => {
       this.updateForm(album);
     });
-    this.appuserService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IAppuser[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IAppuser[]>) => response.body)
-      )
-      .subscribe((res: IAppuser[]) => (this.appusers = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.accountService.identity().subscribe(
+      account => {
+        this.currentAccount = account;
+        this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+        const query = {};
+        if (this.currentAccount.id != null) {
+          query['userId.equals'] = this.currentAccount.id;
+        }
+        this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
+          this.appusers = res.body;
+        });
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
   }
 
   updateForm(album: IAlbum) {

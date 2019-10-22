@@ -7,7 +7,7 @@
             <dl class="row-md jh-entity-details">
                 <dt><span jhiTranslate="spingularApp.album.creationDate">Creation Date</span></dt>
                 <dd>
-                    <span>{{album.creationDate}}</span>
+                    <span>{{album.creationDate | date:'MMM d, y, h:mm a'}}</span>
                 </dd>
                 <dt><span jhiTranslate="spingularApp.album.title">Title</span></dt>
                 <dd>
@@ -27,11 +27,11 @@
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
-            <button type="button"
+            <!-- <button type="button"
                     [routerLink]="['/album', album.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
+            </button> -->
         </div>
     </div>
 </div>

@@ -3,14 +3,16 @@ import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { filter, map } from 'rxjs/operators';
+// import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 
 import { IAlbum } from 'app/shared/model/album.model';
+import { AlbumService } from './album.service';
+import { IAppuser } from 'app/shared/model/appuser.model';
+import { AppuserService } from 'app/entities/appuser/appuser.service';
 import { AccountService } from 'app/core/auth/account.service';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
-import { AlbumService } from './album.service';
 
 @Component({
   selector: 'jhi-album',
@@ -31,13 +33,19 @@ export class AlbumComponent implements OnInit, OnDestroy {
   previousPage: any;
   reverse: any;
 
+  appusers: IAppuser[];
+  appuser: IAppuser;
+  owner: any;
+  isAdmin: boolean;
+
   constructor(
     protected albumService: AlbumService,
     protected parseLinks: JhiParseLinks,
     protected accountService: AccountService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected eventManager: JhiEventManager
+    protected eventManager: JhiEventManager,
+    protected appuserService: AppuserService
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -48,14 +56,22 @@ export class AlbumComponent implements OnInit, OnDestroy {
     });
   }
 
+  // loadAll() {
+  //   this.albumService
+  //     .query({
+  //       page: this.page - 1,
+  //       size: this.itemsPerPage,
+  //       sort: this.sort()
+  //     })
+  //     .subscribe((res: HttpResponse<IAlbum[]>) => this.paginateAlbums(res.body, res.headers));
+  // }
+
   loadAll() {
-    this.albumService
-      .query({
-        page: this.page - 1,
-        size: this.itemsPerPage,
-        sort: this.sort()
-      })
-      .subscribe((res: HttpResponse<IAlbum[]>) => this.paginateAlbums(res.body, res.headers));
+    const query = {};
+    if (this.currentAccount.id != null) {
+      query['appuserId.equals'] = this.owner;
+    }
+    this.albumService.query(query).subscribe((res: HttpResponse<IAlbum[]>) => this.paginateAlbums(res.body, res.headers));
   }
 
   loadPage(page: number) {
@@ -88,11 +104,32 @@ export class AlbumComponent implements OnInit, OnDestroy {
     this.loadAll();
   }
 
+  // ngOnInit() {
+  //   this.loadAll();
+  //   this.accountService.identity().subscribe(account => {
+  //     this.currentAccount = account;
+  //   });
+  //   this.registerChangeInAlbums();
+  // }
+
   ngOnInit() {
-    this.loadAll();
-    this.accountService.identity().subscribe(account => {
-      this.currentAccount = account;
-    });
+    this.accountService.identity().subscribe(
+      account => {
+        this.currentAccount = account;
+        this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+        const query = {};
+        if (this.currentAccount.id != null) {
+          query['userId.equals'] = this.currentAccount.id;
+        }
+        this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
+          this.owner = res.body[0].id;
+          // this.loggedUser = res.body[0];
+          this.loadAll();
+          res.body, res.headers;
+        });
+      }
+      // (res: HttpErrorResponse) => this.onError(res.message)
+    );
     this.registerChangeInAlbums();
   }
 
