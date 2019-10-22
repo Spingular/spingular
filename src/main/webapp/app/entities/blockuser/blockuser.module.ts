@@ -5,6 +5,8 @@ import { SpingularSharedModule } from 'app/shared/shared.module';
 import { BlockuserComponent } from './blockuser.component';
 import { BlockuserDetailComponent } from './blockuser-detail.component';
 import { BlockuserUpdateComponent } from './blockuser-update.component';
+import { BlockinguserComponent } from './blockinguser.component';
+import { BlockeduserComponent } from './blockeduser.component';
 import { BlockuserDeletePopupComponent, BlockuserDeleteDialogComponent } from './blockuser-delete-dialog.component';
 import { blockuserRoute, blockuserPopupRoute } from './blockuser.route';
 
@@ -17,7 +19,9 @@ const ENTITY_STATES = [...blockuserRoute, ...blockuserPopupRoute];
     BlockuserDetailComponent,
     BlockuserUpdateComponent,
     BlockuserDeleteDialogComponent,
-    BlockuserDeletePopupComponent
+    BlockuserDeletePopupComponent,
+    BlockinguserComponent,
+    BlockeduserComponent
   ],
   entryComponents: [BlockuserDeleteDialogComponent]
 })
