@@ -2,21 +2,24 @@
   "spingularApp": {
     "activity": {
       "home": {
-        "title": "Activities",
-        "createLabel": "Crear nuevo Activity",
+        "title": "Actividades",
+        "createLabel": "Crear nueva Actividad",
+        "myLabel": "Mis Actividades",
+        "noticeLabel": "Escoge un interés existente o corre el riesgo de estar solo en una nueva categoría de Actividad!",
         "createOrEditLabel": "Crear o editar Activity",
-        "notFound": "No Activities found"
+        "notFound": "No se ha encontrado la Actividad",
+        "search": "Buscar una Actividad"
       },
-      "created": "Un nuevo Activity ha sido creado con el identificador {{ param }}",
-      "updated": "Un Activity ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Activity ha sido eliminado con el identificador {{ param }}",
+      "created": "Una nueva Actividad ha sido creado con el identificador {{ param }}",
+      "updated": "Una Actividad ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Una Actividad ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Activity {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Actividad {{ id }}?"
       },
       "detail": {
-        "title": "Activity"
+        "title": "Actividad"
       },
-      "activityName": "Activity Name",
+      "activityName": "Nombre de la Actividad",
       "appuser": "Appuser"
     }
   }

@@ -108,14 +108,14 @@ export class InterestComponent implements OnInit, OnDestroy {
 
   clear() {
     this.page = 0;
-    this.currentSearch,
-      this.router.navigate([
-        '/interest',
-        {
-          page: this.page,
-          sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-        }
-      ]);
+    this.currentSearch = '';
+    this.router.navigate([
+      '/interest',
+      {
+        page: this.page,
+        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+      }
+    ]);
     this.loadAll();
   }
 
