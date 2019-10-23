@@ -1,15 +1,32 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="spingularApp.vquestion.home.title">Vquestions</span>
+        <!-- 
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-vquestion" [routerLink]="['/vquestion/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="spingularApp.vquestion.home.createLabel">
             Create a new Vquestion
             </span>
         </button>
+         -->
     </h2>
     <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
+    <div class="row">		
+        <div class="col-sm-12">		
+            <form name="searchForm" class="form-inline">		
+                <div class="input-group w-100 mt-3">		
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'spingularApp.vquestion.home.search' | translate }}">		
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">		
+                        <fa-icon [icon]="'search'"></fa-icon>		
+                    </button>		
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">		
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>		
+                    </button>		
+                </div>		
+            </form>		
+        </div>		
+    </div>
     <br/>
     <div class="alert alert-warning" *ngIf="vquestions?.length === 0">
         <span jhiTranslate="spingularApp.vquestion.home.notFound">No vquestions found</span>
@@ -45,7 +62,7 @@
                 </td>
                 <td class="text-right">
                     <div class="btn-group">
-                        <button type="submit"
+                        <!-- <button type="submit"
                                 [routerLink]="['/vquestion', vquestion.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
@@ -56,7 +73,7 @@
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
+                        </button> -->
                         <button type="submit"
                                 [routerLink]="['/vquestion', { outlets: { popup: vquestion.id + '/delete'} }]"
                                 replaceUrl="true"

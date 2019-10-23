@@ -16,6 +16,8 @@ import { AppuserService } from 'app/entities/appuser/appuser.service';
 import { IVtopic } from 'app/shared/model/vtopic.model';
 import { VtopicService } from 'app/entities/vtopic/vtopic.service';
 
+import { AccountService } from 'app/core/auth/account.service';
+
 @Component({
   selector: 'jhi-vquestion-update',
   templateUrl: './vquestion-update.component.html'
@@ -26,6 +28,14 @@ export class VquestionUpdateComponent implements OnInit {
   appusers: IAppuser[];
 
   vtopics: IVtopic[];
+  vquestion: IVquestion;
+  vquestions: IVquestion[];
+  creationDate: string;
+  currentAccount: any;
+  owner: any;
+  isAdmin: boolean;
+  nameParamVtopic: any;
+  valueParamVtopic: any;
 
   editForm = this.fb.group({
     id: [],
@@ -42,21 +52,51 @@ export class VquestionUpdateComponent implements OnInit {
     protected appuserService: AppuserService,
     protected vtopicService: VtopicService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    protected accountService: AccountService
+  ) {
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params.vtopicIdEquals != null) {
+        this.nameParamVtopic = 'vtopicId.equals';
+        this.valueParamVtopic = params.vtopicIdEquals;
+      }
+    });
+  }
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ vquestion }) => {
       this.updateForm(vquestion);
+      this.vquestion = vquestion;
+      this.creationDate = moment().format(DATE_TIME_FORMAT);
+      this.vquestion.creationDate = moment(this.creationDate);
     });
-    this.appuserService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IAppuser[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IAppuser[]>) => response.body)
-      )
-      .subscribe((res: IAppuser[]) => (this.appusers = res), (res: HttpErrorResponse) => this.onError(res.message));
+    // this.appuserService
+    //   .query()
+    //   .pipe(
+    //     filter((mayBeOk: HttpResponse<IAppuser[]>) => mayBeOk.ok),
+    //     map((response: HttpResponse<IAppuser[]>) => response.body)
+    //   )
+    //   .subscribe((res: IAppuser[]) => (this.appusers = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.accountService.identity().subscribe(
+      account => {
+        this.currentAccount = account;
+        this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+        const query = {};
+        if (this.currentAccount.id != null) {
+          query['userId.equals'] = this.currentAccount.id;
+        }
+        this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
+          this.appusers = res.body;
+          this.owner = res.body[0].id;
+          if (this.valueParamVtopic != null) {
+            this.vquestion.vtopicId = this.valueParamVtopic;
+            this.vquestion.appuserId = this.owner.id;
+          }
+        });
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
     this.vtopicService
       .query()
       .pipe(

@@ -2,27 +2,28 @@
   "spingularApp": {
     "vquestion": {
       "home": {
-        "title": "Vquestions",
-        "createLabel": "Crear nuevo Vquestion",
-        "createOrEditLabel": "Crear o editar Vquestion",
-        "notFound": "No Vquestions found"
+        "title": "Preguntas",
+        "createLabel": "Crear nueva Pregunta",
+        "createOrEditLabel": "Crear o editar Pregunta",
+        "notFound": "No se encontraron Preguntas",
+        "search": "Buscar una Pregunta"
       },
-      "created": "Un nuevo Vquestion ha sido creado con el identificador {{ param }}",
-      "updated": "Un Vquestion ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Vquestion ha sido eliminado con el identificador {{ param }}",
+      "created": "Una nueva Pregunta ha sido creado con el identificador {{ param }}",
+      "updated": "Una Pregunta ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Una Pregunta ha sido eliminado con el identificador {{ param }}",
       "delete": {
         "question": "¿Seguro que quiere eliminar Vquestion {{ id }}?"
       },
       "detail": {
-        "title": "Vquestion"
+        "title": "Pregunta"
       },
-      "creationDate": "Creation Date",
-      "vquestion": "Vquestion",
-      "vquestionDescription": "Vquestion Description",
-      "vanswer": "Vanswer",
-      "vthumb": "Vthumb",
+      "creationDate": "Fecha de Creación",
+      "vquestion": "Pregunta",
+      "vquestionDescription": "Descrición Pregunta",
+      "vanswer": "Respuesta",
+      "vthumb": "Apoyo",
       "appuser": "Appuser",
-      "vtopic": "Vtopic"
+      "vtopic": "Tema"
     }
   }
 }
