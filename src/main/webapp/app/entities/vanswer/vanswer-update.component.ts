@@ -15,6 +15,7 @@ import { IAppuser } from 'app/shared/model/appuser.model';
 import { AppuserService } from 'app/entities/appuser/appuser.service';
 import { IVquestion } from 'app/shared/model/vquestion.model';
 import { VquestionService } from 'app/entities/vquestion/vquestion.service';
+import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
   selector: 'jhi-vanswer-update',
@@ -26,6 +27,18 @@ export class VanswerUpdateComponent implements OnInit {
   appusers: IAppuser[];
 
   vquestions: IVquestion[];
+
+  vanswer: IVanswer;
+  vanswers: IVanswer[];
+  owner: any;
+  isAdmin: boolean;
+
+  creationDate: string;
+
+  currentAccount: any;
+
+  nameParamVquestion: any;
+  valueParamVquestion: any;
 
   editForm = this.fb.group({
     id: [],
@@ -42,21 +55,39 @@ export class VanswerUpdateComponent implements OnInit {
     protected appuserService: AppuserService,
     protected vquestionService: VquestionService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    protected accountService: AccountService
+  ) {
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params.vquestionIdEquals != null) {
+        this.nameParamVquestion = 'vquestionId.equals';
+        this.valueParamVquestion = params.vquestionIdEquals;
+      }
+    });
+  }
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ vanswer }) => {
       this.updateForm(vanswer);
+      this.vanswer = vanswer;
+      this.creationDate = moment().format(DATE_TIME_FORMAT);
+      this.vanswer.creationDate = moment(this.creationDate);
     });
-    this.appuserService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IAppuser[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IAppuser[]>) => response.body)
-      )
-      .subscribe((res: IAppuser[]) => (this.appusers = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.accountService.identity().subscribe(
+      account => {
+        this.currentAccount = account;
+        this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+        const query = {};
+        if (this.currentAccount.id != null) {
+          query['userId.equals'] = this.currentAccount.id;
+        }
+        this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
+          this.appusers = res.body;
+        });
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
     this.vquestionService
       .query()
       .pipe(
@@ -83,6 +114,7 @@ export class VanswerUpdateComponent implements OnInit {
 
   save() {
     this.isSaving = true;
+    this.vanswer.creationDate = this.creationDate != null ? moment(this.creationDate, DATE_TIME_FORMAT) : null;
     const vanswer = this.createFromForm();
     if (vanswer.id !== undefined) {
       this.subscribeToSaveResponse(this.vanswerService.update(vanswer));
