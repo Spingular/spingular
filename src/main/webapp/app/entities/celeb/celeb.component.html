@@ -1,13 +1,46 @@
 <div>
+    <div></div>
     <h2 id="page-heading">
-        <span jhiTranslate="spingularApp.celeb.home.title">Celebs</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-celeb" [routerLink]="['/celeb/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span  jhiTranslate="spingularApp.celeb.home.createLabel">
-            Create a new Celeb
-            </span>
-        </button>
+        <table style="width:100%">
+            <tr>
+                <span jhiTranslate="spingularApp.celeb.home.title">Celebs</span>
+            </tr>
+            <tr>
+                <td>
+                    <button style="margin:5px;" id="jh-create-entity" class="btn btn-primary float-left jh-create-entity create-celeb" (click)="myCelebs()">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span  jhiTranslate="spingularApp.celeb.home.myLabel">
+                        My Celebs
+                    </span>
+                    </button>
+                </td>
+                <td>
+                    <button style="margin:5px;" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-celeb" [routerLink]="['/celeb/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span class="hidden-sm-down"  jhiTranslate="spingularApp.celeb.home.createLabel">
+                    Create new Celeb
+                    </span>
+                    </button>
+                </td>
+             </tr>		
+		</table>
     </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'spingularApp.celeb.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>    
     <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
     <br/>
@@ -35,13 +68,13 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button type="submit"
+                        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
                                 [routerLink]="['/celeb', celeb.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
+                        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
                                 [routerLink]="['/celeb', { outlets: { popup: celeb.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"

@@ -2,21 +2,23 @@
   "spingularApp": {
     "celeb": {
       "home": {
-        "title": "Celebs",
-        "createLabel": "Create a new Celeb",
-        "createOrEditLabel": "Create or edit a Celeb",
-        "notFound": "No Celebs found"
+        "title": "Celebrities",
+        "createLabel": "Create a new Celebrities",
+        "myLabel": "My Celebrities",
+        "noticeLabel": "Choose one of the following or risk to be alone in a new Celebrity category!",
+        "createOrEditLabel": "Create or edit a Celebrity",
+        "search": "Search for Celebrities"
       },
-      "created": "A new Celeb is created with identifier {{ param }}",
-      "updated": "A Celeb is updated with identifier {{ param }}",
-      "deleted": "A Celeb is deleted with identifier {{ param }}",
+      "created": "A new Celebrity is created with identifier {{ param }}",
+      "updated": "A Celebrity is updated with identifier {{ param }}",
+      "deleted": "A Celebrity is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Celeb {{ id }}?"
+        "question": "Are you sure you want to delete Celebrity {{ id }}?"
       },
       "detail": {
-        "title": "Celeb"
+        "title": "Celebrity"
       },
-      "celebName": "Celeb Name",
+      "celebName": "Celebrity Name",
       "appuser": "Appuser"
     }
   }
