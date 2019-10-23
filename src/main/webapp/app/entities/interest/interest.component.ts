@@ -60,16 +60,6 @@ export class InterestComponent implements OnInit, OnDestroy {
       this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search'] ? this.activatedRoute.snapshot.params['search'] : '';
   }
 
-  // loadAll() {
-  //   this.interestService
-  //     .query({
-  //       page: this.page - 1,
-  //       size: this.itemsPerPage,
-  //       sort: this.sort()
-  //     })
-  //     .subscribe((res: HttpResponse<IInterest[]>) => this.paginateInterests(res.body, res.headers));
-  // }
-
   loadAll() {
     if (this.currentSearch) {
       this.interestService
@@ -118,7 +108,7 @@ export class InterestComponent implements OnInit, OnDestroy {
 
   clear() {
     this.page = 0;
-    search: this.currentSearch,
+    this.currentSearch,
       this.router.navigate([
         '/interest',
         {
@@ -129,7 +119,7 @@ export class InterestComponent implements OnInit, OnDestroy {
     this.loadAll();
   }
 
-  search(query) {
+  search(query: string) {
     if (!query) {
       return this.clear();
     }
@@ -146,14 +136,6 @@ export class InterestComponent implements OnInit, OnDestroy {
     this.loadAll();
   }
 
-  // ngOnInit() {
-  //   this.loadAll();
-  //   this.accountService.identity().subscribe(account => {
-  //     this.currentAccount = account;
-  //   });
-  //   this.registerChangeInInterests();
-  // }
-
   ngOnInit() {
     this.loadAll();
     this.accountService.identity().subscribe(
@@ -166,7 +148,6 @@ export class InterestComponent implements OnInit, OnDestroy {
         }
         this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
           this.owner = res.body[0].id;
-          // this.loggedUser = res.body[0];
         });
       },
       (res: HttpErrorResponse) => this.onError(res.message)
@@ -186,24 +167,6 @@ export class InterestComponent implements OnInit, OnDestroy {
       (res: HttpErrorResponse) => this.onError(res.message)
     );
   }
-
-  // private uprofileInterests() {
-  //     const query = {};
-  //     if (this.uprofiles != null) {
-  //         const arrayUprofiles = [];
-  //         this.uprofiles.forEach(uprofile => {
-  //             arrayUprofiles.push(uprofile.id);
-  //         });
-  //         query['uprofileId.in'] = arrayUprofiles;
-  //     }
-  //     this.interestService.query(query).subscribe(
-  //         (res: HttpResponse<IInterest[]>) => {
-  //             this.interests = res.body;
-  //             //                console.log('CONSOLOG: M:communitiesActivities & O: res.body : ', res.body);
-  //         },
-  //         (res: HttpErrorResponse) => this.onError(res.message)
-  //     );
-  // }
 
   ngOnDestroy() {
     this.eventManager.destroy(this.eventSubscriber);

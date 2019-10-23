@@ -12,7 +12,6 @@ import { InterestService } from './interest.service';
 import { IAppuser } from 'app/shared/model/appuser.model';
 import { AppuserService } from 'app/entities/appuser/appuser.service';
 import { AccountService } from 'app/core/auth/account.service';
-import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 
 @Component({
   selector: 'jhi-interest-update',
