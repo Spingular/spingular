@@ -17,6 +17,7 @@ import { IVquestion } from 'app/shared/model/vquestion.model';
 import { VquestionService } from 'app/entities/vquestion/vquestion.service';
 import { IVanswer } from 'app/shared/model/vanswer.model';
 import { VanswerService } from 'app/entities/vanswer/vanswer.service';
+import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
   selector: 'jhi-vthumb-update',
@@ -30,6 +31,9 @@ export class VthumbUpdateComponent implements OnInit {
   vquestions: IVquestion[];
 
   vanswers: IVanswer[];
+  owner: any;
+  isAdmin: boolean;
+  currentAccount: any;
 
   editForm = this.fb.group({
     id: [],
@@ -48,7 +52,8 @@ export class VthumbUpdateComponent implements OnInit {
     protected vquestionService: VquestionService,
     protected vanswerService: VanswerService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    protected accountService: AccountService
   ) {}
 
   ngOnInit() {
@@ -56,13 +61,21 @@ export class VthumbUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ vthumb }) => {
       this.updateForm(vthumb);
     });
-    this.appuserService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IAppuser[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IAppuser[]>) => response.body)
-      )
-      .subscribe((res: IAppuser[]) => (this.appusers = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.accountService.identity().subscribe(
+      account => {
+        this.currentAccount = account;
+        this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+        const query = {};
+        if (this.currentAccount.id != null) {
+          query['userId.equals'] = this.currentAccount.id;
+        }
+        this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
+          this.appusers = res.body;
+          this.owner = res.body[0].id;
+        });
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
     this.vquestionService
       .query()
       .pipe(
