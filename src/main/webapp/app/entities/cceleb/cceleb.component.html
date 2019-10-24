@@ -1,13 +1,46 @@
 <div>
+    <div></div>
     <h2 id="page-heading">
-        <span jhiTranslate="spingularApp.cceleb.home.title">Ccelebs</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-cceleb" [routerLink]="['/cceleb/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span  jhiTranslate="spingularApp.cceleb.home.createLabel">
-            Create a new Cceleb
-            </span>
-        </button>
+        <table style="width:100%">
+            <tr>
+                <span jhiTranslate="spingularApp.celeb.home.title">Ccelebs</span>
+            </tr>
+            <tr>
+                <td>
+                    <button style="margin:5px;" id="jh-create-entity" class="btn btn-primary float-left jh-create-entity create-celeb" (click)="mymyCcelebs">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span  jhiTranslate="spingularApp.cceleb.home.myLabel">
+                        My Ccelebs
+                    </span>
+                    </button>
+                </td>
+                <td>
+                    <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-cceleb" [routerLink]="['/cceleb/new']">
+                        <fa-icon [icon]="'plus'"></fa-icon>
+                        <span  jhiTranslate="spingularApp.cceleb.home.createLabel">
+                        Create a new Cceleb
+                        </span>
+                    </button>
+                </td>
+             </tr>		
+		</table>
     </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'spingularApp.cceleb.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
     <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
     <br/>

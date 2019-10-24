@@ -1,5 +1,55 @@
 <div class="row justify-content-center">
     <div class="col-8">
+	    <div class="col-sm-12">
+	    	<h2 id="jhi-cceleb-heading" jhiTranslate="spingularApp.cceleb.home.search">Search for an Cceleb</h2>
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'spingularApp.cceleb.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+	    </div>
+	    <br/>
+	    <div class="table-responsive" *ngIf="ccelebs">
+	        <table class="table table-striped">
+	            <thead>
+	            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+	            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+	            <th jhiSortBy="celebName"><span jhiTranslate="spingularApp.cceleb.celebName">Celeb Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+	            <th></th>
+	            </tr>
+	            </thead>
+	            <tbody>
+					<tr *ngFor="let cceleb of ccelebs ;trackBy: trackId">
+	                <td><a [routerLink]="['/cceleb', cceleb.id, 'view' ]">{{cceleb.id}}</a></td>
+	                <td>{{cceleb.celebName}}</td>
+	                <td class="text-right">
+	                    <div class="btn-group flex-btn-group-container">
+	                    	<button id="jh-create-entity" 
+							        class="btn btn-primary float-right jh-create-entity create-cceleb"
+							        (click)="addExistingProfileCceleb(cceleb.id)">
+								<fa-icon [icon]="'plus'"></fa-icon>
+							</button>
+	                    </div>
+	                </td>
+	            </tr>
+	            </tbody>
+	        </table>
+	        <h4 *ngIf="ccelebs.length>0; else zipZeroResults" jhiTranslate="spingularApp.cceleb.home.noticeLabel">Choose one of the following or risk to be alone in a new category!!</h4>
+	    </div>
+	    <div *ngIf="ccelebs && ccelebs.length">
+	        <div class="row justify-content-center">
+	            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+	        </div>
+	        <div class="row justify-content-center">
+	            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+	        </div>
+        
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-cceleb-heading" jhiTranslate="spingularApp.cceleb.home.createOrEditLabel">Create or edit a Cceleb</h2>
             <div>
@@ -46,4 +96,7 @@
             </div>
         </form>
     </div>
+    <ng-template #zipZeroResults>
+	  <h2 id="page-heading">Nought, nil, nada, nothing, zero, zilch, zip...</h2>
+	</ng-template>
 </div>

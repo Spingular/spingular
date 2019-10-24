@@ -2,21 +2,24 @@
   "spingularApp": {
     "cceleb": {
       "home": {
-        "title": "Ccelebs",
-        "createLabel": "Create a new Cceleb",
-        "createOrEditLabel": "Create or edit a Cceleb",
-        "notFound": "No Ccelebs found"
+        "title": "Community Celebrities",
+        "createLabel": "Create a new Community Celebrity",
+        "myLabel": "My Community Celebrities",
+        "noticeLabel": "Choose one of the following or risk to be alone in a new Celebrity category!",
+        "createOrEditLabel": "Create or edit a Community Celebrity",
+        "search": "Search for Community Celebrity",
+        "notFound": "No Community Celebrities found"
       },
-      "created": "A new Cceleb is created with identifier {{ param }}",
-      "updated": "A Cceleb is updated with identifier {{ param }}",
-      "deleted": "A Cceleb is deleted with identifier {{ param }}",
+      "created": "A new Community Celebrity is created with identifier {{ param }}",
+      "updated": "A Community Celebrity is updated with identifier {{ param }}",
+      "deleted": "A Community Celebrity is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Cceleb {{ id }}?"
+        "question": "Are you sure you want to delete Community Celebrity {{ id }}?"
       },
       "detail": {
-        "title": "Cceleb"
+        "title": "Community Celebrity"
       },
-      "celebName": "Celeb Name",
+      "celebName": "Celebrity Name",
       "community": "Community"
     }
   }

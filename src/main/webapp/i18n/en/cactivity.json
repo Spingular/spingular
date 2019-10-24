@@ -2,19 +2,22 @@
   "spingularApp": {
     "cactivity": {
       "home": {
-        "title": "Cactivities",
+        "title": "Community Activities",
         "createLabel": "Create a new Cactivity",
-        "createOrEditLabel": "Create or edit a Cactivity",
+        "myLabel": "My Community Activities",
+        "noticeLabel": "Choose one of the following or risk to be alone in a new Community Activity category!",
+        "createOrEditLabel": "Create or edit a Community Activity",
+        "search": "Search for Community Activity",
         "notFound": "No Cactivities found"
       },
-      "created": "A new Cactivity is created with identifier {{ param }}",
-      "updated": "A Cactivity is updated with identifier {{ param }}",
-      "deleted": "A Cactivity is deleted with identifier {{ param }}",
+      "created": "A new Community Activities is created with identifier {{ param }}",
+      "updated": "A Community Activities is updated with identifier {{ param }}",
+      "deleted": "A Community Activities is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Cactivity {{ id }}?"
+        "question": "Are you sure you want to delete Community Activities {{ id }}?"
       },
       "detail": {
-        "title": "Cactivity"
+        "title": "Community Activities"
       },
       "activityName": "Activity Name",
       "community": "Community"

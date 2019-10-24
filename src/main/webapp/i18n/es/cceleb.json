@@ -2,22 +2,25 @@
   "spingularApp": {
     "cceleb": {
       "home": {
-        "title": "Ccelebs",
-        "createLabel": "Crear nuevo Cceleb",
-        "createOrEditLabel": "Crear o editar Cceleb",
-        "notFound": "No Ccelebs found"
+        "title": "Celebridades Comunitarias",
+        "createLabel": "Crear nuevo Celebridad Comunitaria",
+        "myLabel": "Mis Celebridades Comunitarias",
+        "noticeLabel": "Escoge un interés existente o corre el riesgo de estar solo en una nueva categoría de Celebridad!",
+        "createOrEditLabel": "Crear o editar Celebridad Comunitaria",
+        "search": "Buscar una Celebridad Comunitaria",
+        "notFound": "No se han encontrado Celebridades Comunitarias"
       },
-      "created": "Un nuevo Cceleb ha sido creado con el identificador {{ param }}",
-      "updated": "Un Cceleb ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Cceleb ha sido eliminado con el identificador {{ param }}",
+      "created": "Una nueva Celebridad Comunitaria ha sido creado con el identificador {{ param }}",
+      "updated": "Una Celebridad Comunitaria ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Una Celebridad Comunitaria ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Cceleb {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Celebridad Comunitaria {{ id }}?"
       },
       "detail": {
-        "title": "Cceleb"
+        "title": "Celebridad Comunitaria"
       },
-      "celebName": "Celeb Name",
-      "community": "Community"
+      "celebName": "Nombre Celebridad",
+      "community": "Comunidad"
     }
   }
 }
