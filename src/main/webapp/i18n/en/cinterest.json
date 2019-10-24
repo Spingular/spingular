@@ -2,19 +2,22 @@
   "spingularApp": {
     "cinterest": {
       "home": {
-        "title": "Cinterests",
-        "createLabel": "Create a new Cinterest",
-        "createOrEditLabel": "Create or edit a Cinterest",
-        "notFound": "No Cinterests found"
+        "title": "Community Interests",
+        "createLabel": "Create a new Community Interests",
+        "myLabel": "My Community Interests",
+        "noticeLabel": "Choose one of the following or risk to be alone in a new Community Interest category!",
+        "createOrEditLabel": "Create or edit a Community Interest",
+        "search": "Search for Community Interest",
+        "notFound": "No Community Interests found"
       },
-      "created": "A new Cinterest is created with identifier {{ param }}",
-      "updated": "A Cinterest is updated with identifier {{ param }}",
-      "deleted": "A Cinterest is deleted with identifier {{ param }}",
+      "created": "A new Community Interests is created with identifier {{ param }}",
+      "updated": "A Community Interests is updated with identifier {{ param }}",
+      "deleted": "A Community Interests is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Cinterest {{ id }}?"
+        "question": "Are you sure you want to delete Community Interests {{ id }}?"
       },
       "detail": {
-        "title": "Cinterest"
+        "title": "Community Interests"
       },
       "interestName": "Interest Name",
       "community": "Community"
