@@ -2,29 +2,31 @@
   "spingularApp": {
     "proposal": {
       "home": {
-        "title": "Proposals",
-        "createLabel": "Crear nuevo Proposal",
-        "createOrEditLabel": "Crear o editar Proposal",
-        "notFound": "No Proposals found"
+        "title": "Propuestas",
+        "myLabel": "Mis Propuestas",
+        "createLabel": "Crear nuevo Propuesta",
+        "createOrEditLabel": "Crear o editar Propuesta",
+        "filterProposalByType": "Filtrar Propuestas por Tipo",
+        "notFound": "No se han encontrado Propuestas"
       },
-      "created": "Un nuevo Proposal ha sido creado con el identificador {{ param }}",
-      "updated": "Un Proposal ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Proposal ha sido eliminado con el identificador {{ param }}",
+      "created": "Una nueva Propuesta ha sido creado con el identificador {{ param }}",
+      "updated": "Una Propuesta ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Una Propuesta ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Proposal {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Propuesta {{ id }}?"
       },
       "detail": {
-        "title": "Proposal"
+        "title": "Propuesta"
       },
-      "creationDate": "Creation Date",
-      "proposalName": "Proposal Name",
-      "proposalType": "Proposal Type",
-      "proposalRole": "Proposal Role",
-      "releaseDate": "Release Date",
-      "isOpen": "Is Open",
-      "isAccepted": "Is Accepted",
-      "isPaid": "Is Paid",
-      "proposalVote": "Proposal Vote",
+      "creationDate": "Fecha de Creación Date",
+      "proposalName": "Nombre de la Propuesta",
+      "proposalType": "Tipo de Propuesta",
+      "proposalRole": "Role en la Propuesta",
+      "releaseDate": "Fecha de Entrega",
+      "isOpen": "Abierta?",
+      "isAccepted": "Aceotada?",
+      "isPaid": "Pagada?",
+      "proposalVote": "Votos de la Propuesta",
       "appuser": "Appuser",
       "post": "Post"
     }

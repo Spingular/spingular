@@ -3,8 +3,10 @@
     "proposal": {
       "home": {
         "title": "Proposals",
+        "myLabel": "My Proposals",
         "createLabel": "Create a new Proposal",
         "createOrEditLabel": "Create or edit a Proposal",
+        "filterProposalByType": "Filter Proposal by Type",
         "notFound": "No Proposals found"
       },
       "created": "A new Proposal is created with identifier {{ param }}",

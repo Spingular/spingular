@@ -1,12 +1,63 @@
 <div>
     <h2 id="page-heading">
-        <span jhiTranslate="spingularApp.proposal.home.title">Proposals</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-proposal" [routerLink]="['/proposal/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span  jhiTranslate="spingularApp.proposal.home.createLabel">
-            Create a new Proposal
-            </span>
-        </button>
+       <table style="width:100%">
+		  <tr>
+              <span jhiTranslate="spingularApp.proposal.home.title">Proposals</span>
+		  </tr>
+		  <tr>
+		    <td>
+   		        <button id="jh-my-entity" class="btn btn-primary float-left jh-create-entity create-chat-room" (click)="myProposals()">
+		            <fa-icon [icon]="'plus'"></fa-icon>
+		            <span jhiTranslate="spingularApp.proposal.home.myLabel">
+		            My Proposals
+		            </span>
+		        </button>
+			</td>
+		    <td>
+                <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-proposal" [routerLink]="['/proposal/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span jhiTranslate="spingularApp.proposal.home.createLabel">
+                    Create a new Proposal
+                    </span>
+                </button>
+			</td> 
+		  </tr>
+		</table>
+		<table style="width:100%">
+		  <tr>
+        	<span jhiTranslate="spingularApp.proposal.home.filterProposalByType">Filter Proposals by Type</span>
+		  </tr>
+		  <tr>
+		    <td>
+   		        <button id="jh-my-entity" class="btn btn-primary float-left jh-create-entity create-chat-room" (click)="study()">
+		            <span jhiTranslate="spingularApp.ProposalType.STUDY">
+		            Study
+		            </span>
+		        </button>
+			</td>
+		    <td>
+   		        <button id="jh-my-entity" class="btn btn-primary float-left jh-create-entity create-chat-room" (click)="approved()">
+		            <span jhiTranslate="spingularApp.ProposalType.APPROVED">
+		            Approved
+		            </span>
+		        </button>
+			</td>
+			<td>
+   		        <button id="jh-my-entity" class="btn btn-primary float-left jh-create-entity create-chat-room" (click)="development()">
+		            <span jhiTranslate="spingularApp.ProposalType.DEVELOPMENT">
+		            Development
+		            </span>
+		        </button>
+			</td> 
+			<td>
+   		        <button id="jh-my-entity" class="btn btn-primary float-left jh-create-entity create-chat-room" (click)="production()">
+		            <span jhiTranslate="spingularApp.ProposalType.PRODUCTION">
+		            Production
+		            </span>
+		        </button>
+			</td>
+		  </tr>
+		</table>
     </h2>
     <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
@@ -61,13 +112,13 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button type="submit"
+                        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
                                 [routerLink]="['/proposal', proposal.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
+                        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
                                 [routerLink]="['/proposal', { outlets: { popup: proposal.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"

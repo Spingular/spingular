@@ -16,6 +16,8 @@ export interface IProposal {
   proposalVotes?: IProposalVote[];
   appuserId?: number;
   postId?: number;
+  totalVotes?: number;
+  totalUserVotes?: number;
 }
 
 export class Proposal implements IProposal {

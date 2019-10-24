@@ -15,6 +15,7 @@ import { IAppuser } from 'app/shared/model/appuser.model';
 import { AppuserService } from 'app/entities/appuser/appuser.service';
 import { IPost } from 'app/shared/model/post.model';
 import { PostService } from 'app/entities/post/post.service';
+import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
   selector: 'jhi-proposal-update',
@@ -26,6 +27,11 @@ export class ProposalUpdateComponent implements OnInit {
   appusers: IAppuser[];
 
   posts: IPost[];
+
+  appuser: IAppuser;
+  owner: any;
+  isAdmin: boolean;
+  currentAccount: any;
 
   editForm = this.fb.group({
     id: [],
@@ -47,21 +53,51 @@ export class ProposalUpdateComponent implements OnInit {
     protected appuserService: AppuserService,
     protected postService: PostService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    protected accountService: AccountService
   ) {}
+
+  // ngOnInit() {
+  //   this.isSaving = false;
+  //   this.activatedRoute.data.subscribe(({ proposal }) => {
+  //     this.updateForm(proposal);
+  //   });
+  //   this.appuserService
+  //     .query()
+  //     .pipe(
+  //       filter((mayBeOk: HttpResponse<IAppuser[]>) => mayBeOk.ok),
+  //       map((response: HttpResponse<IAppuser[]>) => response.body)
+  //     )
+  //     .subscribe((res: IAppuser[]) => (this.appusers = res), (res: HttpErrorResponse) => this.onError(res.message));
+  //   this.postService
+  //     .query()
+  //     .pipe(
+  //       filter((mayBeOk: HttpResponse<IPost[]>) => mayBeOk.ok),
+  //       map((response: HttpResponse<IPost[]>) => response.body)
+  //     )
+  //     .subscribe((res: IPost[]) => (this.posts = res), (res: HttpErrorResponse) => this.onError(res.message));
+  // }
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ proposal }) => {
       this.updateForm(proposal);
     });
-    this.appuserService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IAppuser[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IAppuser[]>) => response.body)
-      )
-      .subscribe((res: IAppuser[]) => (this.appusers = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.accountService.identity().subscribe(
+      account => {
+        this.currentAccount = account;
+        this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+        const query = {};
+        if (this.currentAccount.id != null) {
+          query['userId.equals'] = this.currentAccount.id;
+        }
+        this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
+          // this.owner = res.body[0].id;
+          this.appusers = res.body;
+        });
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
     this.postService
       .query()
       .pipe(
