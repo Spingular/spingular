@@ -2,21 +2,23 @@
   "spingularApp": {
     "tag": {
       "home": {
-        "title": "Tags",
-        "createLabel": "Crear nuevo Tag",
-        "createOrEditLabel": "Crear o editar Tag",
-        "notFound": "No Tags found"
+        "title": "Etiquetas",
+        "createLabel": "Crear nueva Etiqueta",
+        "noticeLabel": "Escoge un interés existente o corre el riesgo de estar solo en una nueva categoría de Etiquetas!",
+        "createOrEditLabel": "Crear o editar Etiquetas",
+        "search": "Buscar una Etiqueta",
+        "notFound": "No se encontraron Etiquetas"
       },
-      "created": "Un nuevo Tag ha sido creado con el identificador {{ param }}",
-      "updated": "Un Tag ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Tag ha sido eliminado con el identificador {{ param }}",
+      "created": "Una nueva Etiqueta ha sido creado con el identificador {{ param }}",
+      "updated": "Una Etiquetas ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Una Etiquetas ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Tag {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Etiquetas {{ id }}?"
       },
       "detail": {
-        "title": "Tag"
+        "title": "Etiquetas"
       },
-      "tagName": "Tag Name",
+      "tagName": "Nombre Etiqueta",
       "post": "Post"
     }
   }

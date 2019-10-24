@@ -4,7 +4,9 @@
       "home": {
         "title": "Tags",
         "createLabel": "Create a new Tag",
+        "noticeLabel": "Choose one of the following or risk to be alone in a new Tags category!",
         "createOrEditLabel": "Create or edit a Tag",
+        "search": "Search for Tag",
         "notFound": "No Tags found"
       },
       "created": "A new Tag is created with identifier {{ param }}",
