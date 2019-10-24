@@ -16,7 +16,8 @@
         "question": "¿Seguro que quiere eliminar el Blog {{ id }}?"
       },
       "detail": {
-        "title": "Blog"
+        "title": "Blog",
+        "blogposts": "Posts relacionados"
       },
       "creationDate": "Fecha de Creación",
       "title": "Título",
