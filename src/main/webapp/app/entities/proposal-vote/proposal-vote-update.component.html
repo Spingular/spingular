@@ -1,5 +1,17 @@
 <div class="row justify-content-center">
     <div class="col-8">
+        <div>
+        	<h4>{{nameParamFollows}} {{valueParamFollows}}
+                <p><label> User :</label>{{appuser | json}}</p>
+	            <p><label>Assigned User Points:</label>{{appuser.assignedVotesPoints}}</p>
+	            <p><label>Proposal Votes Points:</label>{{totalProposalVotes}}</p>
+	            <p><label>User Proposal Votes Points:</label>{{appuserVotes}}</p>
+	            <p><label>User Available Proposal Points:</label>{{userAvailableProposalVotes}}</p>
+	            <!-- NECESITO RESTAR LOS PUNTOS ASIGNADOS A LOS VOTOS DE QUE DISPONE y poner el limite en la diferencia.
+	            <label class="form-control-label" for="assignedVotesPoints">Votes Points Left:</label>{{proposaluser.assignedVotesPoints}} - 'votePoints'  
+	            -->
+            </h4>
+        </div>
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-proposal-vote-heading" jhiTranslate="spingularApp.proposalVote.home.createOrEditLabel">Create or edit a Proposal Vote</h2>
             <div>
