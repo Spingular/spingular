@@ -206,7 +206,7 @@ export class PostDetailComponent implements OnInit {
     }
     this.appuserService.query(query3).subscribe(
       (res: HttpResponse<IAppuser[]>) => {
-        this.appusers = res.body;
+        // this.appusers = res.body;
         this.appuser = res.body[0];
       },
       (res: HttpErrorResponse) => this.onError(res.message)

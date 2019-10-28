@@ -155,9 +155,9 @@ export class AppprofileComponent implements OnInit, OnDestroy {
   myProfile() {
     const query = {};
     if (this.currentAccount.id != null) {
-      query['userId.equals'] = this.currentAccount.id;
+      query['appuserId.equals'] = this.owner;
     }
-    this.appuserService
+    this.appprofileService
       .query(query)
       .subscribe(
         (res: HttpResponse<IAppuser[]>) => this.paginateAppprofiles(res.body, res.headers),
@@ -189,6 +189,11 @@ export class AppprofileComponent implements OnInit, OnDestroy {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.appprofiles = data;
+    this.appprofiles.forEach(appprofile => {
+      if (appprofile.appuserId === this.owner) {
+        this.hasProfile = true;
+      }
+    });
   }
 
   protected onError(errorMessage: string) {
