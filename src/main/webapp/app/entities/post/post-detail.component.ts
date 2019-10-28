@@ -112,21 +112,10 @@ export class PostDetailComponent implements OnInit {
     if (this.comment.id !== undefined) {
       this.subscribeToSaveResponse(this.commentService.update(this.comment));
     } else {
-      const query = {};
-      if (this.currentAccount.id != null) {
-        query['userId.equals'] = this.currentAccount.id;
-      }
-      this.appuserService.query(query).subscribe(
-        (res: HttpResponse<IAppuser[]>) => {
-          this.appuser.id = res.body[0].id;
-          // this.comment.userId = res.body.id;
-          this.comment.isOffensive = false;
-          this.comment.postId = this.post.id;
-          // console.table("CONSOLOG: M:save & O: this.comment : ", this.comment);
-          this.subscribeToSaveResponse(this.commentService.create(this.comment));
-        },
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+      this.comment.appuserId = this.appuser.id;
+      this.comment.isOffensive = false;
+      this.comment.postId = this.post.id;
+      this.subscribeToSaveResponse(this.commentService.create(this.comment));
     }
   }
 
@@ -218,6 +207,7 @@ export class PostDetailComponent implements OnInit {
     this.appuserService.query(query3).subscribe(
       (res: HttpResponse<IAppuser[]>) => {
         this.appusers = res.body;
+        this.appuser = res.body[0];
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
