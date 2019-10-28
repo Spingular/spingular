@@ -2,7 +2,7 @@
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-cmessage-heading" jhiTranslate="spingularApp.cmessage.home.createOrEditLabel">Create or edit a Cmessage</h2>
-            <div>
+            <div>{{nameParamFollows | json }} ....  {{valueParamFollows | json}}
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!editForm.get('id').value">
                     <label for="id" jhiTranslate="global.field.id">ID</label>

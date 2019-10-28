@@ -102,31 +102,31 @@ export class CmessageUpdateComponent implements OnInit {
           this.appusers = res.body;
           this.appuser = this.appusers[0];
           this.owner = this.appuser.id;
+          this.activatedRoute.data.subscribe(({ cmessage }) => {
+            this.cmessage = cmessage;
+            this.creationDate = moment().format(DATE_TIME_FORMAT);
+            this.cmessage.creationDate = moment(this.creationDate);
+            this.cmessage.creceiverId = Number(this.valueParamFollows);
+            this.cmessage.csenderId = this.appuser.id;
+            this.updateForm(cmessage);
+            this.isBlockUser().subscribe(
+              (res2: HttpResponse<IBlockuser[]>) => {
+                this.blockusers = res2.body;
+                if (this.blockusers.length > 0) {
+                  this.isBlocked = true;
+                  this.valueParamFollows = null;
+                  this.onWarning('BLOCKED BY USER');
+                  return this.blockusers[0];
+                }
+              },
+              (res2: HttpErrorResponse) => this.onError(res2.message)
+            );
+          });
         });
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
     this.isSaving = false;
-    this.activatedRoute.data.subscribe(({ cmessage }) => {
-      this.updateForm(cmessage);
-      this.cmessage = cmessage;
-      this.creationDate = moment().format(DATE_TIME_FORMAT);
-      this.cmessage.creationDate = moment(this.creationDate);
-      this.cmessage.creceiverId = Number(this.valueParamFollows);
-      this.cmessage.csenderId = this.appuser.id;
-      this.isBlockUser().subscribe(
-        (res: HttpResponse<IBlockuser[]>) => {
-          this.blockusers = res.body;
-          if (this.blockusers.length > 0) {
-            this.isBlocked = true;
-            this.valueParamFollows = null;
-            this.onWarning('BLOCKED BY USER');
-            return this.blockusers[0];
-          }
-        },
-        (res3: HttpErrorResponse) => this.onError(res3.message)
-      );
-    });
     this.communityService
       .query()
       .pipe(
