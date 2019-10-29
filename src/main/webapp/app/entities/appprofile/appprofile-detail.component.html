@@ -1,4 +1,4 @@
-<!-- 
+!-- 
 <p>valueParamUserId = {{valueParamUserId | json}}</p>
 <p>currentAccount = {{currentAccount | json}}</p>
 <p>isAdmin = {{isAdmin | json}}</p>
@@ -13,7 +13,8 @@
 <p>isBlocked = {{isBlocked | json}}</p>
 <p>query2['followedId.in'] = loggedUser.id = {{loggedUser.id | json}}</p>
 <p>query2['followingId.in'] = consultedProfile.appuserId = {{consultedProfile.appuserId | json}}</p>
--->
+--
+
 
     <section class="g-mb-100">
       <div class="container">
@@ -104,11 +105,11 @@
               </a>
               End Reviews -->
 
-              <!-- Blocking Users -->
+              <!-- Blocking Users
               <a [routerLink]="['/appprofile/appprofilesearch']" class="list-group-item list-group-item-action justify-content-between">
                 <span><i class="icon-magnifier g-pos-rel g-top-1 g-mr-8"></i> Advanced Search</span>
               </a>
-              <!-- End Blocking Users -->
+               End Blocking Users -->
               
               <!-- Blocking Users -->
               <a [routerLink]="['/blockuser/blockinguser']" [queryParams]="{ 'blockinguserIdEquals': appprofile.id }" class="list-group-item list-group-item-action justify-content-between">
@@ -193,7 +194,7 @@
 								    		class="g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-white--hover" 
 								    		style="font-size: 13px; font-weight: bold; cursor: pointer; float:left; padding: 8px 10px; border-radius: 5px; border: solid 1px; 
 								    		margin-right: 15px; overflow: hidden; display: inherit; width: fit-content; margin-top: 15px;">	
-	    							    <fa-icon *ngIf="owner === appprofile.userId" (click)="removeProfileInterest(interest.id, appprofile.id)" [icon]="'times'" class="g-color-red--hover"></fa-icon>
+                                        <fa-icon *ngIf="owner === appprofile.userId" (click)="removeProfileInterest(interest.id, interest.interestName, appprofile.userId)" [icon]="'times'" class="g-color-red--hover"></fa-icon>
 	    							    <span [routerLink]="['/interest', interest.id, 'view' ]" style="padding-left: 10px;">{{interest.interestName}}</span>
 								    </span>
 								  </h6>

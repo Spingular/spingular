@@ -45,6 +45,7 @@ export class AppprofileDetailComponent implements OnInit {
   private _blockuser: IBlockuser;
 
   interests: IInterest[] = [];
+  interest: IInterest;
   activities: IActivity[];
   celebs: ICeleb[];
 
@@ -111,6 +112,7 @@ export class AppprofileDetailComponent implements OnInit {
       account => {
         this.currentAccount = account;
         this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+        this.currentLoggedProfile();
         const query = {};
         if (this.currentAccount.id != null) {
           query['userId.equals'] = this.currentAccount.id;
@@ -175,7 +177,7 @@ export class AppprofileDetailComponent implements OnInit {
     this.blockuser = new Object();
   }
 
-  // protected fillProfile() {
+  // private fillProfile() {
   //   this.consultProfile().subscribe(
   //     (res: HttpResponse<IAppuser>) => {
   //       this.consultedUser = res.body;
@@ -232,43 +234,43 @@ export class AppprofileDetailComponent implements OnInit {
     );
   }
 
-  // protected currentLoggedProfile() {
-  // const query = {};
-  // if (this.currentAccount.id != null) {
-  //   query['userId.equals'] = this.currentAccount.id;
-  // }
-  // this.appprofilesService.query(query).subscribe(
-  //   (res: HttpResponse<IAppprofile[]>) => {
-  //     this.loggedProfile = res.body[0];
-  //     this.loggedProfileId = res.body[0].id;
-  //     //                console.log('CONSOLOG: M:currentLoggedProfile & O: this.loggedProfile : ', this.loggedProfile);
-  //     this.loggedProfile.forEach(appprofile => {
-  //       this.loggedUserId = appprofile.userId;
-  //     });
-  //       this.isFollower().subscribe(
-  //         (res2: HttpResponse<IFollow[]>) => {
-  //           this.follows = res2.body;
-  //           if (this.follows.length > 0) {
-  //             this.isFollowing = true;
-  //             // return this.follows[0];
-  //           }
-  //         },
-  //         (res2: HttpErrorResponse) => this.onError(res2.message)
-  //       );
-  //       this.isBlockUser().subscribe(
-  //         (res3: HttpResponse<IBlockuser[]>) => {
-  //           this.blockusers = res3.body;
-  //           if (this.blockusers.length > 0) {
-  //             this.isBlocked = true;
-  //             return this.blockusers[0];
-  //           }
-  //         },
-  //         (res3: HttpErrorResponse) => this.onError(res3.message)
-  //       );
-  //     },
-  //     (res: HttpErrorResponse) => this.onError(res.message)
-  //   );
-  // }
+  protected currentLoggedProfile() {
+    const query = {};
+    if (this.currentAccount.id != null) {
+      query['appuserId.equals'] = this.currentAccount.id;
+    }
+    this.appprofilesService.query(query).subscribe(
+      (res: HttpResponse<IAppprofile[]>) => {
+        this.loggedProfile = res.body[0];
+        this.loggedProfileId = res.body[0].id;
+        //     //                console.log('CONSOLOG: M:currentLoggedProfile & O: this.loggedProfile : ', this.loggedProfile);
+        //     this.loggedProfile.forEach(appprofile => {
+        //       this.loggedUserId = appprofile.userId;
+        //     });
+        //       this.isFollower().subscribe(
+        //         (res2: HttpResponse<IFollow[]>) => {
+        //           this.follows = res2.body;
+        //           if (this.follows.length > 0) {
+        //             this.isFollowing = true;
+        //             // return this.follows[0];
+        //           }
+        //         },
+        //         (res2: HttpErrorResponse) => this.onError(res2.message)
+        //       );
+        //       this.isBlockUser().subscribe(
+        //         (res3: HttpResponse<IBlockuser[]>) => {
+        //           this.blockusers = res3.body;
+        //           if (this.blockusers.length > 0) {
+        //             this.isBlocked = true;
+        //             return this.blockusers[0];
+        //           }
+        //         },
+        //         (res3: HttpErrorResponse) => this.onError(res3.message)
+        //       );
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+  }
 
   protected isFollower() {
     this.isFollowing = false;
@@ -376,18 +378,21 @@ export class AppprofileDetailComponent implements OnInit {
     }
   }
 
-  removeProfileInterest(interestId, uprofileId) {
+  removeProfileInterest(interestId: number, interestName: string, appprofileUserId: number) {
     const query = {};
-    if (interestId != null) {
-      query['appuserId.equals'] = this.loggedUser.id;
-      query['interestName.equals'] = this.currentAccount.id;
+    if (interestName != null) {
+      query['id.equals'] = interestId;
     }
     this.interestService.query(query).subscribe((res: HttpResponse<IInterest[]>) => {
-      this.interests = res.body;
+      this.interest = res.body[0];
       if (this.interests != null) {
-        this.interestService.delete(this.interests[0].id);
-        // HAY QUE REPSAR ESTO!!!!!!!!!!!!!! y traerse el interestname en vez del interertID y el uprofileId
-        // <fa-icon *ngIf="owner === appprofile.userId" (click)="removeProfileInterest(interest.id, interestNAME!!!!!!!!)"
+        this.interest.appusers.forEach(appuser => {
+          if (appuser.id === appprofileUserId) {
+            // (click)="removeProfileInterest(interest.id, interest.interestName, appprofile.id)"
+            this.interest.appusers.splice(this.interest.appusers.indexOf(appuser), 1);
+            this.subscribeToSaveResponse2(this.interestService.update(appuser));
+          }
+        });
       }
     });
   }

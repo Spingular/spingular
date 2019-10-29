@@ -3,9 +3,12 @@
     "blockuser": {
       "home": {
         "title": "Blockusers",
+        "titleBlockingusers": "Blocking Users",
+        "titleBlockedusers": "Blocked Users",
         "createLabel": "Create a new Blockuser",
         "createOrEditLabel": "Create or edit a Blockuser",
-        "notFound": "No Blockusers found"
+        "notFound": "No Blockusers found",
+        "search": "Search for Blockuser"
       },
       "created": "A new Blockuser is created with identifier {{ param }}",
       "updated": "A Blockuser is updated with identifier {{ param }}",
@@ -17,10 +20,10 @@
         "title": "Blockuser"
       },
       "creationDate": "Creation Date",
-      "blockeduser": "Blockeduser",
-      "blockinguser": "Blockinguser",
-      "cblockeduser": "Cblockeduser",
-      "cblockinguser": "Cblockinguser"
+      "blockeduser": "Blocked User",
+      "blockinguser": "Blocking User",
+      "cblockeduser": "Community Blocked User",
+      "cblockinguser": "Community Blocking User"
     }
   }
 }

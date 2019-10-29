@@ -29,9 +29,7 @@
 		                    </li>
 		                    <li class="list-inline-item g-mx-10">/</li>
 		                    <li class="list-inline-item g-mr-10">
-		                      <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#comments">
-		                        <li class="icon-finance-206 u-line-icon-pro align-middle g-pos-rel g-top-1 mr-1" *ngIf="comments">{{comments.length}} Comments</li>
-		                      </a>
+		                    <li class="icon-finance-206 u-line-icon-pro align-middle g-pos-rel g-top-1 mr-1" *ngIf="comments">{{comments.length}} Comments</li>
 		                    </li>
 		                    <li class="list-inline-item ml-auto">
 		                      <!-- <i class="icon-eye u-line-icon-pro align-middle mr-1"></i> Views 3821 -->
@@ -168,7 +166,7 @@
 		                  <div *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']" class="media g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-20">
 		                    <div *ngIf="appprofile">
 		                        <a [routerLink]="['/uprofile', appprofile.id, 'view']">
-																<img [src]="'data:' + post.userImageContentType + ';base64,' + post.userImage" style="max-width: 100%;" alt="post.userImage"/>
+									<img [src]="'data:' + post.userImageContentType + ';base64,' + post.userImage" style="max-width: 100%;" alt="post.userImage"/>
 		                        </a>
 			                </div>
 
@@ -206,7 +204,7 @@
 		                <!-- Comments -->
 		                <div *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']" class="g-mb-60">
 		                  <div class="u-heading-v3-1 g-mb-30" id="comments">
-		                    <h2 class="h5 u-heading-v3__title g-color-gray-dark-v1 text-uppercase g-brd-primary" *ngIf="comments">{{comments.length}} Comments</h2>
+							<h2 class="h5 u-heading-v3__title g-color-gray-dark-v1 text-uppercase g-brd-primary" *ngIf="comments">{{comments.length}} Comments</h2>
 		                  </div>
 		
 		                   <!-- Comment 1 -->

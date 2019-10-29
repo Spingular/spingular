@@ -28,10 +28,8 @@ export class MessageUpdateComponent implements OnInit {
 
   appusers: IAppuser[] = [];
   appuser: IAppuser;
-  // appusers: IAppuser[];
   creationDate: string;
 
-  //    follows: IFollow[];
   loggedUser: IAppuser;
   blockusers: IBlockuser[];
 
@@ -73,22 +71,7 @@ export class MessageUpdateComponent implements OnInit {
     });
   }
 
-  // ngOnInit() {
-  //   this.isSaving = false;
-  //   this.activatedRoute.data.subscribe(({ message }) => {
-  //     this.updateForm(message);
-  //   });
-  //   this.appuserService
-  //     .query()
-  //     .pipe(
-  //       filter((mayBeOk: HttpResponse<IAppuser[]>) => mayBeOk.ok),
-  //       map((response: HttpResponse<IAppuser[]>) => response.body)
-  //     )
-  //     .subscribe((res: IAppuser[]) => (this.appusers = res), (res: HttpErrorResponse) => this.onError(res.message));
-  // }
-
   ngOnInit() {
-    //        this.onWarning('BLOCKED BY USER');
     this.isSaving = false;
     this.isAllowedUser = true;
     this.activatedRoute.data.subscribe(({ message }) => {
@@ -103,7 +86,6 @@ export class MessageUpdateComponent implements OnInit {
         (res: HttpResponse<IAppuser[]>) => {
           this.message.receiverId = res.body[0].userId;
           this.blockeduserId = res.body[0].userId;
-          //                    console.log('CONSOLOG: M:ngOnInit & O: this.message.receiverId:', this.message.receiverId);
           this.accountService.identity().subscribe(account => {
             this.currentAccount = account;
             this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
@@ -116,16 +98,14 @@ export class MessageUpdateComponent implements OnInit {
               this.appuser = this.appusers[0];
               this.owner = this.appuser.id;
               this.message.senderId = this.appuser.id;
+              this.updateForm(message);
             });
-            // this.message.senderId = this.currentAccount.id;
             this.isBlockUser().subscribe(
               (res2: HttpResponse<IBlockuser[]>) => {
                 this.blockusers = res2.body;
                 if (this.blockusers.length > 0) {
                   this.isAllowedUser = false;
                   this.valueParamFollows = null;
-                  // this.onWarning('BLOCKED BY USER');
-                  // console.log('CONSOLOG: M:currentLoggedProfile & O:  this.isAllowedUser : ', this.isAllowedUser);
                   return this.blockusers[0];
                 }
               },
@@ -145,7 +125,6 @@ export class MessageUpdateComponent implements OnInit {
       query['blockeduserId.in'] = this.blockeduserId;
       query['blockinguserId.in'] = this.currentAccount.id;
     }
-    //        console.log('CONSOLOG: M:isBlockUser & O: query : ', query);
     return this.blockuserService.query(query);
   }
 

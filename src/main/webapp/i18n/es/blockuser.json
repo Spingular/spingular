@@ -2,25 +2,28 @@
   "spingularApp": {
     "blockuser": {
       "home": {
-        "title": "Blockusers",
-        "createLabel": "Crear nuevo Blockuser",
-        "createOrEditLabel": "Crear o editar Blockuser",
-        "notFound": "No Blockusers found"
+        "title": "Bloqueados",
+        "titleBlockingusers": "Usuario Bloqueador",
+        "titleBlockedusers": "Usuario Bloqueado",
+        "createLabel": "Crear nuevo Bloqueado",
+        "createOrEditLabel": "Crear o editar Bloqueado",
+        "notFound": "No se han encontrado Bloqueados",
+        "search": "Buscar un Bloqueado"
       },
-      "created": "Un nuevo Blockuser ha sido creado con el identificador {{ param }}",
-      "updated": "Un Blockuser ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Blockuser ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Bloqueado ha sido creado con el identificador {{ param }}",
+      "updated": "Un Bloqueado ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Bloqueado ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Blockuser {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Bloqueado {{ id }}?"
       },
       "detail": {
-        "title": "Blockuser"
+        "title": "Bloqueado"
       },
-      "creationDate": "Creation Date",
-      "blockeduser": "Blockeduser",
-      "blockinguser": "Blockinguser",
-      "cblockeduser": "Cblockeduser",
-      "cblockinguser": "Cblockinguser"
+      "creationDate": "Fecha de Creación",
+      "blockeduser": "Usuario Bloqueado",
+      "blockinguser": "Usuario Bloqueador",
+      "cblockeduser": "Usuario Bloqueado x Comunidad",
+      "cblockinguser": "Usuario Bloqueador de la Comunidad"
     }
   }
 }

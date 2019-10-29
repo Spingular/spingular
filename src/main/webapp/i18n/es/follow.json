@@ -2,25 +2,27 @@
   "spingularApp": {
     "follow": {
       "home": {
-        "title": "Follows",
+        "title": "Seguidores",
+        "titleFollowing": "Following",
+        "titleFollower": "Followers",
         "createLabel": "Crear nuevo Follow",
         "createOrEditLabel": "Crear o editar Follow",
         "notFound": "No Follows found"
       },
-      "created": "Un nuevo Follow ha sido creado con el identificador {{ param }}",
-      "updated": "Un Follow ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Follow ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Seguidor ha sido creado con el identificador {{ param }}",
+      "updated": "Un Seguidor ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Seguidor ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Follow {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Seguidor {{ id }}?"
       },
       "detail": {
-        "title": "Follow"
+        "title": "Seguidor"
       },
-      "creationDate": "Creation Date",
-      "followed": "Followed",
+      "creationDate": "Fecha de Creación",
+      "followed": "Follower",
       "following": "Following",
-      "cfollowed": "Cfollowed",
-      "cfollowing": "Cfollowing"
+      "cfollowed": "Follower de la Comunidad",
+      "cfollowing": "Following a la Comunidad"
     }
   }
 }
