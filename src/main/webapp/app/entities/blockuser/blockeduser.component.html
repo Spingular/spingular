@@ -22,21 +22,21 @@
 	      <figure class="g-bg-white g-brd-around g-brd-gray-light-v4 g-brd-cyan--hover g-transition-0_2 text-center">
 	        <div class="g-py-40 g-px-20">
 	          <!-- Figure Image -->
-	          <a *ngIf="blockuser.cblockeduserImage" [routerLink]="['/community', blockuser.cblockeduserId, 'view' ]">
-                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" [src]="'data:' + blockuser.cblockeduserImageContentType + ';base64,' + blockuser.cblockeduserImage" alt="image"/>
+	          <a *ngIf="blockuser.cblockinguserImage" [routerLink]="['/community', blockuser.cblockinguserId, 'view' ]">
+                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" [src]="'data:' + blockuser.cblockinguserImageContentType + ';base64,' + blockuser.cblockinguserImage" alt="image"/>
               </a>
-              <a *ngIf="blockuser.blockeduserImage" [routerLink]="['/uprofile/uprofileuid']" [queryParams]="{ 'userIdEquals': blockuser.blockeduserId }">
-                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" [src]="'data:' + blockuser.blockeduserImageContentType + ';base64,' + blockuser.blockeduserImage" alt="image"/>
+			  <a *ngIf="blockuser.blockinguserImage" [routerLink]="['/appprofile', blockuser.blockinguserId, 'view' ]">
+                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" [src]="'data:' + blockuser.blockinguserImageContentType + ';base64,' + blockuser.blockinguserImage" alt="image"/>
               </a>
 	          <!-- Figure Image -->
 	
 	          <!-- Figure Info -->
 
-			  <a *ngIf="blockuser.cblockeduserId" [routerLink]="['/community', blockuser.cblockeduserId, 'view' ]">
+			  <a *ngIf="blockuser.cblockinguserId" [routerLink]="['/community', blockuser.cblockinguserId, 'view' ]">
 	          	<h4 class="h5 g-mb-5">{{blockuser.cblockeduserCommunityname}}</h4>
 	          </a>
-	          <a *ngIf="blockuser.blockeduserId" [routerLink]="['/uprofile/uprofileuid']" [queryParams]="{ 'userIdEquals': blockuser.blockeduserId }">
-	          	<h4 class="h5 g-mb-5">{{blockuser.blockeduserFirstName}} {{blockuser.blockeduserLastName}}</h4>
+	          <a *ngIf="blockuser.blockinguserId" [routerLink]="['/appprofile', blockuser.blockinguserId, 'view' ]">
+	          	<h4 class="h5 g-mb-5">{{blockuser.blockinguserFirstName}} {{blockuser.blockinguserLastName}}</h4>
 	          </a>
 	          
 	          <!--

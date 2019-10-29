@@ -64,10 +64,12 @@ export class BlockeduserComponent implements OnInit, OnDestroy {
       if (params.blockeduserIdEquals != null) {
         this.nameParamBlockUser = 'blockinguserId.equals';
         this.valueParamBlockUser = params.blockeduserIdEquals;
+        this.userQuery = true;
       }
       if (params.cblockinguserIdEquals != null) {
         this.nameParamBlockUser = 'cblockinguserId.equals';
         this.valueParamBlockUser = params.cblockinguserIdEquals;
+        this.communityQuery = true;
       }
     });
   }
@@ -78,7 +80,7 @@ export class BlockeduserComponent implements OnInit, OnDestroy {
       size: this.itemsPerPage,
       sort: this.sort()
     };
-    query[this.nameParamBlockUser] = this.blockingUserId;
+    query['blockeduserId.equals'] = this.blockingUserId;
     this.blockuserService
       .query(query)
       .subscribe(
@@ -117,34 +119,6 @@ export class BlockeduserComponent implements OnInit, OnDestroy {
     this.loadAll();
   }
 
-  // ngOnInit() {
-  //     this.accountService.identity().then(account => {
-  //         this.currentAccount = account;
-  //         this.owner = account.id;
-  //         //            this.accountService.hasAnyAuthority(['ROLE_ADMIN']).then(result => {
-  //         //                this.isAdmin = result;
-  //         this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
-  //         const query = {};
-  //         if (this.currentAccount.id != null) {
-  //             query['id.equals'] = this.valueParamBlockUser;
-  //         }
-  //         this.uprofileService.query(query).subscribe(
-  //             (res: HttpResponse<IUprofile[]>) => {
-  //                 this.uprofiles = res.body;
-  //                 //                    console.log('CONSOLOG: M:ngOnInit & O: this.uprofiles : ', this.uprofiles);
-  //                 this.uprofiles.forEach(profile => {
-  //                     this.blockingUserId = profile.userId;
-  //                     //                        console.log('CONSOLOG: M:ngOnInit & O: this.blockingUserId : ', this.blockingUserId);
-  //                     this.loadAll();
-  //                 });
-  //             },
-  //             (res: HttpErrorResponse) => this.onError(res.message)
-  //         );
-  //         //            });
-  //     });
-  //     this.registerChangeInBlockusers();
-  // }
-
   ngOnInit() {
     if (this.userQuery === true) {
       this.accountService.identity().subscribe(
@@ -157,15 +131,12 @@ export class BlockeduserComponent implements OnInit, OnDestroy {
           }
           this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
             this.owner = res.body[0].id;
-            // this.loggedUser = res.body[0];
+            this.blockingUserId = this.valueParamBlockUser;
+            this.loadAll();
           });
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
-    }
-    if (this.communityQuery === true) {
-      this.blockingUserId = this.valueParamBlockUser;
-      this.loadAll();
     }
     this.registerChangeInBlockusers();
   }

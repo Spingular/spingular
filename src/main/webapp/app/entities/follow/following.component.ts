@@ -30,6 +30,7 @@ export class FollowingComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
+
   nameParamFollows: any;
   valueParamFollows: any;
   zipZeroResults: any;
@@ -79,15 +80,13 @@ export class FollowingComponent implements OnInit, OnDestroy {
       size: this.itemsPerPage,
       sort: this.sort()
     };
-    //        console.log('CONSOLOG: M:loadAll & O: this.followedUserId : ', this.followerId);
-    query[this.nameParamFollows] = this.followerId;
+    query['followedId.equals'] = this.followerId;
     this.followService
       .query(query)
       .subscribe(
         (res: HttpResponse<IFollow[]>) => this.paginateFollows(res.body, res.headers),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
-    //        console.log('CONSOLOG: M:loadAll & O: this.query : ', query);
   }
 
   loadPage(page: number) {
@@ -120,37 +119,6 @@ export class FollowingComponent implements OnInit, OnDestroy {
     this.loadAll();
   }
 
-  // ngOnInit() {
-  //     if (this.userQuery === true) {
-  //         this.accountService.identity().then(account => {
-  //             this.currentAccount = account;
-  //             const query = {};
-  //             if (this.currentAccount.id != null) {
-  //                 query['id.equals'] = this.valueParamFollows;
-  //             }
-  //             this.uprofileService.query(query).subscribe(
-  //                 (res: HttpResponse<IUprofile[]>) => {
-  //                     this.uprofiles = res.body;
-  //                     //                        console.log('CONSOLOG: M:ngOnInit & O: this.uprofiles : ', this.uprofiles);
-  //                     this.uprofiles.forEach(profile => {
-  //                         this.followerId = profile.userId;
-  //                         //                            console.log('CONSOLOG: M:ngOnInit & O: this.followerId : ', this.followerId);
-  //                         this.loadAll();
-  //                     });
-  //                 },
-  //                 (res: HttpErrorResponse) => this.onError(res.message)
-  //             );
-  //         });
-  //     }
-  //     if (this.communityQuery === true) {
-  //         //            console.log('CONSOLOG: M:ngOnInit & O: ENTRO EN this.communityQuery === true');
-  //         this.followerId = this.valueParamFollows;
-  //         //            console.log('CONSOLOG: M:ngOnInit & O: this.valueParamFollows : ', this.valueParamFollows);
-  //         this.loadAll();
-  //     }
-  //     this.registerChangeInFollows();
-  // }
-
   ngOnInit() {
     if (this.userQuery === true) {
       this.accountService.identity().subscribe(
@@ -163,15 +131,12 @@ export class FollowingComponent implements OnInit, OnDestroy {
           }
           this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
             this.owner = res.body[0].id;
-            // this.loggedUser = res.body[0];
+            this.followerId = this.valueParamFollows;
+            this.loadAll();
           });
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
-    }
-    if (this.communityQuery === true) {
-      this.followerId = this.valueParamFollows;
-      this.loadAll();
     }
     this.registerChangeInFollows();
   }
@@ -200,7 +165,6 @@ export class FollowingComponent implements OnInit, OnDestroy {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.follows = data;
-    //        console.log('CONSOLOG: M:paginateFollows & O: this.follows : ', this.follows);
   }
 
   private onError(errorMessage: string) {
