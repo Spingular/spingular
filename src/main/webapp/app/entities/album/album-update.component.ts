@@ -29,6 +29,8 @@ export class AlbumUpdateComponent implements OnInit {
   owner: any;
   isAdmin: boolean;
 
+  private _album: IAlbum;
+
   editForm = this.fb.group({
     id: [],
     creationDate: [null, [Validators.required]],
@@ -48,6 +50,9 @@ export class AlbumUpdateComponent implements OnInit {
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ album }) => {
+      this.album = album;
+      this.creationDate = moment().format(DATE_TIME_FORMAT);
+      this.album.creationDate = moment(this.creationDate);
       this.updateForm(album);
     });
     this.accountService.identity().subscribe(
@@ -118,5 +123,14 @@ export class AlbumUpdateComponent implements OnInit {
 
   trackAppuserById(index: number, item: IAppuser) {
     return item.id;
+  }
+
+  get album() {
+    return this._album;
+  }
+
+  set album(album: IAlbum) {
+    this._album = album;
+    this.creationDate = moment(album.creationDate).format(DATE_TIME_FORMAT);
   }
 }

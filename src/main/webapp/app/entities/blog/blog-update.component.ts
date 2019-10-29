@@ -34,6 +34,8 @@ export class BlogUpdateComponent implements OnInit {
   isAdmin: boolean;
   creationDate: string;
 
+  private _blog: IBlog;
+
   editForm = this.fb.group({
     id: [],
     creationDate: [null, [Validators.required]],
@@ -84,6 +86,9 @@ export class BlogUpdateComponent implements OnInit {
               .subscribe(
                 (res2: ICommunity[]) => {
                   this.communities = res2;
+                  this.blog = blog;
+                  this.creationDate = moment().format(DATE_TIME_FORMAT);
+                  this.blog.creationDate = moment(this.creationDate);
                   this.updateForm(blog);
                 },
                 (res2: HttpErrorResponse) => this.onError(res2.message)
@@ -200,5 +205,14 @@ export class BlogUpdateComponent implements OnInit {
 
   trackCommunityById(index: number, item: ICommunity) {
     return item.id;
+  }
+
+  get blog() {
+    return this._blog;
+  }
+
+  set blog(blog: IBlog) {
+    this._blog = blog;
+    this.creationDate = moment(blog.creationDate).format(DATE_TIME_FORMAT);
   }
 }

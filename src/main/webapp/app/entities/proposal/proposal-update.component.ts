@@ -32,6 +32,9 @@ export class ProposalUpdateComponent implements OnInit {
   owner: any;
   isAdmin: boolean;
   currentAccount: any;
+  creationDate: string;
+
+  private _proposal: IProposal;
 
   editForm = this.fb.group({
     id: [],
@@ -57,30 +60,13 @@ export class ProposalUpdateComponent implements OnInit {
     protected accountService: AccountService
   ) {}
 
-  // ngOnInit() {
-  //   this.isSaving = false;
-  //   this.activatedRoute.data.subscribe(({ proposal }) => {
-  //     this.updateForm(proposal);
-  //   });
-  //   this.appuserService
-  //     .query()
-  //     .pipe(
-  //       filter((mayBeOk: HttpResponse<IAppuser[]>) => mayBeOk.ok),
-  //       map((response: HttpResponse<IAppuser[]>) => response.body)
-  //     )
-  //     .subscribe((res: IAppuser[]) => (this.appusers = res), (res: HttpErrorResponse) => this.onError(res.message));
-  //   this.postService
-  //     .query()
-  //     .pipe(
-  //       filter((mayBeOk: HttpResponse<IPost[]>) => mayBeOk.ok),
-  //       map((response: HttpResponse<IPost[]>) => response.body)
-  //     )
-  //     .subscribe((res: IPost[]) => (this.posts = res), (res: HttpErrorResponse) => this.onError(res.message));
-  // }
-
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ proposal }) => {
+      this.proposal = proposal;
+      this.creationDate = moment().format(DATE_TIME_FORMAT);
+      this.proposal.creationDate = moment(this.creationDate);
+      this.proposal.releaseDate = moment(this.creationDate);
       this.updateForm(proposal);
     });
     this.accountService.identity().subscribe(
@@ -178,5 +164,14 @@ export class ProposalUpdateComponent implements OnInit {
 
   trackPostById(index: number, item: IPost) {
     return item.id;
+  }
+
+  get proposal() {
+    return this._proposal;
+  }
+
+  set proposal(proposal: IProposal) {
+    this._proposal = proposal;
+    this.creationDate = moment(proposal.creationDate).format(DATE_TIME_FORMAT);
   }
 }

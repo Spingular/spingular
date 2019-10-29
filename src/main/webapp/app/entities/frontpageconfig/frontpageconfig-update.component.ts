@@ -17,6 +17,10 @@ import { FrontpageconfigService } from './frontpageconfig.service';
 export class FrontpageconfigUpdateComponent implements OnInit {
   isSaving: boolean;
 
+  creationDate: string;
+
+  private _frontpageconfig: IFrontpageconfig;
+
   editForm = this.fb.group({
     id: [],
     creationDate: [null, [Validators.required]],
@@ -86,6 +90,9 @@ export class FrontpageconfigUpdateComponent implements OnInit {
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ frontpageconfig }) => {
+      this.frontpageconfig = frontpageconfig;
+      this.creationDate = moment().format(DATE_TIME_FORMAT);
+      this.frontpageconfig.creationDate = moment(this.creationDate);
       this.updateForm(frontpageconfig);
     });
   }
@@ -241,5 +248,14 @@ export class FrontpageconfigUpdateComponent implements OnInit {
 
   protected onSaveError() {
     this.isSaving = false;
+  }
+
+  get frontpageconfig() {
+    return this._frontpageconfig;
+  }
+
+  set frontpageconfig(frontpageconfig: IFrontpageconfig) {
+    this._frontpageconfig = frontpageconfig;
+    this.creationDate = moment(frontpageconfig.creationDate).format(DATE_TIME_FORMAT);
   }
 }

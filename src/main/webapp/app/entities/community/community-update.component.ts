@@ -37,11 +37,12 @@ export class CommunityUpdateComponent implements OnInit {
 
   ccelebs: ICceleb[];
 
-  community: ICommunity;
   creationDate: string;
   currentAccount: any;
   owner: any;
   isAdmin: boolean;
+
+  private _community: ICommunity;
 
   editForm = this.fb.group({
     id: [],
@@ -71,6 +72,9 @@ export class CommunityUpdateComponent implements OnInit {
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ community }) => {
+      this.community = community;
+      this.creationDate = moment().format(DATE_TIME_FORMAT);
+      this.community.creationDate = moment(this.creationDate);
       this.updateForm(community);
     });
     this.accountService.identity().subscribe(
@@ -90,19 +94,6 @@ export class CommunityUpdateComponent implements OnInit {
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
-    this.activatedRoute.data.subscribe(({ community }) => {
-      this.community = community;
-      this.creationDate = moment().format(DATE_TIME_FORMAT);
-      this.community.creationDate = moment(this.creationDate);
-      //            console.log('CONSOLOG: M:ngOnInit & O: this.community : ', this.community);
-    });
-    // this.appuserService
-    //   .query()
-    //   .pipe(
-    //     filter((mayBeOk: HttpResponse<IAppuser[]>) => mayBeOk.ok),
-    //     map((response: HttpResponse<IAppuser[]>) => response.body)
-    //   )
-    //   .subscribe((res: IAppuser[]) => (this.appusers = res), (res: HttpErrorResponse) => this.onError(res.message));
     this.cinterestService
       .query()
       .pipe(
@@ -252,5 +243,14 @@ export class CommunityUpdateComponent implements OnInit {
       }
     }
     return option;
+  }
+
+  get community() {
+    return this._community;
+  }
+
+  set community(community: ICommunity) {
+    this._community = community;
+    this.creationDate = moment(community.creationDate).format(DATE_TIME_FORMAT);
   }
 }

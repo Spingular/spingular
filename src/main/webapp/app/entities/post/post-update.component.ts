@@ -40,6 +40,9 @@ export class PostUpdateComponent implements OnInit {
   currentAccount: any;
   owner: any;
   isAdmin: boolean;
+  creationDate: string;
+
+  private _post: IPost;
 
   editForm = this.fb.group({
     id: [],
@@ -100,6 +103,11 @@ export class PostUpdateComponent implements OnInit {
               .subscribe(
                 (res2: IBlog[]) => {
                   this.blogs = res2;
+                  this.post = post;
+                  this.creationDate = moment().format(DATE_TIME_FORMAT);
+                  this.post.creationDate = moment(this.creationDate);
+                  this.post.publicationDate = moment(this.creationDate);
+                  this.updateForm(post);
                   this.updateForm(post);
                 },
                 (res2: HttpErrorResponse) => this.onError(res2.message)
@@ -266,5 +274,14 @@ export class PostUpdateComponent implements OnInit {
       }
     }
     return option;
+  }
+
+  get post() {
+    return this._post;
+  }
+
+  set post(post: IPost) {
+    this._post = post;
+    this.creationDate = moment(post.creationDate).format(DATE_TIME_FORMAT);
   }
 }

@@ -5,7 +5,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+// import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
@@ -28,7 +28,7 @@ export class VanswerUpdateComponent implements OnInit {
 
   vquestions: IVquestion[];
 
-  vanswer: IVanswer;
+  // vanswer: IVanswer;
   vanswers: IVanswer[];
   owner: any;
   isAdmin: boolean;
@@ -39,6 +39,8 @@ export class VanswerUpdateComponent implements OnInit {
 
   nameParamVquestion: any;
   valueParamVquestion: any;
+
+  private _vanswer: IVanswer;
 
   editForm = this.fb.group({
     id: [],
@@ -69,7 +71,6 @@ export class VanswerUpdateComponent implements OnInit {
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ vanswer }) => {
-      this.updateForm(vanswer);
       this.vanswer = vanswer;
       this.creationDate = moment().format(DATE_TIME_FORMAT);
       this.vanswer.creationDate = moment(this.creationDate);
@@ -84,17 +85,23 @@ export class VanswerUpdateComponent implements OnInit {
         }
         this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
           this.appusers = res.body;
+          this.owner = res.body[0].id;
+          if (this.valueParamVquestion != null) {
+            this.vanswer.vquestionId = this.valueParamVquestion;
+            this.vanswer.appuserId = this.owner;
+            this.updateForm(this.vanswer);
+          }
         });
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
-    this.vquestionService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IVquestion[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IVquestion[]>) => response.body)
-      )
-      .subscribe((res: IVquestion[]) => (this.vquestions = res), (res: HttpErrorResponse) => this.onError(res.message));
+    // this.vquestionService
+    //   .query()
+    //   .pipe(
+    //     filter((mayBeOk: HttpResponse<IVquestion[]>) => mayBeOk.ok),
+    //     map((response: HttpResponse<IVquestion[]>) => response.body)
+    //   )
+    //   .subscribe((res: IVquestion[]) => (this.vquestions = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(vanswer: IVanswer) {
@@ -158,5 +165,14 @@ export class VanswerUpdateComponent implements OnInit {
 
   trackVquestionById(index: number, item: IVquestion) {
     return item.id;
+  }
+
+  get vanswer() {
+    return this._vanswer;
+  }
+
+  set vanswer(vanswer: IVanswer) {
+    this._vanswer = vanswer;
+    this.creationDate = moment(vanswer.creationDate).format(DATE_TIME_FORMAT);
   }
 }

@@ -16,6 +16,9 @@ import { NewsletterService } from './newsletter.service';
 })
 export class NewsletterUpdateComponent implements OnInit {
   isSaving: boolean;
+  creationDate: string;
+
+  private _newsletter: INewsletter;
 
   editForm = this.fb.group({
     id: [],
@@ -28,6 +31,9 @@ export class NewsletterUpdateComponent implements OnInit {
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ newsletter }) => {
+      this.newsletter = newsletter;
+      this.creationDate = moment().format(DATE_TIME_FORMAT);
+      this.newsletter.creationDate = moment(this.creationDate);
       this.updateForm(newsletter);
     });
   }
@@ -75,5 +81,14 @@ export class NewsletterUpdateComponent implements OnInit {
 
   protected onSaveError() {
     this.isSaving = false;
+  }
+
+  get newsletter() {
+    return this._newsletter;
+  }
+
+  set newsletter(newsletter: INewsletter) {
+    this._newsletter = newsletter;
+    this.creationDate = moment(newsletter.creationDate).format(DATE_TIME_FORMAT);
   }
 }

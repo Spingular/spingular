@@ -25,13 +25,14 @@ export class CalbumUpdateComponent implements OnInit {
   isSaving: boolean;
 
   communities: ICommunity[];
-  calbum: ICalbum;
   appusers: IAppuser[];
   appuser: IAppuser;
   owner: any;
   isAdmin: boolean;
   creationDate: string;
   currentAccount: any;
+
+  private _calbum: ICalbum;
 
   editForm = this.fb.group({
     id: [],
@@ -53,6 +54,9 @@ export class CalbumUpdateComponent implements OnInit {
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ calbum }) => {
+      this.calbum = calbum;
+      this.creationDate = moment().format(DATE_TIME_FORMAT);
+      this.calbum.creationDate = moment(this.creationDate);
       this.updateForm(calbum);
     });
     this.accountService.identity().subscribe(
@@ -138,5 +142,14 @@ export class CalbumUpdateComponent implements OnInit {
 
   trackCommunityById(index: number, item: ICommunity) {
     return item.id;
+  }
+
+  get calbum() {
+    return this._calbum;
+  }
+
+  set calbum(calbum: ICalbum) {
+    this._calbum = calbum;
+    this.creationDate = moment(calbum.creationDate).format(DATE_TIME_FORMAT);
   }
 }

@@ -47,6 +47,7 @@ export class ProposalVoteUpdateComponent implements OnInit {
   isAdmin: boolean;
 
   currentAccount: any;
+  creationDate: string;
 
   nameParamFollows: any;
   valueParamFollows: any;
@@ -55,6 +56,8 @@ export class ProposalVoteUpdateComponent implements OnInit {
   totalProposalVotes: number;
   appuserVotes: number;
   userAvailableProposalVotes: number;
+
+  private _proposalVote: IProposalVote;
 
   editForm = this.fb.group({
     id: [],
@@ -106,6 +109,9 @@ export class ProposalVoteUpdateComponent implements OnInit {
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ proposalVote }) => {
+      this.proposalVote = proposalVote;
+      this.creationDate = moment().format(DATE_TIME_FORMAT);
+      this.proposalVote.creationDate = moment(this.creationDate);
       this.updateForm(proposalVote);
     });
     this.accountService.identity().subscribe(account => {
@@ -233,5 +239,14 @@ export class ProposalVoteUpdateComponent implements OnInit {
 
   trackProposalById(index: number, item: IProposal) {
     return item.id;
+  }
+
+  get proposalVote() {
+    return this._proposalVote;
+  }
+
+  set proposalVote(proposalVote: IProposalVote) {
+    this._proposalVote = proposalVote;
+    this.creationDate = moment(proposalVote.creationDate).format(DATE_TIME_FORMAT);
   }
 }

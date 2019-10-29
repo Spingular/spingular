@@ -22,6 +22,9 @@ export class AppphotoUpdateComponent implements OnInit {
   isSaving: boolean;
 
   appusers: IAppuser[];
+  creationDate: string;
+
+  private _appphoto: IAppphoto;
 
   editForm = this.fb.group({
     id: [],
@@ -44,6 +47,9 @@ export class AppphotoUpdateComponent implements OnInit {
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ appphoto }) => {
+      this.appphoto = appphoto;
+      this.creationDate = moment().format(DATE_TIME_FORMAT);
+      this.appphoto.creationDate = moment(this.creationDate);
       this.updateForm(appphoto);
     });
     this.appuserService
@@ -170,5 +176,14 @@ export class AppphotoUpdateComponent implements OnInit {
 
   trackAppuserById(index: number, item: IAppuser) {
     return item.id;
+  }
+
+  get appphoto() {
+    return this._appphoto;
+  }
+
+  set appphoto(appphoto: IAppphoto) {
+    this._appphoto = appphoto;
+    this.creationDate = moment(appphoto.creationDate).format(DATE_TIME_FORMAT);
   }
 }

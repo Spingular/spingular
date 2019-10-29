@@ -22,6 +22,9 @@ export class AppprofileUpdateComponent implements OnInit {
   isSaving: boolean;
 
   appusers: IAppuser[];
+  creationDate: string;
+
+  private _appprofile: IAppprofile;
 
   editForm = this.fb.group({
     id: [],
@@ -62,6 +65,9 @@ export class AppprofileUpdateComponent implements OnInit {
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ appprofile }) => {
+      this.appprofile = appprofile;
+      this.creationDate = moment().format(DATE_TIME_FORMAT);
+      this.appprofile.creationDate = moment(this.creationDate);
       this.updateForm(appprofile);
     });
     this.appuserService
@@ -186,5 +192,14 @@ export class AppprofileUpdateComponent implements OnInit {
 
   trackAppuserById(index: number, item: IAppuser) {
     return item.id;
+  }
+
+  get appprofile() {
+    return this._appprofile;
+  }
+
+  set appprofile(appprofile: IAppprofile) {
+    this._appprofile = appprofile;
+    this.creationDate = moment(appprofile.creationDate).format(DATE_TIME_FORMAT);
   }
 }

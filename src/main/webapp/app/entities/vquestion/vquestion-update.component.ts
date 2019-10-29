@@ -66,18 +66,10 @@ export class VquestionUpdateComponent implements OnInit {
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ vquestion }) => {
-      this.updateForm(vquestion);
       this.vquestion = vquestion;
       this.creationDate = moment().format(DATE_TIME_FORMAT);
       this.vquestion.creationDate = moment(this.creationDate);
     });
-    // this.appuserService
-    //   .query()
-    //   .pipe(
-    //     filter((mayBeOk: HttpResponse<IAppuser[]>) => mayBeOk.ok),
-    //     map((response: HttpResponse<IAppuser[]>) => response.body)
-    //   )
-    //   .subscribe((res: IAppuser[]) => (this.appusers = res), (res: HttpErrorResponse) => this.onError(res.message));
     this.accountService.identity().subscribe(
       account => {
         this.currentAccount = account;
@@ -91,19 +83,20 @@ export class VquestionUpdateComponent implements OnInit {
           this.owner = res.body[0].id;
           if (this.valueParamVtopic != null) {
             this.vquestion.vtopicId = this.valueParamVtopic;
-            this.vquestion.appuserId = this.owner.id;
+            this.vquestion.appuserId = this.owner;
+            this.updateForm(this.vquestion);
           }
         });
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
-    this.vtopicService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IVtopic[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IVtopic[]>) => response.body)
-      )
-      .subscribe((res: IVtopic[]) => (this.vtopics = res), (res: HttpErrorResponse) => this.onError(res.message));
+    // this.vtopicService
+    //   .query()
+    //   .pipe(
+    //     filter((mayBeOk: HttpResponse<IVtopic[]>) => mayBeOk.ok),
+    //     map((response: HttpResponse<IVtopic[]>) => response.body)
+    //   )
+    //   .subscribe((res: IVtopic[]) => (this.vtopics = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(vquestion: IVquestion) {

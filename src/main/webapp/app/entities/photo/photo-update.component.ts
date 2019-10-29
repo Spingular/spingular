@@ -32,7 +32,6 @@ export class PhotoUpdateComponent implements OnInit {
 
   calbums: ICalbum[];
 
-  photo: IPhoto;
   communities: ICommunity[];
   appusers: IAppuser[];
   appuser: IAppuser;
@@ -40,6 +39,8 @@ export class PhotoUpdateComponent implements OnInit {
   currentAccount: any;
   owner: any;
   isAdmin: boolean;
+
+  private _photo: IPhoto;
 
   editForm = this.fb.group({
     id: [],
@@ -64,33 +65,13 @@ export class PhotoUpdateComponent implements OnInit {
     protected appuserService: AppuserService
   ) {}
 
-  // ngOnInit() {
-  //   this.isSaving = false;
-  //   this.activatedRoute.data.subscribe(({ photo }) => {
-  //     this.updateForm(photo);
-  //   });
-  //   this.albumService
-  //     .query()
-  //     .pipe(
-  //       filter((mayBeOk: HttpResponse<IAlbum[]>) => mayBeOk.ok),
-  //       map((response: HttpResponse<IAlbum[]>) => response.body)
-  //     )
-  //     .subscribe((res: IAlbum[]) => (this.albums = res), (res: HttpErrorResponse) => this.onError(res.message));
-  //   this.calbumService
-  //     .query()
-  //     .pipe(
-  //       filter((mayBeOk: HttpResponse<ICalbum[]>) => mayBeOk.ok),
-  //       map((response: HttpResponse<ICalbum[]>) => response.body)
-  //     )
-  //     .subscribe((res: ICalbum[]) => (this.calbums = res), (res: HttpErrorResponse) => this.onError(res.message));
-  // }
-
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ photo }) => {
       this.photo = photo;
       this.creationDate = moment().format(DATE_TIME_FORMAT);
       this.photo.creationDate = moment(this.creationDate);
+      this.updateForm(photo);
     });
     this.accountService.identity().subscribe(
       account => {
@@ -252,11 +233,12 @@ export class PhotoUpdateComponent implements OnInit {
     this.jhiAlertService.error(errorMessage, null, null);
   }
 
-  trackAlbumById(index: number, item: IAlbum) {
-    return item.id;
+  get photo() {
+    return this._photo;
   }
 
-  trackCalbumById(index: number, item: ICalbum) {
-    return item.id;
+  set photo(photo: IPhoto) {
+    this._photo = photo;
+    this.creationDate = moment(photo.creationDate).format(DATE_TIME_FORMAT);
   }
 }

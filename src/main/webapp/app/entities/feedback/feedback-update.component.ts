@@ -17,6 +17,10 @@ import { FeedbackService } from './feedback.service';
 export class FeedbackUpdateComponent implements OnInit {
   isSaving: boolean;
 
+  creationDate: string;
+
+  private _feedback: IFeedback;
+
   editForm = this.fb.group({
     id: [],
     creationDate: [null, [Validators.required]],
@@ -30,6 +34,9 @@ export class FeedbackUpdateComponent implements OnInit {
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ feedback }) => {
+      this.feedback = feedback;
+      this.creationDate = moment().format(DATE_TIME_FORMAT);
+      this.feedback.creationDate = moment(this.creationDate);
       this.updateForm(feedback);
     });
   }
@@ -81,5 +88,14 @@ export class FeedbackUpdateComponent implements OnInit {
 
   protected onSaveError() {
     this.isSaving = false;
+  }
+
+  get feedback() {
+    return this._feedback;
+  }
+
+  set feedback(feedback: IFeedback) {
+    this._feedback = feedback;
+    this.creationDate = moment(feedback.creationDate).format(DATE_TIME_FORMAT);
   }
 }

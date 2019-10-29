@@ -23,6 +23,7 @@ import { IActivity } from 'app/shared/model/activity.model';
 import { ActivityService } from 'app/entities/activity/activity.service';
 import { ICeleb } from 'app/shared/model/celeb.model';
 import { CelebService } from 'app/entities/celeb/celeb.service';
+import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
   selector: 'jhi-appuser-update',
@@ -32,16 +33,17 @@ export class AppuserUpdateComponent implements OnInit {
   isSaving: boolean;
 
   users: IUser[];
-
   appprofiles: IAppprofile[];
-
   appphotos: IAppphoto[];
-
   interests: IInterest[];
-
   activities: IActivity[];
-
   celebs: ICeleb[];
+
+  currentAccount: any;
+  isAdmin: boolean;
+  creationDate: string;
+
+  private _appuser: IAppuser;
 
   editForm = this.fb.group({
     id: [],
@@ -60,21 +62,39 @@ export class AppuserUpdateComponent implements OnInit {
     protected activityService: ActivityService,
     protected celebService: CelebService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    protected accountService: AccountService
   ) {}
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ appuser }) => {
+      this.appuser = appuser;
+      this.creationDate = moment().format(DATE_TIME_FORMAT);
+      this.appuser.creationDate = moment(this.creationDate);
       this.updateForm(appuser);
     });
-    this.userService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IUser[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IUser[]>) => response.body)
-      )
-      .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.accountService.identity().subscribe(
+      account => {
+        this.currentAccount = account;
+        this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+        const query = {};
+        if (this.currentAccount.id != null) {
+          query['login'] = this.currentAccount.login;
+        }
+        this.userService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
+          this.users = res.body;
+        });
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+    // this.userService
+    //   .query()
+    //   .pipe(
+    //     filter((mayBeOk: HttpResponse<IUser[]>) => mayBeOk.ok),
+    //     map((response: HttpResponse<IUser[]>) => response.body)
+    //   )
+    //   .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
     this.appprofileService
       .query()
       .pipe(
@@ -195,5 +215,14 @@ export class AppuserUpdateComponent implements OnInit {
       }
     }
     return option;
+  }
+
+  get appuser() {
+    return this._appuser;
+  }
+
+  set appuser(appuser: IAppuser) {
+    this._appuser = appuser;
+    this.creationDate = moment(appuser.creationDate).format(DATE_TIME_FORMAT);
   }
 }
