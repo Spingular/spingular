@@ -8,23 +8,27 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Blockuser} and its DTO {@link BlockuserDTO}.
  */
-@Mapper(componentModel = "spring", uses = {AppuserMapper.class, CommunityMapper.class, UserMapper.class})
+@Mapper(componentModel = "spring", uses = {AppuserMapper.class, CommunityMapper.class, UserMapper.class, AppphotoMapper.class})
 public interface BlockuserMapper extends EntityMapper<BlockuserDTO, Blockuser> {
 
-    @Mapping(source = "cblockeduser.id", target = "cblockeduserId")		
-    @Mapping(source = "cblockeduser.image", target = "cblockeduserImage")		
-    @Mapping(source = "cblockeduser.imageContentType", target = "cblockeduserImageContentType")		
-    @Mapping(source = "cblockeduser.communityName", target = "cblockeduserCommunityname")		
-    @Mapping(source = "cblockinguser.id", target = "cblockinguserId")		
-    @Mapping(source = "cblockinguser.image", target = "cblockinguserImage")		
-    @Mapping(source = "cblockinguser.imageContentType", target = "cblockinguserImageContentType")		
+    @Mapping(source = "cblockeduser.id", target = "cblockeduserId")
+    @Mapping(source = "cblockeduser.image", target = "cblockeduserImage")
+    @Mapping(source = "cblockeduser.imageContentType", target = "cblockeduserImageContentType")
+    @Mapping(source = "cblockeduser.communityName", target = "cblockeduserCommunityname")
+    @Mapping(source = "cblockinguser.id", target = "cblockinguserId")
+    @Mapping(source = "cblockinguser.image", target = "cblockinguserImage")
+    @Mapping(source = "cblockinguser.imageContentType", target = "cblockinguserImageContentType")
     @Mapping(source = "cblockinguser.communityName", target = "cblockinguserCommunityname")
     @Mapping(source = "blockinguser.id", target = "blockinguserId")
     @Mapping(source = "blockinguser.user.firstName", target = "blockinguserFirstName")
     @Mapping(source = "blockinguser.user.lastName", target = "blockinguserLastName")
-    @Mapping(source = "blockeduser.id", target = "blockeduserId")		
-    @Mapping(source = "blockeduser.user.firstName", target = "blockeduserFirstName")		
+    @Mapping(source = "blockinguser.appphoto.image", target = "blockinguserImage")
+    @Mapping(source = "blockinguser.appphoto.imageContentType", target = "blockinguserImageContentType")
+    @Mapping(source = "blockeduser.id", target = "blockeduserId")
+    @Mapping(source = "blockeduser.user.firstName", target = "blockeduserFirstName")
     @Mapping(source = "blockeduser.user.lastName", target = "blockeduserLastName")
+    @Mapping(source = "blockeduser.appphoto.image", target = "blockeduserImage")
+    @Mapping(source = "blockeduser.appphoto.imageContentType", target = "blockeduserImageContentType")
     BlockuserDTO toDto(Blockuser blockuser);
 
     @Mapping(source = "blockeduserId", target = "blockeduser")

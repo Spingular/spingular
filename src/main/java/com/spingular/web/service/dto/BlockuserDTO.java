@@ -14,26 +14,40 @@ public class BlockuserDTO implements Serializable {
 
     private Instant creationDate;
 
+
     private Long blockeduserId;
 
     private String blockeduserFirstName;
 
     private String blockeduserLastName;
-    
+
+    @Lob
+    private byte[] blockeduserImage;
+
+    private String blockeduserImageContentType;
+
+
     private Long blockinguserId;
 
     private String blockinguserFirstName;
 
     private String blockinguserLastName;
-    
+
+    @Lob
+    private byte[] blockinguserImage;
+
+    private String blockinguserImageContentType;
+
+
     private Long cblockeduserId;
-    
+
     @Lob
     private byte[] cblockeduserImage;
 
     private String cblockeduserImageContentType;
 
     private String cblockeduserCommunityname;
+
 
     private Long cblockinguserId;
 
@@ -42,7 +56,7 @@ public class BlockuserDTO implements Serializable {
 
     private String cblockinguserImageContentType;
 
-    private String cblockinguserCommunityname;  
+    private String cblockinguserCommunityname;
 
     public Long getId() {
         return id;
@@ -124,6 +138,38 @@ public class BlockuserDTO implements Serializable {
 		this.blockinguserLastName = blockinguserLastName;
 	}
 
+    public byte[] getBlockeduserImage() {
+        return blockeduserImage;
+    }
+
+    public void setBlockeduserImage(byte[] blockeduserImage) {
+        this.blockeduserImage = blockeduserImage;
+    }
+
+    public String getBlockeduserImageContentType() {
+        return blockeduserImageContentType;
+    }
+
+    public void setBlockeduserImageContentType(String blockeduserImageContentType) {
+        this.blockeduserImageContentType = blockeduserImageContentType;
+    }
+
+    public byte[] getBlockinguserImage() {
+        return blockinguserImage;
+    }
+
+    public void setBlockinguserImage(byte[] blockinguserImage) {
+        this.blockinguserImage = blockinguserImage;
+    }
+
+    public String getBlockinguserImageContentType() {
+        return blockinguserImageContentType;
+    }
+
+    public void setBlockinguserImageContentType(String blockinguserImageContentType) {
+        this.blockinguserImageContentType = blockinguserImageContentType;
+    }
+
 	public byte[] getCblockeduserImage() {
 		return cblockeduserImage;
 	}
@@ -201,9 +247,11 @@ public class BlockuserDTO implements Serializable {
             ", blockeduser=" + getBlockeduserId() +
             ", blockeduserFirstName=" + getBlockeduserFirstName() +
             ", blockeduserLastName=" + getBlockeduserLastName() +
+            ", blockeduserImage='" + getBlockeduserImage() + "'" +
             ", blockinguser=" + getBlockinguserId() +
             ", blockinguserFirstName=" + getBlockinguserFirstName() +
             ", blockinguserLastName=" + getBlockinguserLastName() +
+            ", blockinguserImage='" + getBlockinguserImage() + "'" +
             ", cblockeduser=" + getCblockeduserId() +
             ", cblockeduserImage='" + getCblockeduserImage() + "'" +
             ", cblockeduserCommunityname=" + getCblockeduserCommunityname() +
