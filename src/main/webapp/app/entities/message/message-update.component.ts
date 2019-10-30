@@ -64,9 +64,9 @@ export class MessageUpdateComponent implements OnInit {
     protected accountService: AccountService
   ) {
     this.activatedRoute.queryParams.subscribe(params => {
-      if (params.uprofileIdEquals != null) {
-        this.nameParamFollows = 'appuserId';
-        this.valueParamFollows = params.appuserIdEquals;
+      if (params.appprofileIdEquals != null) {
+        this.nameParamFollows = 'appprofileId';
+        this.valueParamFollows = params.appprofileIdEquals;
       }
     });
   }
@@ -84,7 +84,7 @@ export class MessageUpdateComponent implements OnInit {
       }
       this.appuserService.query(query).subscribe(
         (res: HttpResponse<IAppuser[]>) => {
-          this.message.receiverId = res.body[0].userId;
+          this.message.receiverId = this.valueParamFollows;
           this.blockeduserId = res.body[0].userId;
           this.accountService.identity().subscribe(account => {
             this.currentAccount = account;

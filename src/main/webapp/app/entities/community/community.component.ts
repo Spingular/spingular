@@ -66,16 +66,6 @@ export class CommunityComponent implements OnInit, OnDestroy {
       this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search'] ? this.activatedRoute.snapshot.params['search'] : '';
   }
 
-  // loadAll() {
-  //   this.communityService
-  //     .query({
-  //       page: this.page - 1,
-  //       size: this.itemsPerPage,
-  //       sort: this.sort()
-  //     })
-  //     .subscribe((res: HttpResponse<ICommunity[]>) => this.paginateCommunities(res.body, res.headers));
-  // }
-
   loadAll() {
     if (this.currentSearch) {
       const query = {
@@ -129,7 +119,6 @@ export class CommunityComponent implements OnInit, OnDestroy {
         this.arrayIds.push(x.id);
       }
     });
-    //        console.log('CONSOLOG: M:filterInterests & O: this.follows : ', this.arrayIds, this.arrayAux);
     return this.arrayAux;
   }
 
@@ -180,14 +169,6 @@ export class CommunityComponent implements OnInit, OnDestroy {
     this.loadAll();
   }
 
-  // ngOnInit() {
-  //   this.loadAll();
-  //   this.accountService.identity().subscribe(account => {
-  //     this.currentAccount = account;
-  //   });
-  //   this.registerChangeInCommunities();
-  // }
-
   ngOnInit() {
     this.loadAll();
     this.accountService.identity().subscribe(
@@ -200,7 +181,6 @@ export class CommunityComponent implements OnInit, OnDestroy {
         }
         this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
           this.owner = res.body[0].id;
-          // this.loggedUser = res.body[0];
         });
       },
       (res: HttpErrorResponse) => this.onError(res.message)

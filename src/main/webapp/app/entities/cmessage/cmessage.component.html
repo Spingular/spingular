@@ -1,11 +1,11 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="spingularApp.cmessage.home.title">Cmessages</span>
-        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="myCmessages()">		
-            <fa-icon [icon]="'plus'"></fa-icon>		
-            <span  jhiTranslate="spingularApp.cmessage.home.myLabel">		
-            My Messages		
-            </span>		
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="myCmessages()">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="spingularApp.cmessage.home.myLabel">
+            My Messages
+            </span>
         </button>
         <!-- <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-cmessage" [routerLink]="['/cmessage/new']">
             <fa-icon [icon]="'plus'"></fa-icon>

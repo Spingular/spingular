@@ -75,20 +75,6 @@ export class CmessageUpdateComponent implements OnInit {
     });
   }
 
-  // ngOnInit() {
-  //   this.isSaving = false;
-  //   this.activatedRoute.data.subscribe(({ cmessage }) => {
-  //     this.updateForm(cmessage);
-  //   });
-  //   this.communityService
-  //     .query()
-  //     .pipe(
-  //       filter((mayBeOk: HttpResponse<ICommunity[]>) => mayBeOk.ok),
-  //       map((response: HttpResponse<ICommunity[]>) => response.body)
-  //     )
-  //     .subscribe((res: ICommunity[]) => (this.communities = res), (res: HttpErrorResponse) => this.onError(res.message));
-  // }
-
   ngOnInit() {
     this.accountService.identity().subscribe(
       account => {

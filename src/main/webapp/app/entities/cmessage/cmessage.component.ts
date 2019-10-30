@@ -12,6 +12,8 @@ import { ICommunity } from 'app/shared/model/community.model';
 import { CommunityService } from '../.././../app/entities/community/community.service';
 import { IAppuser } from 'app/shared/model/appuser.model';
 import { AppuserService } from 'app/entities/appuser/appuser.service';
+import { IFollow } from 'app/shared/model/follow.model';
+import { FollowService } from '../.././../app/entities/follow/follow.service';
 
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
@@ -31,8 +33,10 @@ export class CmessageComponent implements OnInit, OnDestroy {
   cmessages: ICmessage[];
   communities: ICommunity[];
   arrayCommmunities = [];
+  arrayCommmunities2 = [];
   appusers: IAppuser[];
   appuser: IAppuser;
+  follows: IFollow[];
 
   error: any;
   success: any;
@@ -51,6 +55,9 @@ export class CmessageComponent implements OnInit, OnDestroy {
   owner: any;
   isAdmin: boolean;
 
+  arrayAux = [];
+  arrayIds = [];
+
   constructor(
     protected cmessageService: CmessageService,
     protected communityService: CommunityService,
@@ -60,7 +67,8 @@ export class CmessageComponent implements OnInit, OnDestroy {
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected eventManager: JhiEventManager,
-    protected appuserService: AppuserService
+    protected appuserService: AppuserService,
+    protected followService: FollowService
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -183,30 +191,38 @@ export class CmessageComponent implements OnInit, OnDestroy {
     }
     this.communityService.query(query).subscribe(
       (res: HttpResponse<ICommunity[]>) => {
+        this.arrayCommmunities = [];
         this.communities = res.body;
-        const query2 = {
-          page: this.page - 1,
-          size: this.itemsPerPage,
-          sort: this.sort()
-        };
-        if (this.communities != null) {
-          this.arrayCommmunities = [];
-          this.communities.forEach(community => {
-            this.arrayCommmunities.push(community.id);
-          });
-          query2['creceiverId.in'] = this.arrayCommmunities;
-        }
-        this.cmessageService.query(query2).subscribe(
-          (res2: HttpResponse<ICmessage[]>) => {
-            this.cmessages = res2.body;
-            this.paginateCmessages(res2.body, res2.headers);
-            this.isDeliveredUpdate(this.cmessages);
+        this.communities.forEach(community => {
+          this.arrayCommmunities.push(community.id);
+        });
+        const query2 = {};
+        query2['followedId.equals'] = this.appuser.id;
+        this.followService.query(query2).subscribe(
+          (res2: HttpResponse<IFollow[]>) => {
+            this.follows = res2.body;
+            this.follows.forEach(follow => {
+              // this.arrayCommmunities = this.filterArray(this.arrayCommmunities.concat(this.arrayCommmunities2));
+              this.arrayCommmunities = this.arrayCommmunities.concat(follow.cfollowingId);
+              const query3 = {};
+              if (this.arrayCommmunities != null) {
+                query3['creceiverId.in'] = this.arrayCommmunities;
+              }
+              this.cmessageService.query(query3).subscribe(
+                (res3: HttpResponse<ICmessage[]>) => {
+                  this.paginateCmessages(res3.body, res3.headers);
+                  this.isDeliveredUpdate(this.cmessages);
+                },
+                (res3: HttpErrorResponse) => this.onError(res3.message)
+              );
+            });
           },
           (res2: HttpErrorResponse) => this.onError(res2.message)
         );
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
+    return;
   }
 
   isDeliveredUpdate(cmessages: ICmessage[]) {
