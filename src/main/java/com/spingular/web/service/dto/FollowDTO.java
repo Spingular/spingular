@@ -14,20 +14,33 @@ public class FollowDTO implements Serializable {
 
     private Instant creationDate;
 
+
     private Long followedId;
-    
+
     private String followedUserFirstName;
-    
+
     private String followedUserLastName;
 
+    @Lob
+    private byte[] followedImage;
+
+    private String followedImageContentType;
+
+
     private Long followingId;
-    
+
     private String followingUserFirstName;
-    
+
     private String followingUserLastName;
 
+    @Lob
+    private byte[] followingImage;
+
+    private String followingImageContentType;
+
+
     private Long cfollowedId;
-    
+
     @Lob
     private byte[] cfollowedImage;
 
@@ -35,8 +48,9 @@ public class FollowDTO implements Serializable {
 
     private String cfollowedCommunityname;
 
+
     private Long cfollowingId;
-    
+
     @Lob
     private byte[] cfollowingImage;
 
@@ -124,6 +138,38 @@ public class FollowDTO implements Serializable {
 		this.followingUserLastName = followingUserLastName;
 	}
 
+    public byte[] getFollowedImage() {
+        return followedImage;
+    }
+
+    public void setFollowedImage(byte[] followedImage) {
+        this.followedImage = followedImage;
+    }
+
+    public String getFollowedImageContentType() {
+        return followedImageContentType;
+    }
+
+    public void setFollowedImageContentType(String followedImageContentType) {
+        this.followedImageContentType = followedImageContentType;
+    }
+
+    public byte[] getFollowingImage() {
+        return followingImage;
+    }
+
+    public void setFollowingImage(byte[] followingImage) {
+        this.followingImage = followingImage;
+    }
+
+    public String getFollowingImageContentType() {
+        return followingImageContentType;
+    }
+
+    public void setFollowingImageContentType(String followingImageContentType) {
+        this.followingImageContentType = followingImageContentType;
+    }
+
 	public byte[] getCfollowedImage() {
 		return cfollowedImage;
 	}
@@ -201,9 +247,11 @@ public class FollowDTO implements Serializable {
             ", followed=" + getFollowedId() +
             ", followedUserFirstName=" + getFollowedUserFirstName() +
             ", followedUserLastName=" + getFollowedUserLastName() +
+            ", followedImage='" + getFollowedImage() +
             ", following=" + getFollowingId() +
             ", followingUserFirstName=" + getFollowingUserFirstName() +
-        	", followingUserLastName=" + getFollowingUserLastName() +
+            ", followingUserLastName=" + getFollowingUserLastName() +
+            ", followingImage='" + getFollowingImage() +
             ", cfollowed=" + getCfollowedId() +
             ", cfollowedImage='" + getCfollowedImage() +
             ", cfollowedCommunityname=" + getCfollowedCommunityname() +
