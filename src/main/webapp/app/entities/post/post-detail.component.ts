@@ -37,7 +37,9 @@ export class PostDetailComponent implements OnInit {
   posts: IPost[];
   comments: IComment[];
   tags: ITag[];
+  tag: ITag;
   topics: ITopic[];
+  topic: ITopic;
 
   appprofile: IAppprofile;
   appprofiles: IAppprofile[];
@@ -99,11 +101,35 @@ export class PostDetailComponent implements OnInit {
         this.owner = this.currentAccount.id;
         this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
         this.loadAll();
+        this.postTags();
+        this.postTopics();
         this.comment = new Object();
         this.comment.commentText = '';
         this.registerChangeInComments();
       }
     });
+  }
+
+  protected postTags() {
+    const query = {};
+    query['postId.equals'] = this.post.id;
+    return this.tagService.query(query).subscribe(
+      (res: HttpResponse<ITag[]>) => {
+        this.tags = res.body;
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+  }
+
+  protected postTopics() {
+    const query = {};
+    query['postId.equals'] = this.post.id;
+    return this.topicService.query(query).subscribe(
+      (res: HttpResponse<ITopic[]>) => {
+        this.topics = res.body;
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
   }
 
   saveComment() {
@@ -213,30 +239,62 @@ export class PostDetailComponent implements OnInit {
     );
   }
 
-  removePostTag(tagId, postId) {
-    this.post.tags.forEach(tag => {
-      if (tag.id === tagId) {
-        this.post.tags.splice(this.post.tags.indexOf(tag), 1);
-        this.subscribeToSaveResponse2(this.tagService.update(tag));
+  removePostTag(tagId: number, postId: number) {
+    const query = {};
+    if (tagId != null) {
+      query['id.equals'] = tagId;
+    }
+    this.tagService.query(query).subscribe((res: HttpResponse<ITag[]>) => {
+      this.tag = res.body[0];
+      if (this.tags != null) {
+        this.tag.posts.forEach(post => {
+          if (post.id === postId) {
+            this.tag.posts.splice(this.tag.posts.indexOf(post), 1);
+            this.subscribeToSaveResponse2(this.tagService.update(this.tag));
+          }
+        });
       }
     });
   }
 
-  removePostTopic(topicId, postId) {
-    this.post.topics.forEach(topic => {
-      if (topic.id === topicId) {
-        this.post.topics.splice(this.post.topics.indexOf(topic), 1);
-        this.subscribeToSaveResponse3(this.topicService.update(topic));
+  removePostTopic(topicId: number, postId: number) {
+    const query = {};
+    if (topicId != null) {
+      query['id.equals'] = topicId;
+    }
+    this.topicService.query(query).subscribe((res: HttpResponse<ITopic[]>) => {
+      this.topic = res.body[0];
+      if (this.topics != null) {
+        this.topic.posts.forEach(post => {
+          if (post.id === postId) {
+            this.topic.posts.splice(this.topic.posts.indexOf(post), 1);
+            this.subscribeToSaveResponse3(this.topicService.update(this.topic));
+          }
+        });
       }
     });
   }
 
-  private subscribeToSaveResponse2(result: Observable<HttpResponse<ITag>>) {
-    result.subscribe((res: HttpResponse<ITag>) => this.onSaveSuccess2(), (res: HttpErrorResponse) => this.onSaveError());
+  protected subscribeToSaveResponse2(result: Observable<HttpResponse<ITag>>) {
+    result.subscribe(
+      (res: HttpResponse<ITag>) => {
+        const id = this.tags.findIndex(tag => tag.id === this.tag.id);
+        this.tags.splice(id, 1);
+        this.onSaveSuccess2();
+      },
+      (res: HttpErrorResponse) => this.onSaveError()
+    );
   }
 
-  private subscribeToSaveResponse3(result: Observable<HttpResponse<ITopic>>) {
-    result.subscribe((res: HttpResponse<ITopic>) => this.onSaveSuccess2(), (res: HttpErrorResponse) => this.onSaveError());
+  protected subscribeToSaveResponse3(result: Observable<HttpResponse<ITopic>>) {
+    result.subscribe(
+      (res: HttpResponse<ITag>) => {
+        const id = this.topics.findIndex(topic => topic.id === this.topic.id);
+        this.topics.splice(id, 1);
+        this.onSaveSuccess2();
+      },
+      (res: HttpErrorResponse) => this.onSaveError()
+    );
   }
 
   private onSaveSuccess2() {
