@@ -35,8 +35,6 @@ export class AppprofileDetailComponent implements OnInit {
   appuser: IAppuser;
   appprofiles: IAppprofile[];
   appprofile: IAppprofile;
-  // uprofile: IUprofile;
-  // uprofiles: IAppprofile[] = [];
 
   follows: IFollow[];
   private _follow: IFollow;
@@ -47,7 +45,9 @@ export class AppprofileDetailComponent implements OnInit {
   interests: IInterest[] = [];
   interest: IInterest;
   activities: IActivity[];
+  activity: IActivity;
   celebs: ICeleb[];
+  celeb: ICeleb;
 
   private _notification: INotification;
   notificationDate: string;
@@ -97,16 +97,6 @@ export class AppprofileDetailComponent implements OnInit {
     });
   }
 
-  // ngOnInit() {
-  //   this.activatedRoute.data.subscribe(({ appprofile }) => {
-  //     this.appprofile = appprofile;
-  //   });
-  // }
-
-  // previousState() {
-  //   window.history.back();
-  // }
-
   ngOnInit() {
     this.accountService.identity().subscribe(
       account => {
@@ -120,13 +110,11 @@ export class AppprofileDetailComponent implements OnInit {
         this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
           this.loggedUser = res.body[0];
           this.owner = this.loggedUser.id;
-          // SACO EL APPUSER LOGADO Y SU JHI_USER!!
           this.isFollower().subscribe(
             (res2: HttpResponse<IFollow[]>) => {
               this.follows = res2.body;
               if (this.follows.length > 0) {
                 this.isFollowing = true;
-                // return this.follows[0];
               } else {
                 this.isFollowing = false;
               }
@@ -138,7 +126,6 @@ export class AppprofileDetailComponent implements OnInit {
               this.blockusers = res3.body;
               if (this.blockusers.length > 0) {
                 this.isBlocked = true;
-                // return this.blockusers[0];
               } else {
                 this.isBlocked = false;
               }
@@ -164,11 +151,8 @@ export class AppprofileDetailComponent implements OnInit {
       this.activatedRoute.data.subscribe(({ appprofile }) => {
         this.consultedProfile = appprofile;
         this.appprofile = this.consultedProfile;
-        // this.consultedUserId = appprofile.userId;
       });
     }
-    // this.fillProfile();
-    // this.currentLoggedProfile();
     this.appprofileInterests();
     this.appprofileActivities();
     this.appprofileCelebs();
@@ -177,34 +161,12 @@ export class AppprofileDetailComponent implements OnInit {
     this.blockuser = new Object();
   }
 
-  // private fillProfile() {
-  //   this.consultProfile().subscribe(
-  //     (res: HttpResponse<IAppuser>) => {
-  //       this.consultedUser = res.body;
-  //       this.appprofileUserFirstName = res.body.firstName;
-  //       this.appprofileUserLastName = res.body.lastName;
-  //       //                console.log('CONSOLOG: M:fillProfile & O: this.consultedUser : ', this.consultedUser);
-  //       //                console.log('CONSOLOG: M:fillProfile!!!!!!!!!!!!!!!!!!!!!!!!!! en fillProfile2');
-  //       this.appprofileInterests();
-  //       this.appprofileActivities();
-  //       this.appprofileCelebs();
-  //     },
-  //     (res: HttpErrorResponse) => this.onError(res.message)
-  //   );
-  // }
-
-  // protected consultProfile() {
-  //   //        console.log('CONSOLOG: M:consultProfile!!!!!!!!!!!!!!!!!!!!!!!!!! en consultedUserId', this.consultedUserId);
-  //   return this.userService.findById(this.consultedUserId);
-  // }
-
   protected appprofileInterests() {
     const query2 = {};
     query2['appuserId.equals'] = this.consultedProfile.appuserId;
     return this.interestService.query(query2).subscribe(
       (res: HttpResponse<IInterest[]>) => {
         this.interests = res.body;
-        //                console.log('CONSOLOG: M:uprofileInterests & O: this.interests : ', this.interests);
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
@@ -216,7 +178,6 @@ export class AppprofileDetailComponent implements OnInit {
     return this.activityService.query(query3).subscribe(
       (res: HttpResponse<IActivity[]>) => {
         this.activities = res.body;
-        //                console.log('CONSOLOG: M:uprofileActivities & O: this.activities : ', this.activities);
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
@@ -228,7 +189,6 @@ export class AppprofileDetailComponent implements OnInit {
     return this.celebService.query(query4).subscribe(
       (res: HttpResponse<ICeleb[]>) => {
         this.celebs = res.body;
-        //                console.log('CONSOLOG: M:uprofileCelebs & O: this.celebs : ', this.celebs);
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
@@ -243,30 +203,6 @@ export class AppprofileDetailComponent implements OnInit {
       (res: HttpResponse<IAppprofile[]>) => {
         this.loggedProfile = res.body[0];
         this.loggedProfileId = res.body[0].id;
-        //     //                console.log('CONSOLOG: M:currentLoggedProfile & O: this.loggedProfile : ', this.loggedProfile);
-        //     this.loggedProfile.forEach(appprofile => {
-        //       this.loggedUserId = appprofile.userId;
-        //     });
-        //       this.isFollower().subscribe(
-        //         (res2: HttpResponse<IFollow[]>) => {
-        //           this.follows = res2.body;
-        //           if (this.follows.length > 0) {
-        //             this.isFollowing = true;
-        //             // return this.follows[0];
-        //           }
-        //         },
-        //         (res2: HttpErrorResponse) => this.onError(res2.message)
-        //       );
-        //       this.isBlockUser().subscribe(
-        //         (res3: HttpResponse<IBlockuser[]>) => {
-        //           this.blockusers = res3.body;
-        //           if (this.blockusers.length > 0) {
-        //             this.isBlocked = true;
-        //             return this.blockusers[0];
-        //           }
-        //         },
-        //         (res3: HttpErrorResponse) => this.onError(res3.message)
-        //       );
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
@@ -288,12 +224,10 @@ export class AppprofileDetailComponent implements OnInit {
     this.follow.followingId = this.consultedProfile.appuserId;
     this.follow.followedId = this.loggedUser.id;
     if (this.isFollowing === false) {
-      //            console.log('CONSOLOG: M:following & O: this.follow : ', this.follow);
       this.subscribeToSaveResponse(this.followService.create(this.follow));
       this.notificationReason = 'FOLLOWING';
       this.createNotification(this.notificationReason);
       this.isFollowing = true;
-      //            this.reload();
     }
   }
 
@@ -304,14 +238,11 @@ export class AppprofileDetailComponent implements OnInit {
           this.follows = res.body;
           if (this.follows.length > 0) {
             this.isFollowing = true;
-            // return this.follows[0];
-            //                        console.log('CONSOLOG: M:unFollowing & O: this.follows[0].id : ', this.follows[0].id);
             this.followService.delete(this.follows[0].id).subscribe(response => {
               this.notificationReason = 'UNFOLLOWING';
               this.createNotification(this.notificationReason);
               this.isFollowing = false;
             });
-            //                        this.reload();
           }
         },
         (res: HttpErrorResponse) => this.onError(res.message)
@@ -321,8 +252,6 @@ export class AppprofileDetailComponent implements OnInit {
 
   protected createNotification(notificationReason) {
     this.notification = new Object();
-    //        console.log('CONSOLOG: M:createNotification & O: this.notification : ', this.notification);
-    //        console.log('CONSOLOG: M:createNotification & O: this.consultedUserId : ', this.consultedUserId);
     this.isSaving = true;
     this.notification.creationDate = moment(this.creationDate, DATE_TIME_FORMAT);
     this.notification.notificationDate = moment(this.creationDate, DATE_TIME_FORMAT);
@@ -333,7 +262,6 @@ export class AppprofileDetailComponent implements OnInit {
     if (this.notification.id !== undefined) {
       this.subscribeToSaveResponse2(this.notificationService.update(this.notification));
     } else {
-      //            console.log('CONSOLOG: M:createNotification & O: this.notification: ', this.notification);
       this.subscribeToSaveResponse2(this.notificationService.create(this.notification));
     }
   }
@@ -356,7 +284,6 @@ export class AppprofileDetailComponent implements OnInit {
     if (this.isBlocked === false) {
       this.subscribeToSaveResponse(this.blockuserService.create(this.blockuser));
       this.isBlocked = true;
-      //            this.reload();
     }
   }
 
@@ -367,10 +294,8 @@ export class AppprofileDetailComponent implements OnInit {
           this.blockusers = res4.body;
           if (this.blockusers.length > 0) {
             this.isBlocked = true;
-            //                        console.log('CONSOLOG: M:unBlocking & O2: this.blockusers[0].id : ', this.blockusers[0].id);
             this.blockuserService.delete(this.blockusers[0].id).subscribe(response => {});
             this.isBlocked = false;
-            //                        this.reload();
           }
         },
         (res4: HttpErrorResponse) => this.onError(res4.message)
@@ -388,97 +313,49 @@ export class AppprofileDetailComponent implements OnInit {
       if (this.interests != null) {
         this.interest.appusers.forEach(appuser => {
           if (appuser.id === appprofileUserId) {
-            // (click)="removeProfileInterest(interest.id, interest.interestName, appprofile.id)"
             this.interest.appusers.splice(this.interest.appusers.indexOf(appuser), 1);
-            this.subscribeToSaveResponse2(this.interestService.update(appuser));
+            this.subscribeToSaveResponse3i(this.interestService.update(this.interest));
           }
         });
       }
     });
   }
 
-  removeProfileActivity(actvityId, uprofileId) {
+  removeProfileActivity(activityId: number, activityName: string, appprofileUserId: number) {
     const query = {};
-    if (actvityId != null) {
-      query['appuserId.equals'] = this.loggedUser.id;
-      query['activityName.equals'] = this.currentAccount.id;
+    if (activityName != null) {
+      query['id.equals'] = activityId;
     }
     this.activityService.query(query).subscribe((res: HttpResponse<IActivity[]>) => {
-      this.activities = res.body;
+      this.activity = res.body[0];
       if (this.activities != null) {
-        this.activityService.delete(this.activities[0].id);
-        // HAY QUE REPSAR ESTO!!!!!!!!!!!!!!
+        this.activity.appusers.forEach(appuser => {
+          if (appuser.id === appprofileUserId) {
+            this.activity.appusers.splice(this.activity.appusers.indexOf(appuser), 1);
+            this.subscribeToSaveResponse3a(this.activityService.update(this.activity));
+          }
+        });
       }
     });
   }
 
-  removeProfileCeleb(celebId, uprofileId) {
+  removeProfileCeleb(celebId: number, celebName: string, appprofileUserId: number) {
     const query = {};
-    if (celebId != null) {
-      query['appuserId.equals'] = this.loggedUser.id;
-      query['celebName.equals'] = this.currentAccount.id;
+    if (celebName != null) {
+      query['id.equals'] = celebId;
     }
     this.celebService.query(query).subscribe((res: HttpResponse<ICeleb[]>) => {
-      this.celebs = res.body;
+      this.celeb = res.body[0];
       if (this.celebs != null) {
-        this.celebService.delete(this.interests[0].id);
-        // HAY QUE REPSAR ESTO!!!!!!!!!!!!!!
+        this.celeb.appusers.forEach(appuser => {
+          if (appuser.id === appprofileUserId) {
+            this.celeb.appusers.splice(this.celeb.appusers.indexOf(appuser), 1);
+            this.subscribeToSaveResponse3c(this.celebService.update(this.celeb));
+          }
+        });
       }
     });
   }
-
-  // removeProfileInterest(interestId, uprofileId) {
-  //   //        console.log('CONSOLOG: M:removeProfileInterest & interestId: ', interestId, ', uprofileId : ', uprofileId);
-  //   //        console.log('CONSOLOG: M:removeProfileInterest & O: this.interests : ', this.interests);
-  //   this.interests.forEach(interest => {
-  //     //            console.log( 'CONSOLOG: M:removeProfileInterest; & this.interest: ', interest );
-  //     if (interest.id === interestId) {
-  //       //                console.log( 'CONSOLOG: M:removeProfileInterest; & interest.id COINCIDENTE: ', interest.id, 'interest:', interest );
-  //       interest.uprofiles.forEach(uprofile => {
-  //         //                    console.log( 'CONSOLOG: M:removeProfileInterest; & this.uprofile: ', uprofile );
-  //         if (uprofile.id === uprofileId) {
-  //           //                        console.log('CONSOLOG: M:removeProfileInterest; INDEX!!!!!: ', interest.uprofiles.indexOf(uprofile));
-  //           interest.uprofiles.splice(interest.uprofiles.indexOf(uprofile), 1);
-  //           this.subscribeToSaveResponse3(this.interestService.update(interest));
-  //           this.interests.splice(interest.uprofiles.indexOf(uprofile), 1);
-  //         }
-  //       });
-  //     }
-  //   });
-  // }
-
-  // removeProfileActivity(actvityId, uprofileId) {
-  //   //        console.log('CONSOLOG: M:removeProfileInterest & actvityId: ', actvityId, ', uprofileId : ', uprofileId);
-  //   //        console.log('CONSOLOG: M:removeProfileInterest & O: this.activities : ', this.activities);
-  //   this.activities.forEach(activity => {
-  //     if (activity.id === actvityId) {
-  //       activity.uprofiles.forEach(uprofile => {
-  //         if (uprofile.id === uprofileId) {
-  //           activity.uprofiles.splice(activity.uprofiles.indexOf(uprofile), 1);
-  //           this.subscribeToSaveResponse4(this.activityService.update(activity));
-  //           this.activities.splice(activity.uprofiles.indexOf(uprofile), 1);
-  //         }
-  //       });
-  //     }
-  //   });
-  // }
-
-  // removeProfileCeleb(celebId, uprofileId) {
-  //   //        console.log('CONSOLOG: M:removeProfileInterest & celebId: ', celebId, ', uprofileId : ', uprofileId);
-  //   //        console.log('CONSOLOG: M:removeProfileInterest & O: this.celebs : ', this.celebs);
-  //   this.celebs.forEach(celeb => {
-  //     if (celeb.id === celebId) {
-  //       celeb.uprofiles.forEach(uprofile => {
-  //         if (uprofile.id === uprofileId) {
-  //           //                        console.log('CONSOLOG: M:removeProfileceleb; INDEX!!!!!: ', celeb.uprofiles.indexOf(uprofile));
-  //           celeb.uprofiles.splice(celeb.uprofiles.indexOf(uprofile), 1);
-  //           this.subscribeToSaveResponse5(this.celebService.update(celeb));
-  //           this.celebs.splice(celeb.uprofiles.indexOf(uprofile), 1);
-  //         }
-  //       });
-  //     }
-  //   });
-  // }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IFollow>>) {
     result.subscribe((res: HttpResponse<IFollow>) => this.onSaveSuccess2(), (res: HttpErrorResponse) => this.onSaveError());
@@ -488,8 +365,45 @@ export class AppprofileDetailComponent implements OnInit {
     result.subscribe((res: HttpResponse<INotification>) => this.onSaveSuccess2(), (res: HttpErrorResponse) => this.onSaveError());
   }
 
-  protected subscribeToSaveResponse3(result: Observable<HttpResponse<IInterest>>) {
-    result.subscribe((res: HttpResponse<IInterest>) => this.onSaveSuccess2(), (res: HttpErrorResponse) => this.onSaveError());
+  protected subscribeToSaveResponse3i(result: Observable<HttpResponse<IInterest>>) {
+    result.subscribe(
+      (res: HttpResponse<IInterest>) => {
+        const id = this.interests.findIndex(interest => interest.id === this.interest.id);
+        this.interests.splice(id, 1);
+
+        // for (let i = 0; i < this.interests.length; i++) {
+        //   const interest = this.interests[i];
+        //   if(interest.id === this.interest.id){
+        //     this.interests.splice(i, 1);
+        //     break;
+        //   }
+        // }
+        this.onSaveSuccess2();
+      },
+      (res: HttpErrorResponse) => this.onSaveError()
+    );
+  }
+
+  protected subscribeToSaveResponse3a(result: Observable<HttpResponse<IActivity>>) {
+    result.subscribe(
+      (res: HttpResponse<IActivity>) => {
+        const id = this.activities.findIndex(activity => activity.id === this.activity.id);
+        this.activities.splice(id, 1);
+        this.onSaveSuccess2();
+      },
+      (res: HttpErrorResponse) => this.onSaveError()
+    );
+  }
+
+  protected subscribeToSaveResponse3c(result: Observable<HttpResponse<ICeleb>>) {
+    result.subscribe(
+      (res: HttpResponse<ICeleb>) => {
+        const id = this.celebs.findIndex(celeb => celeb.id === this.celeb.id);
+        this.celebs.splice(id, 1);
+        this.onSaveSuccess2();
+      },
+      (res: HttpErrorResponse) => this.onSaveError()
+    );
   }
 
   protected subscribeToSaveResponse4(result: Observable<HttpResponse<IActivity>>) {
