@@ -187,7 +187,8 @@
    								    		*ngIf="owner === appprofile.appuserId"
 									        class="btn btn-primary float-right jh-create-entity create-interest"
 									        [routerLink]="['/interest/new']" [queryParams]="{ 'appprofileIdEquals': appprofile.id }">
-										<fa-icon [icon]="'plus'"></fa-icon>
+                                        <fa-icon [icon]="'plus'"> </fa-icon>
+                                        <span jhiTranslate="spingularApp.interest.detail.title">Interest</span>
 									</button>
                                     <strong class="g-color-primary g-mr-5" style="float: left; margin-top: 24px; font-size: 16px;">Interests:</strong>
 								    <span *ngFor="let interest of interests"
@@ -209,7 +210,8 @@
    								    		*ngIf="owner === appprofile.appuserId"
 									        class="btn btn-primary float-right jh-create-entity create-interest"
 									        [routerLink]="['/activity/new']" [queryParams]="{ 'appprofileIdEquals': appprofile.id }">
-										<fa-icon [icon]="'plus'"></fa-icon>
+                                        <fa-icon [icon]="'plus'"> </fa-icon>
+                                        <span jhiTranslate="spingularApp.activity.detail.title">Activity</span>
 									</button>
 								    <strong class="g-color-primary g-mr-5" style="float: left; margin-top: 24px; font-size: 16px;">Activities:</strong>
 								    <span *ngFor="let activity of activities" class="g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-white--hover"
@@ -224,13 +226,14 @@
 								<!-- Celebs -->
 								<div class="g-mb-30" style="width: 100%; overflow: hidden;">
 								  <h6 class="g-color-gray-dark-v1">
-								  		<button id="jh-create-entity"
+                                    <button id="jh-create-entity"
    								    		style="margin-top: 15px;"
    								    		*ngIf="owner === appprofile.appuserId"
 									        class="btn btn-primary float-right jh-create-entity create-interest"
 									        [routerLink]="['/celeb/new']" [queryParams]="{ 'appprofileIdEquals': appprofile.id }">
-											<fa-icon [icon]="'plus'"></fa-icon>
-										</button>
+                                        <fa-icon [icon]="'plus'"> </fa-icon>
+                                        <span jhiTranslate="spingularApp.celeb.detail.title">celeb</span>
+                                    </button>
 								    <strong class="g-color-primary g-mr-5" style="float: left; margin-top: 24px; font-size: 16px;">Celebs:</strong>
 								    <span *ngFor="let celeb of celebs" class="g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-white--hover"
 								    		style="font-size: 13px; font-weight: bold; cursor: pointer; float:left; padding: 8px 10px; border-radius: 5px; border: solid 1px; margin-right: 15px; overflow: hidden; display: inherit; width: fit-content; margin-top: 15px;">

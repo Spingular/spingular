@@ -142,17 +142,8 @@ export class CelebUpdateComponent implements OnInit {
       this.celebService.query(query).subscribe(
         (res: HttpResponse<ICeleb[]>) => {
           this.celebs = res.body;
-          const query2 = {};
-          if (this.valueParamUprofileId != null) {
-            query2['id.equals'] = this.valueParamUprofileId;
-          }
-          this.appuserService.query(query2).subscribe(
-            (res2: HttpResponse<IAppuser[]>) => {
-              this.celebs[0].appusers.push(res2.body[0]);
-              this.subscribeToSaveResponse(this.celebService.update(this.celebs[0]));
-            },
-            (res2: HttpErrorResponse) => this.onError(res2.message)
-          );
+          this.celebs[0].appusers.push(this.appusers[0]);
+          this.subscribeToSaveResponse(this.celebService.update(this.celebs[0]));
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );

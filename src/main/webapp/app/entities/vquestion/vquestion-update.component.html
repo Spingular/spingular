@@ -73,7 +73,7 @@
                         This field is required.
                     </small>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label class="form-control-label" jhiTranslate="spingularApp.vquestion.vtopic" for="field_vtopic">Vtopic</label>
                     <select class="form-control" id="field_vtopic" name="vtopic" formControlName="vtopicId">
                         <option *ngIf="!editForm.get('vtopicId').value" [ngValue]="null" selected></option>
@@ -85,7 +85,7 @@
                            *ngIf="editForm.get('vtopicId').errors.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
-                </div>
+                </div> -->
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
@@ -96,6 +96,5 @@
                 </button>
             </div>
         </form>
-        nameParamVtopic;; {{valueParamVtopic}}&&{{vquestion.vtopicId}}&&{{vquestion | json}}
     </div>
 </div>

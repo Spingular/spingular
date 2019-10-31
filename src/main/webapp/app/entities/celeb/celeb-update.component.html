@@ -20,7 +20,7 @@
                 <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
                 <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="celebName"><span jhiTranslate="spingularApp.celeb.celebName">Celeb Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="celebName"><span jhiTranslate="spingularApp.celeb.celebName">celeb Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th></th>
                 </tr>
                 </thead>
@@ -30,10 +30,11 @@
                     <td>{{celeb.celebName}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
-                            <button id="jh-create-entity" 
+                            <button id="jh-create-entity"
                                     class="btn btn-primary float-right jh-create-entity create-celeb"
                                     (click)="addExistingProfileCeleb(celeb.id)">
-                                <fa-icon [icon]="'plus'"></fa-icon>
+                                <fa-icon [icon]="'plus'"> </fa-icon>
+                                <span jhiTranslate="spingularApp.celeb.detail.title">celeb</span>
                             </button>
                         </div>
                     </td>
@@ -96,7 +97,7 @@
             </div>
         </form>
     </div>
-    <ng-template #zipZeroResults>		
-	  <h2 id="page-heading">Nought, nil, nada, nothing, zero, zilch, zip...</h2>		
+    <ng-template #zipZeroResults>
+	  <h2 id="page-heading">Nought, nil, nada, nothing, zero, zilch, zip...</h2>
 	</ng-template>
 </div>

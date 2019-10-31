@@ -21,6 +21,7 @@ export class InterestUpdateComponent implements OnInit {
   isSaving: boolean;
 
   appusers: IAppuser[];
+  appuser: IAppuser;
 
   interest: IInterest;
   interests: IInterest[];
@@ -69,20 +70,6 @@ export class InterestUpdateComponent implements OnInit {
     });
   }
 
-  // ngOnInit() {
-  //   this.isSaving = false;
-  //   this.activatedRoute.data.subscribe(({ interest }) => {
-  //     this.updateForm(interest);
-  //   });
-  //   this.appuserService
-  //     .query()
-  //     .pipe(
-  //       filter((mayBeOk: HttpResponse<IAppuser[]>) => mayBeOk.ok),
-  //       map((response: HttpResponse<IAppuser[]>) => response.body)
-  //     )
-  //     .subscribe((res: IAppuser[]) => (this.appusers = res), (res: HttpErrorResponse) => this.onError(res.message));
-  // }
-
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ interest }) => {
@@ -99,9 +86,9 @@ export class InterestUpdateComponent implements OnInit {
         }
         this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
           this.owner = res.body[0].id;
+          this.appuser = res.body[0];
           this.appusers = res.body;
           this.myUserInterests(this.owner);
-          // this.loggedUser = res.body[0];
         });
       },
       (res: HttpErrorResponse) => this.onError(res.message)
@@ -156,17 +143,8 @@ export class InterestUpdateComponent implements OnInit {
       this.interestService.query(query).subscribe(
         (res: HttpResponse<IInterest[]>) => {
           this.interests = res.body;
-          const query2 = {};
-          if (this.valueParamUprofileId != null) {
-            query2['id.equals'] = this.valueParamUprofileId;
-          }
-          this.appuserService.query(query2).subscribe(
-            (res2: HttpResponse<IAppuser[]>) => {
-              this.interests[0].appusers.push(res2.body[0]);
-              this.subscribeToSaveResponse(this.interestService.update(this.interests[0]));
-            },
-            (res2: HttpErrorResponse) => this.onError(res2.message)
-          );
+          this.interests[0].appusers.push(this.appusers[0]);
+          this.subscribeToSaveResponse(this.interestService.update(this.interests[0]));
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
@@ -255,12 +233,79 @@ export class InterestUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     const interest = this.createFromForm();
-    if (interest.id !== undefined) {
-      this.subscribeToSaveResponse(this.interestService.update(interest));
-    } else {
-      this.subscribeToSaveResponse(this.interestService.create(interest));
+    if (interest.interestName !== undefined) {
+      const query = {};
+      query['interestName.equals'] = interest.interestName;
+      this.interestService.query(query).subscribe(
+        (res: HttpResponse<IInterest[]>) => {
+          // Compruebo si el interes existe
+          this.interests = res.body;
+          if (this.interests[0] !== undefined) {
+            // si el interes ya existe (NO está vacía) compruebo si lo tiene
+            if (this.interest[0].appusers.indexOf(this.appuser)) {
+              this.onSaveSuccess(); // si lo tiene no hago nada
+            } else {
+              // si el interes NO existe (está vacía) lo añado al user y actualizo el interes
+              this.interests[0].appusers.push(this.appuser);
+              this.subscribeToSaveResponse(this.interestService.update(this.interests[0]));
+            }
+          } else {
+            // si está vacía es que lo creo y se lo añado
+            this.interestService.create(interest);
+            this.save();
+          }
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
     }
   }
+
+  // save() {
+  //   this.isSaving = true;
+  //   const interest = this.createFromForm();
+  //   if (interest.interestName !== undefined) {
+  //     const query = {};
+  //     query['interestName.equals'] = interest.interestName;
+  //     this.interestService.query(query).subscribe(
+  //       (res: HttpResponse<IInterest[]>) => {
+  //         this.interests = res.body;
+  //         // console.log('this.interests', this.interests);
+  //         if (this.interests[0] !== undefined) { // si NO está vacía (el interes ya existe) compruebo si lo tiene
+  //           // this.interest[0].appusers.array.forEach(appuser => {
+  //             if (this.interest[0].appusers.indexOf(this.appusers[0])) {
+  //               this.onSaveSuccess();
+  //             } else {
+  //               this.interests[0].appusers.push(this.appusers[0]);
+  //               this.subscribeToSaveResponse(this.interestService.update(this.interests[0]));
+  //             }
+  //           // });
+  //           // tengo que recorrer la lista de users que tienen ese interes y buscar a mi user.
+  //           // IF my user está, pues no hago nado y si IF NO está pues lo añado
+  //           // this.interests = res.body;
+  //           // this.interests[0].appusers.push(this.appusers[0]);
+  //           // this.subscribeToSaveResponse(this.interestService.update(this.interests[0]));
+  //           // this.onSaveSuccess();
+  //         } else { // si está vacía es que lo creo y se lo añado
+
+  //           this.interestService.create(interest);
+  //           this.save();
+  //           // const newArrayAppusers: IAppuser[] = [];
+  //           // this.interests[0].newArrayAppusers.push(this.appuser);
+  //           // this.subscribeToSaveResponse(this.interestService.update(this.interests[0]));
+
+  //           // this.subscribeToSaveResponse(this.interestService.create(interest));
+  //           // después de crearlo tengo que añadirselo a mi appuser.
+  //         }
+  //       },
+  //       (res: HttpErrorResponse) => this.onError(res.message)
+  //     );
+  //   }
+  //   // if (interest.id !== undefined) {
+  //   //   this.subscribeToSaveResponse(this.interestService.update(interest));
+  //   // } else {
+  //   //   this.subscribeToSaveResponse(this.interestService.create(interest));
+  //   // }
+  // }
 
   private createFromForm(): IInterest {
     return {

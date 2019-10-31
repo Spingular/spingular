@@ -1,28 +1,28 @@
 {
   "spingularApp": {
     "vanswer": {
-      "add": "Add a new Question to the topic",
+      "add": "Add a new Answer to the topic",
       "home": {
-        "title": "Vanswers",
-        "createLabel": "Crear nuevo Vanswer",
-        "createOrEditLabel": "Crear o editar Vanswer",
-        "notFound": "No Vanswers found"
+        "title": "Answer",
+        "createLabel": "Create a new Answer",
+        "createOrEditLabel": "Create or edit a Answer",
+        "notFound": "No Answer found"
       },
-      "created": "Un nuevo Vanswer ha sido creado con el identificador {{ param }}",
-      "updated": "Un Vanswer ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Vanswer ha sido eliminado con el identificador {{ param }}",
+      "created": "A new Answer is created with identifier {{ param }}",
+      "updated": "A Answer is updated with identifier {{ param }}",
+      "deleted": "A Answer is deleted with identifier {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Vanswer {{ id }}?"
+        "question": "Are you sure you want to delete Answer {{ id }}?"
       },
       "detail": {
-        "title": "Vanswer"
+        "title": "Answer"
       },
       "creationDate": "Creation Date",
-      "urlVanswer": "Url Vanswer",
+      "urlVanswer": "Url Answer",
       "accepted": "Accepted",
       "vthumb": "Vthumb",
       "appuser": "Appuser",
-      "vquestion": "Vquestion"
+      "vquestion": "Question"
     }
   }
 }

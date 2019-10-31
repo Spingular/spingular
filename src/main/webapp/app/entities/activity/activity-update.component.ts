@@ -141,17 +141,8 @@ export class ActivityUpdateComponent implements OnInit {
       this.activityService.query(query).subscribe(
         (res: HttpResponse<IActivity[]>) => {
           this.activities = res.body;
-          const query2 = {};
-          if (this.valueParamUprofileId != null) {
-            query2['id.equals'] = this.valueParamUprofileId;
-          }
-          this.appuserService.query(query2).subscribe(
-            (res2: HttpResponse<IAppuser[]>) => {
-              this.activities[0].appusers.push(res2.body[0]);
-              this.subscribeToSaveResponse(this.activityService.update(this.activities[0]));
-            },
-            (res2: HttpErrorResponse) => this.onError(res2.message)
-          );
+          this.activities[0].appusers.push(this.appusers[0]);
+          this.subscribeToSaveResponse(this.activityService.update(this.activities[0]));
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );

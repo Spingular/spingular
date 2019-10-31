@@ -30,10 +30,11 @@
                 <td>{{activity.activityName}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
-                    	<button id="jh-create-entity" 
+                    	<button id="jh-create-entity"
 						        class="btn btn-primary float-right jh-create-entity create-interest"
 						        (click)="addExistingProfileActivity(activity.id)">
-							<fa-icon [icon]="'plus'"></fa-icon>
+                                <fa-icon [icon]="'plus'"> </fa-icon>
+                                <span jhiTranslate="spingularApp.activity.detail.title">Activity</span>
 						</button>
                     </div>
                 </td>
@@ -97,6 +98,6 @@
         </form>
     </div>
     <ng-template #zipZeroResults>
-	  <h2 id="page-heading">Nought, nil, nada, nothing, zero, zilch, zip...</h2>		
+	  <h2 id="page-heading">Nought, nil, nada, nothing, zero, zilch, zip...</h2>
 	</ng-template>
 </div>
