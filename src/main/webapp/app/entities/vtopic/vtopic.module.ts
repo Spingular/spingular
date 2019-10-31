@@ -7,14 +7,21 @@ import { VtopicDetailComponent } from './vtopic-detail.component';
 import { VtopicUpdateComponent } from './vtopic-update.component';
 import { VtopicDeletePopupComponent, VtopicDeleteDialogComponent } from './vtopic-delete-dialog.component';
 import { vtopicRoute, vtopicPopupRoute } from './vtopic.route';
-// import { ThumbCounterPipe } from './thumbcounter.pipe';
+import { ThumbCounterPipe } from './thumbcounter.pipe';
 
 const ENTITY_STATES = [...vtopicRoute, ...vtopicPopupRoute];
 
 @NgModule({
   imports: [SpingularSharedModule, RouterModule.forChild(ENTITY_STATES)],
   // imports: [ThumbCounterPipe, SpingularSharedModule, RouterModule.forChild(ENTITY_STATES)],
-  declarations: [VtopicComponent, VtopicDetailComponent, VtopicUpdateComponent, VtopicDeleteDialogComponent, VtopicDeletePopupComponent],
+  declarations: [
+    ThumbCounterPipe,
+    VtopicComponent,
+    VtopicDetailComponent,
+    VtopicUpdateComponent,
+    VtopicDeleteDialogComponent,
+    VtopicDeletePopupComponent
+  ],
   entryComponents: [VtopicDeleteDialogComponent]
 })
 export class SpingularVtopicModule {}

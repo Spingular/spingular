@@ -1,8 +1,11 @@
 package com.spingular.web.service.dto;
+
 import java.time.Instant;
 import javax.validation.constraints.*;
+
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A DTO for the {@link com.spingular.web.domain.Vquestion} entity.
@@ -21,6 +24,7 @@ public class VquestionDTO implements Serializable {
     @Size(min = 2, max = 250)
     private String vquestionDescription;
 
+    private Set<VanswerDTO> vanswers;
 
     private Long appuserId;
 
@@ -72,6 +76,14 @@ public class VquestionDTO implements Serializable {
 
     public void setVtopicId(Long vtopicId) {
         this.vtopicId = vtopicId;
+    }
+
+    public Set<VanswerDTO> getVanswers() {
+        return vanswers;
+    }
+
+    public void setVanswers(Set<VanswerDTO> vanswers) {
+        this.vanswers = vanswers;
     }
 
     @Override
