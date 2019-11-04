@@ -3,10 +3,12 @@
     "proposal": {
       "home": {
         "title": "Propuestas",
+        "all": "Todas las  Propuestas",
         "myLabel": "Mis Propuestas",
         "createLabel": "Crear nuevo Propuesta",
         "createOrEditLabel": "Crear o editar Propuesta",
         "filterProposalByType": "Filtrar Propuestas por Tipo",
+        "vote": "Votar",
         "notFound": "No se han encontrado Propuestas"
       },
       "created": "Una nueva Propuesta ha sido creado con el identificador {{ param }}",
@@ -22,9 +24,10 @@
       "proposalName": "Nombre de la Propuesta",
       "proposalType": "Tipo de Propuesta",
       "proposalRole": "Role en la Propuesta",
+      "userProposalVotes": "Usuario / Votos Propuesta",
       "releaseDate": "Fecha de Entrega",
       "isOpen": "Abierta?",
-      "isAccepted": "Aceotada?",
+      "isAccepted": "Aceptada?",
       "isPaid": "Pagada?",
       "proposalVote": "Votos de la Propuesta",
       "appuser": "Appuser",

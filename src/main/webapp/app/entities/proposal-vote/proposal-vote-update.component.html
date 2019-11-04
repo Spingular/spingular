@@ -1,14 +1,17 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div>
-        	<h4>{{nameParamFollows}} {{valueParamFollows}}
+        	<h4><!--
+                {{nameParamFollows}} {{valueParamFollows}}
                 <p><label> User :</label>{{appuser | json}}</p>
 	            <p><label>Assigned User Points:</label>{{appuser.assignedVotesPoints}}</p>
-	            <p><label>Proposal Votes Points:</label>{{totalProposalVotes}}</p>
-	            <p><label>User Proposal Votes Points:</label>{{appuserVotes}}</p>
-	            <p><label>User Available Proposal Points:</label>{{userAvailableProposalVotes}}</p>
-	            <!-- NECESITO RESTAR LOS PUNTOS ASIGNADOS A LOS VOTOS DE QUE DISPONE y poner el limite en la diferencia.
-	            <label class="form-control-label" for="assignedVotesPoints">Votes Points Left:</label>{{proposaluser.assignedVotesPoints}} - 'votePoints'  
+	            <p><label>totalProposalVotes Proposal Votes Points:</label>{{totalProposalVotes}}</p>
+	            <p><label>User Proposal Votes Points:</label>{{appuserProposalVotes}}</p>
+                <p><label>User Available Proposal Points:</label>{{userAvailableProposalVotes}}</p>
+                <p><label>Proposal:</label>{{proposal | json}}</p>
+                <p><label>kk:</label>{{kk}}</p>
+	             NECESITO RESTAR LOS PUNTOS ASIGNADOS A LOS VOTOS DE QUE DISPONE y poner el limite en la diferencia.
+	            <label class="form-control-label" for="assignedVotesPoints">Votes Points Left:</label>{{proposaluser.assignedVotesPoints}} - 'votePoints'
 	            -->
             </h4>
         </div>
@@ -37,6 +40,18 @@
                         </small>
                     </div>
                 </div>
+                <div>
+                    <label class="form-control-label" jhiTranslate="spingularApp.proposalVote.userAvailableVotes">Available Votes</label>
+                    <label class="form-control-label" >: {{userAvailableProposalVotes}}</label>
+                </div>
+                <div>
+                    <label class="form-control-label" jhiTranslate="spingularApp.proposalVote.totalProposalVotes">Total Proposal Votes</label>
+                    <label class="form-control-label" >: {{totalProposalVotes}}</label>
+                </div>
+                <div>
+                    <label class="form-control-label" jhiTranslate="spingularApp.proposalVote.userProposalVotePoints">User Proposal Vote Points</label>
+                    <label class="form-control-label" >: {{appuserProposalVotes}}</label>
+                </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="spingularApp.proposalVote.votePoints" for="field_votePoints">Vote Points</label>
                     <input type="number" class="form-control" name="votePoints" id="field_votePoints"
@@ -50,6 +65,10 @@
                             [hidden]="!editForm.get('votePoints')?.errors?.number" jhiTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
+                    </div>
+                    <div>
+                        <label class="form-control-label" jhiTranslate="spingularApp.proposalVote.totalProposalAfterVotePoints">Total Proposal After Vote Points</label>
+                        <label class="form-control-label" >: {{votePoints + appuserProposalVotes}}</label>
                     </div>
                 </div>
 

@@ -20,7 +20,7 @@
                     Create a new Proposal
                     </span>
                 </button>
-			</td> 
+			</td>
 		  </tr>
 		</table>
 		<table style="width:100%">
@@ -28,6 +28,13 @@
         	<span jhiTranslate="spingularApp.proposal.home.filterProposalByType">Filter Proposals by Type</span>
 		  </tr>
 		  <tr>
+            <td>
+                <button id="jh-my-entity" class="btn btn-primary float-left jh-create-entity create-chat-room" (click)="clear()">
+                    <span jhiTranslate="spingularApp.proposal.home.all">
+                    Study
+                    </span>
+                </button>
+            </td>
 		    <td>
    		        <button id="jh-my-entity" class="btn btn-primary float-left jh-create-entity create-chat-room" (click)="study()">
 		            <span jhiTranslate="spingularApp.ProposalType.STUDY">
@@ -48,7 +55,7 @@
 		            Development
 		            </span>
 		        </button>
-			</td> 
+			</td>
 			<td>
    		        <button id="jh-my-entity" class="btn btn-primary float-left jh-create-entity create-chat-room" (click)="production()">
 		            <span jhiTranslate="spingularApp.ProposalType.PRODUCTION">
@@ -73,13 +80,14 @@
             <th scope="col"  jhiSortBy="creationDate"><span jhiTranslate="spingularApp.proposal.creationDate">Creation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="proposalName"><span jhiTranslate="spingularApp.proposal.proposalName">Proposal Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="proposalType"><span jhiTranslate="spingularApp.proposal.proposalType">Proposal Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="proposalRole"><span jhiTranslate="spingularApp.proposal.proposalRole">Proposal Role</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col" *jhiHasAnyAuthority="'ROLE_ADMIN'" jhiSortBy="proposalRole"><span jhiTranslate="spingularApp.proposal.proposalRole">Proposal Role</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="userProposalVotes"><span jhiTranslate="spingularApp.proposal.userProposalVotes">User / Proposal Votes</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="releaseDate"><span jhiTranslate="spingularApp.proposal.releaseDate">Release Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="isOpen"><span jhiTranslate="spingularApp.proposal.isOpen">Is Open</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="isAccepted"><span jhiTranslate="spingularApp.proposal.isAccepted">Is Accepted</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="isPaid"><span jhiTranslate="spingularApp.proposal.isPaid">Is Paid</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="appuserId"><span jhiTranslate="spingularApp.proposal.appuser">Appuser</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="postId"><span jhiTranslate="spingularApp.proposal.post">Post</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col" *jhiHasAnyAuthority="'ROLE_ADMIN'" jhiSortBy="isPaid"><span jhiTranslate="spingularApp.proposal.isPaid">Is Paid</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col" *jhiHasAnyAuthority="'ROLE_ADMIN'" jhiSortBy="appuserId"><span jhiTranslate="spingularApp.proposal.appuser">Appuser</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col" *jhiHasAnyAuthority="'ROLE_ADMIN'" jhiSortBy="postId"><span jhiTranslate="spingularApp.proposal.post">Post</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -89,17 +97,25 @@
                 <td>{{proposal.creationDate | date:'medium'}}</td>
                 <td>{{proposal.proposalName}}</td>
                 <td jhiTranslate="{{'spingularApp.ProposalType.' + proposal.proposalType}}">{{proposal.proposalType}}</td>
-                <td jhiTranslate="{{'spingularApp.ProposalRole.' + proposal.proposalRole}}">{{proposal.proposalRole}}</td>
+                <td *jhiHasAnyAuthority="'ROLE_ADMIN'" jhiTranslate="{{'spingularApp.ProposalRole.' + proposal.proposalRole}}">{{proposal.proposalRole}}</td>
+                <td>
+                    {{proposal.totalVotes}} / {{proposal.totalUserVotes}}<!-- Montar un pipe que diga que es 0 si no tiene datos-->
+                    <button [routerLink]="['/proposal-vote/new']" [queryParams]="{ 'proposalIdEquals': proposal.id }" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-proposal-vote">
+                        <span jhiTranslate="spingularApp.proposal.home.vote">
+                        Vote
+                        </span>
+                    </button>
+                </td>
                 <td>{{proposal.releaseDate | date:'medium'}}</td>
                 <td>{{proposal.isOpen}}</td>
                 <td>{{proposal.isAccepted}}</td>
-                <td>{{proposal.isPaid}}</td>
-                <td>
+                <td *jhiHasAnyAuthority="'ROLE_ADMIN'">{{proposal.isPaid}}</td>
+                <td *jhiHasAnyAuthority="'ROLE_ADMIN'">
                     <div *ngIf="proposal.appuserId">
                         <a [routerLink]="['/appuser', proposal.appuserId , 'view' ]" >{{proposal.appuserId}}</a>
                     </div>
                 </td>
-                <td>
+                <td *jhiHasAnyAuthority="'ROLE_ADMIN'">
                     <div *ngIf="proposal.postId">
                         <a [routerLink]="['/post', proposal.postId , 'view' ]" >{{proposal.postId}}</a>
                     </div>

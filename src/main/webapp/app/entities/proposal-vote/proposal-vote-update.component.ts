@@ -54,7 +54,7 @@ export class ProposalVoteUpdateComponent implements OnInit {
   userQuery: boolean;
 
   totalProposalVotes: number;
-  appuserVotes: number;
+  appuserProposalVotes: number;
   userAvailableProposalVotes: number;
 
   private _proposalVote: IProposalVote;
@@ -85,33 +85,15 @@ export class ProposalVoteUpdateComponent implements OnInit {
     });
   }
 
-  // ngOnInit() {
-  //   this.isSaving = false;
-  //   this.activatedRoute.data.subscribe(({ proposalVote }) => {
-  //     this.updateForm(proposalVote);
-  //   });
-  //   this.appuserService
-  //     .query()
-  //     .pipe(
-  //       filter((mayBeOk: HttpResponse<IAppuser[]>) => mayBeOk.ok),
-  //       map((response: HttpResponse<IAppuser[]>) => response.body)
-  //     )
-  //     .subscribe((res: IAppuser[]) => (this.appusers = res), (res: HttpErrorResponse) => this.onError(res.message));
-  //   this.proposalService
-  //     .query()
-  //     .pipe(
-  //       filter((mayBeOk: HttpResponse<IProposal[]>) => mayBeOk.ok),
-  //       map((response: HttpResponse<IProposal[]>) => response.body)
-  //     )
-  //     .subscribe((res: IProposal[]) => (this.proposals = res), (res: HttpErrorResponse) => this.onError(res.message));
-  // }
-
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ proposalVote }) => {
       this.proposalVote = proposalVote;
       this.creationDate = moment().format(DATE_TIME_FORMAT);
       this.proposalVote.creationDate = moment(this.creationDate);
+      if (this.valueParamFollows) {
+        this.proposalVote.proposalId = this.valueParamFollows;
+      }
       this.updateForm(proposalVote);
     });
     this.accountService.identity().subscribe(account => {
@@ -126,47 +108,38 @@ export class ProposalVoteUpdateComponent implements OnInit {
           this.owner = res.body[0].id;
           this.appuser = res.body[0];
           this.appusers = res.body;
-          const query4 = {};
-          query4['id.equals'] = this.valueParamFollows;
-          this.proposalService.query(query4).subscribe(
-            (res4: HttpResponse<IProposal[]>) => {
-              this.proposal = res4.body[0];
-              const query2 = {};
-              query2['proposalId.equals'] = this.valueParamFollows;
-              this.proposalVoteService.query(query2).subscribe(
-                (res2: HttpResponse<IProposalVote[]>) => {
-                  this.proposalVotes = [];
-                  this.proposalVotes = res2.body;
-                  this.totalProposalVotes = 0;
-                  this.appuserVotes = 0;
-                  this.proposalVotes.forEach(proposalVote => {
-                    this.totalProposalVotes = this.totalProposalVotes + proposalVote.votePoints;
-                    if (proposalVote.appuserId === this.owner) {
-                      this.appuserVotes = this.appuserVotes + proposalVote.votePoints;
-                    }
-                    const query3 = {};
-                    //                    query3['proposalUserId.equals'] = this.currentAccount.id;profileId
-                    query3['appuserId.equals'] = this.owner;
-                    this.proposalVoteService.query(query3).subscribe(
-                      (res3: HttpResponse<IProposalVote[]>) => {
-                        this.proposalVotes2 = [];
-                        this.proposalVotes2 = res3.body;
-                        this.userAvailableProposalVotes = this.appuser.assignedVotesPoints;
-                        this.proposalVotes2.forEach(voteProposal2 => {
-                          this.userAvailableProposalVotes = this.userAvailableProposalVotes - voteProposal2.votePoints;
-                        });
-                        this.activatedRoute.data.subscribe(({ voteProposal }) => {
-                          this.updateForm(voteProposal);
-                        });
-                      },
-                      (res3: HttpErrorResponse) => this.onError(res3.message)
-                    );
-                  });
-                },
-                (res2: HttpErrorResponse) => this.onError(res2.message)
-              );
+          const query2 = {};
+          query2['proposalId.equals'] = this.valueParamFollows;
+          this.proposalVoteService.query(query2).subscribe(
+            (res2: HttpResponse<IProposalVote[]>) => {
+              this.proposalVotes = [];
+              this.proposalVotes = res2.body;
+              this.totalProposalVotes = 0;
+              this.appuserProposalVotes = 0;
+              this.proposalVotes.forEach(proposalVote => {
+                this.totalProposalVotes = this.totalProposalVotes + proposalVote.votePoints;
+                if (proposalVote.appuserId === this.owner) {
+                  this.appuserProposalVotes = this.appuserProposalVotes + proposalVote.votePoints;
+                }
+                const query3 = {};
+                query3['appuserId.equals'] = this.owner;
+                this.proposalVoteService.query(query3).subscribe(
+                  (res3: HttpResponse<IProposalVote[]>) => {
+                    this.proposalVotes2 = [];
+                    this.proposalVotes2 = res3.body;
+                    this.userAvailableProposalVotes = this.appuser.assignedVotesPoints;
+                    this.proposalVotes2.forEach(voteProposal2 => {
+                      this.userAvailableProposalVotes = this.userAvailableProposalVotes - voteProposal2.votePoints;
+                    });
+                    this.activatedRoute.data.subscribe(({ voteProposal }) => {
+                      this.updateForm(voteProposal);
+                    });
+                  },
+                  (res3: HttpErrorResponse) => this.onError(res3.message)
+                );
+              });
             },
-            (res4: HttpErrorResponse) => this.onError(res4.message)
+            (res2: HttpErrorResponse) => this.onError(res2.message)
           );
         },
         (res: HttpErrorResponse) => this.onError(res.message)

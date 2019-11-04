@@ -3,10 +3,12 @@
     "proposal": {
       "home": {
         "title": "Proposals",
+        "all": "All Proposals",
         "myLabel": "My Proposals",
         "createLabel": "Create a new Proposal",
         "createOrEditLabel": "Create or edit a Proposal",
         "filterProposalByType": "Filter Proposal by Type",
+        "vote": "Vote",
         "notFound": "No Proposals found"
       },
       "created": "A new Proposal is created with identifier {{ param }}",
@@ -22,6 +24,7 @@
       "proposalName": "Proposal Name",
       "proposalType": "Proposal Type",
       "proposalRole": "Proposal Role",
+      "userProposalVotes": "User / Proposal Votes",
       "releaseDate": "Release Date",
       "isOpen": "Is Open",
       "isAccepted": "Is Accepted",

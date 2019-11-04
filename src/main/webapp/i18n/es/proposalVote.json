@@ -2,24 +2,28 @@
   "spingularApp": {
     "proposalVote": {
       "home": {
-        "title": "Proposal Votes",
-        "createLabel": "Crear nuevo Proposal Vote",
-        "createOrEditLabel": "Crear o editar Proposal Vote",
-        "notFound": "No Proposal Votes found"
+        "title": "Votos a la Propuesta",
+        "createLabel": "Crear nuevo Votos a la Propuesta",
+        "createOrEditLabel": "Crear o editar Votos a la Propuesta",
+        "notFound": "No se han encontrado Votos a la Propuesta"
       },
-      "created": "Un nuevo Proposal Vote ha sido creado con el identificador {{ param }}",
-      "updated": "Un Proposal Vote ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Proposal Vote ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Votos a la Propuesta ha sido creado con el identificador {{ param }}",
+      "updated": "Un Votos a la Propuesta ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Votos a la Propuesta ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Proposal Vote {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Votos a la Propuesta {{ id }}?"
       },
       "detail": {
-        "title": "Proposal Vote"
+        "title": "Votos a la Propuesta"
       },
-      "creationDate": "Creation Date",
-      "votePoints": "Vote Points",
+      "creationDate": "Fecha de Creación",
+      "votePoints": "Votos a la Propuesta",
       "appuser": "Appuser",
-      "proposal": "Proposal"
+      "proposal": "Propuesta",
+      "userAvailableVotes": "Votos Disponibles del Usuario",
+      "totalProposalVotes": "Votos Totales de la Propuesta",
+      "userProposalVotePoints": "Votos del Usuario a la Propuesta",
+      "totalProposalAfterVotePoints": "Votos Totales finales de la Propuesta"
     }
   }
 }

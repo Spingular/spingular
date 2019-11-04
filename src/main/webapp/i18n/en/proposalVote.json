@@ -19,7 +19,11 @@
       "creationDate": "Creation Date",
       "votePoints": "Vote Points",
       "appuser": "Appuser",
-      "proposal": "Proposal"
+      "proposal": "Proposal",
+      "userAvailableVotes": "User Available Votes",
+      "totalProposalVotes": "Total Proposal Votes",
+      "userProposalVotePoints": "User Proposal Vote Points",
+      "totalProposalAfterVotePoints": "Total Proposal After Vote Points"
     }
   }
 }

@@ -2,10 +2,10 @@
   "spingularApp": {
     "ProposalType": {
       "null": "",
-      "STUDY": "STUDY",
-      "APPROVED": "APPROVED",
-      "DEVELOPMENT": "DEVELOPMENT",
-      "PRODUCTION": "PRODUCTION"
+      "STUDY": "Bajo Estudio",
+      "APPROVED": "Aprobadas",
+      "DEVELOPMENT": "En Desarrollo",
+      "PRODUCTION": "En Production"
     }
   }
 }
