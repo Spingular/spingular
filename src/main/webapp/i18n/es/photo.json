@@ -2,24 +2,24 @@
   "spingularApp": {
     "photo": {
       "home": {
-        "title": "Photos",
-        "createLabel": "Crear nuevo Photo",
-        "createOrEditLabel": "Crear o editar Photo",
-        "notFound": "No Photos found"
+        "title": "Foto",
+        "createLabel": "Crear nueva Foto",
+        "createOrEditLabel": "Crear o editar Foto",
+        "notFound": "No se han encontrado Fotos"
       },
-      "created": "Un nuevo Photo ha sido creado con el identificador {{ param }}",
-      "updated": "Un Photo ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Photo ha sido eliminado con el identificador {{ param }}",
+      "created": "Una nueva Foto ha sido creado con el identificador {{ param }}",
+      "updated": "Una Foto ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Una Foto ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Photo {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Foto {{ id }}?"
       },
       "detail": {
-        "title": "Photo"
+        "title": "Foto"
       },
-      "creationDate": "Creation Date",
-      "image": "Image",
-      "album": "Album",
-      "calbum": "Calbum"
+      "creationDate": "Fecha de Creación",
+      "image": "Imagen",
+      "album": "Álbum",
+      "calbum": "Álbum Comunitario"
     }
   }
 }

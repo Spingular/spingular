@@ -16,12 +16,13 @@
         "question": "¿Seguro que quiere eliminar el Comentario {{ id }}?"
       },
       "detail": {
-        "title": "Comentario"
+        "title": "Comentario",
+        "addAComment": "Añada un Comentario"
       },
       "creationDate": "Fecha de Creación",
       "commentText": "Texto del Comentario",
       "isOffensive": "Es Ofensivo",
-      "appuser": "Appuser",
+      "appuser": "Usuario",
       "post": "Post"
     }
   }

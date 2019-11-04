@@ -2,24 +2,24 @@
   "spingularApp": {
     "album": {
       "home": {
-        "title": "Albums",
-        "createLabel": "Crear nuevo Album",
-        "createOrEditLabel": "Crear o editar Album",
-        "notFound": "No Albums found"
+        "title": "Álbum",
+        "createLabel": "Crear nuevo Álbum",
+        "createOrEditLabel": "Crear o editar Álbum",
+        "notFound": "No se ha encontrado ningún Álbum"
       },
-      "created": "Un nuevo Album ha sido creado con el identificador {{ param }}",
-      "updated": "Un Album ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Album ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Álbum ha sido creado con el identificador {{ param }}",
+      "updated": "Un Álbum ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Álbum ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Album {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Álbum {{ id }}?"
       },
       "detail": {
-        "title": "Album"
+        "title": "Álbum"
       },
-      "creationDate": "Creation Date",
-      "title": "Title",
-      "photo": "Photo",
-      "appuser": "Appuser"
+      "creationDate": "Fecha de Creación",
+      "title": "Título",
+      "photo": "Foto",
+      "appuser": "Usuario"
     }
   }
 }

@@ -2,9 +2,9 @@
   "spingularApp": {
     "Gender": {
       "null": "",
-      "MALE": "MALE",
-      "FEMALE": "FEMALE",
-      "OTHER": "OTHER"
+      "MALE": "Masculino",
+      "FEMALE": "Femenino",
+      "OTHER": "Otro"
     }
   }
 }

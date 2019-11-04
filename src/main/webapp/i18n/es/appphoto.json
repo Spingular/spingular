@@ -2,22 +2,22 @@
   "spingularApp": {
     "appphoto": {
       "home": {
-        "title": "Appphotos",
-        "createLabel": "Crear nuevo Appphoto",
-        "createOrEditLabel": "Crear o editar Appphoto",
-        "notFound": "No Appphotos found"
+        "title": "Foto Perfil",
+        "createLabel": "Crear nueva Foto Perfil",
+        "createOrEditLabel": "Crear o editar Foto Perfil",
+        "notFound": "No se ha encontrado Foto Perfil"
       },
-      "created": "Un nuevo Appphoto ha sido creado con el identificador {{ param }}",
-      "updated": "Un Appphoto ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Appphoto ha sido eliminado con el identificador {{ param }}",
+      "created": "Una nueva Foto Perfil ha sido creado con el identificador {{ param }}",
+      "updated": "Una Foto Perfil ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Una Foto Perfil ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Appphoto {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Foto Perfil {{ id }}?"
       },
       "detail": {
-        "title": "Appphoto"
+        "title": "Foto Perfil"
       },
-      "creationDate": "Creation Date",
-      "image": "Image",
+      "creationDate": "Fecha de Creación",
+      "image": "Imagen",
       "appuser": "Appuser"
     }
   }

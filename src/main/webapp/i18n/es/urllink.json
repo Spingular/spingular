@@ -2,22 +2,22 @@
   "spingularApp": {
     "urllink": {
       "home": {
-        "title": "Urllinks",
-        "createLabel": "Crear nuevo Urllink",
-        "createOrEditLabel": "Crear o editar Urllink",
-        "notFound": "No Urllinks found"
+        "title": "Url Links",
+        "createLabel": "Crear nuevo Enlace",
+        "createOrEditLabel": "Crear o editar Enlace",
+        "notFound": "No se han encontrado Enlaces"
       },
-      "created": "Un nuevo Urllink ha sido creado con el identificador {{ param }}",
-      "updated": "Un Urllink ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Urllink ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Enlace ha sido creado con el identificador {{ param }}",
+      "updated": "Un Enlace ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Enlace ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Urllink {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Enlace {{ id }}?"
       },
       "detail": {
-        "title": "Urllink"
+        "title": "Enlace"
       },
-      "linkText": "Link Text",
-      "linkURL": "Link URL"
+      "linkText": "Texto de Enlace",
+      "linkURL": "URL del Enlace"
     }
   }
 }

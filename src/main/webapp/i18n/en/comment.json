@@ -16,7 +16,8 @@
         "question": "Are you sure you want to delete Comment {{ id }}?"
       },
       "detail": {
-        "title": "Comment"
+        "title": "Comment",
+        "addAComment": "Add a Comment"
       },
       "creationDate": "Creation Date",
       "commentText": "Comment Text",

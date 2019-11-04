@@ -16,7 +16,8 @@
         "question": "Are you sure you want to delete Post {{ id }}?"
       },
       "detail": {
-        "title": "Post"
+        "title": "Post",
+        "aboutTheAuthor": "About The Author"
       },
       "creationDate": "Creation Date",
       "publicationDate": "Publication Date",

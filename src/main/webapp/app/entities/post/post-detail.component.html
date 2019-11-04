@@ -34,7 +34,7 @@ post.tags: {{tags |json}} && post.topics: {{topics |json}}
 		                    </li>
 		                    <li class="list-inline-item g-mx-10">/</li>
 		                    <li class="list-inline-item g-mr-10">
-		                    <li class="icon-finance-206 u-line-icon-pro align-middle g-pos-rel g-top-1 mr-1" *ngIf="comments">{{comments.length}} Comments</li>
+		                    <li class="icon-finance-206 u-line-icon-pro align-middle g-pos-rel g-top-1 mr-1" *ngIf="comments">{{comments.length}}</li><span jhiTranslate="spingularApp.comment.home.title">Comments</span>
 		                    <li class="list-inline-item ml-auto">
 		                      <!-- <i class="icon-eye u-line-icon-pro align-middle mr-1"></i> Views 3821 -->
 		                    </li>
@@ -96,7 +96,7 @@ post.tags: {{tags |json}} && post.topics: {{topics |json}}
 									[routerLink]="['/topic/new']" [queryParams]="{ 'postIdEquals': post.id }">
 									<fa-icon [icon]="'plus'"></fa-icon>
 								</button>
-								<strong class="g-mr-5" style="float: left; margin-top: 24px; font-size: 16px;">Topics:</strong>
+								<strong jhiTranslate="spingularApp.topic.home.title" class="g-mr-5" style="float: left; margin-top: 24px; font-size: 16px;">Topics:</strong>
 		                    	<span *ngFor="let topic of topics"
 							            class="g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-white--hover"
 							            style="font-size: 13px; font-weight: bold; cursor: pointer; float:left; padding: 8px 10px; border-radius: 5px; border: solid 1px;
@@ -114,7 +114,7 @@ post.tags: {{tags |json}} && post.topics: {{topics |json}}
 									[routerLink]="['/tag/new']" [queryParams]="{ 'postIdEquals': post.id }">
 									<fa-icon [icon]="'plus'"></fa-icon>
 								</button>
-		                    	<strong class="g-mr-5" style="float: left; margin-top: 24px; font-size: 16px;">Tags:</strong>
+		                    	<strong jhiTranslate="spingularApp.tag.home.title"class="g-mr-5" style="float: left; margin-top: 24px; font-size: 16px;">Tags:</strong>
 		                    	<span  *ngFor="let tag of tags"
 							            class="g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-white--hover"
 							            style="font-size: 13px; font-weight: bold; cursor: pointer; float:left; padding: 8px 10px; border-radius: 5px; border: solid 1px;
@@ -165,7 +165,7 @@ post.tags: {{tags |json}} && post.topics: {{topics |json}}
 		                <div class="g-mb-60">
 		                  <div class="u-heading-v3-1 g-mb-30">
 		                    <h2 *ngIf="owner===0" class="h5 u-heading-v3__title g-color-gray-dark-v1 text-uppercase g-brd-primary">Please log in</h2>
-		                    <h2 *ngIf="owner!=0" class="h5 u-heading-v3__title g-color-gray-dark-v1 text-uppercase g-brd-primary">About The Author</h2>
+		                    <h2 *ngIf="owner!=0" jhiTranslate="spingularApp.post.detail.aboutTheAuthor" class="h5 u-heading-v3__title g-color-gray-dark-v1 text-uppercase g-brd-primary">About The Author</h2>
 		                  </div>
 		                  <div *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']" class="media g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-20">
 		                    <div *ngIf="appprofile">
@@ -208,8 +208,8 @@ post.tags: {{tags |json}} && post.topics: {{topics |json}}
 		                <!-- Comments -->
 		                <div *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']" class="g-mb-60">
 		                  <div class="u-heading-v3-1 g-mb-30" id="comments">
-							<h2 class="h5 u-heading-v3__title g-color-gray-dark-v1 text-uppercase g-brd-primary" *ngIf="comments">{{comments.length}} Comments</h2>
-		                  </div>
+							<h2 class="h5 u-heading-v3__title g-color-gray-dark-v1 text-uppercase g-brd-primary" *ngIf="comments">{{comments.length}} <span jhiTranslate="spingularApp.comment.home.title">Comments</span></h2>
+                        </div>
 
 		                   <!-- Comment 1 -->
 			                  <div class="media g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-20" *ngFor="let comment of comments">
@@ -272,7 +272,7 @@ post.tags: {{tags |json}} && post.topics: {{topics |json}}
 		                <!-- Add Comment -->
 		                <div class="g-mb-60" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']">
 		                  <div class="u-heading-v3-1 g-mb-30">
-		                    <h2 class="h5 u-heading-v3__title g-color-gray-dark-v1 text-uppercase g-brd-primary">Add a Comment</h2>
+		                    <h2 jhiTranslate="spingularApp.comment.detail.addAComment" class="h5 u-heading-v3__title g-color-gray-dark-v1 text-uppercase g-brd-primary">Add a Comment</h2>
 		                  </div>
 						<!--
 		                  <form>

@@ -2,38 +2,39 @@
   "spingularApp": {
     "post": {
       "home": {
-        "title": "Posts",
-        "createLabel": "Crear nuevo Post",
-        "myLabel": "Mis Posts",
-        "createOrEditLabel": "Crear o editar Post",
-        "notFound": "Posts no encontrado",
-        "search": "Buscar un Post"
+        "title": "Publicación",
+        "createLabel": "Crear nueva Publicación",
+        "myLabel": "Mis Publicaciones",
+        "createOrEditLabel": "Crear o editar Publicación",
+        "notFound": "Publicación no encontrada",
+        "search": "Buscar una Publicación"
       },
-      "created": "Un nuevo Post ha sido creado con el identificador {{ param }}",
-      "updated": "Un Post ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Post ha sido eliminado con el identificador {{ param }}",
+      "created": "Una nueva Publicación ha sido creado con el identificador {{ param }}",
+      "updated": "Una Publicación ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Una Publicación ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Post {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Publicación {{ id }}?"
       },
       "detail": {
-        "title": "Post"
+        "title": "Publicación",
+        "aboutTheAuthor": "Acerca del Autor"
       },
-      "creationDate": "Creation Date",
-      "publicationDate": "Publication Date",
-      "headline": "Headline",
-      "leadtext": "Leadtext",
-      "bodytext": "Bodytext",
-      "quote": "Quote",
-      "conclusion": "Conclusion",
-      "linkText": "Link Text",
+      "creationDate": "Fecha de Creación",
+      "publicationDate": "Fecha de Publicación",
+      "headline": "Cabecera",
+      "leadtext": "Titular",
+      "bodytext": "Cuerpo",
+      "quote": "Cita",
+      "conclusion": "Conclusión",
+      "linkText": "Texto Enlazado",
       "linkURL": "Link URL: https://example.com/",
-      "image": "Image",
-      "comment": "Comment",
-      "proposal": "Proposal",
-      "appuser": "Appuser",
+      "image": "Imagen",
+      "comment": "Comentario",
+      "proposal": "Propuesta",
+      "appuser": "Usuario",
       "blog": "Blog",
-      "tag": "Tag",
-      "topic": "Topic"
+      "tag": "Etiqueta",
+      "topic": "Tema"
     }
   }
 }

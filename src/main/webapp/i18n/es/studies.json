@@ -2,14 +2,14 @@
   "spingularApp": {
     "Studies": {
       "null": "",
-      "NA": "NA",
-      "PRIMARY": "PRIMARY",
-      "HIGH_SCHOOL": "HIGH_SCHOOL",
-      "TECHNICAL": "TECHNICAL",
-      "COLLEGE": "COLLEGE",
-      "MASTER": "MASTER",
-      "DOCTORATE": "DOCTORATE",
-      "OTHER": "OTHER"
+      "NA": "No Aplica",
+      "PRIMARY": "Primaria",
+      "HIGH_SCHOOL": "Secundaria",
+      "TECHNICAL": "Formación Profesional",
+      "COLLEGE": "Universidad",
+      "MASTER": "Master",
+      "DOCTORATE": "Doctorado",
+      "OTHER": "Otros"
     }
   }
 }

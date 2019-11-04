@@ -21,8 +21,8 @@
       "creationDate": "Fecha de Creación",
       "messageText": "Texto del Mensajes",
       "isDelivered": "Ha sido Entregado",
-      "sender": "Sender",
-      "receiver": "Receiver"
+      "sender": "Emisor",
+      "receiver": "Receptor"
     }
   }
 }
