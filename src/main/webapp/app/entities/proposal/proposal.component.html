@@ -99,7 +99,11 @@
                 <td jhiTranslate="{{'spingularApp.ProposalType.' + proposal.proposalType}}">{{proposal.proposalType}}</td>
                 <td *jhiHasAnyAuthority="'ROLE_ADMIN'" jhiTranslate="{{'spingularApp.ProposalRole.' + proposal.proposalRole}}">{{proposal.proposalRole}}</td>
                 <td>
-                    {{proposal.totalVotes}} / <span *ngIf="proposal.totalUserVotes; else elseBlock">{{proposal.totalUserVotes}}</span><ng-template #elseBlock>0</ng-template>
+                    <ng-container *ngIf="proposal.totalVotes; else elseBlock1">{{proposal.totalVotes}}</ng-container>
+                    <ng-template #elseBlock1>0</ng-template>
+                     /
+                    <ng-container *ngIf="proposal.totalUserVotes; else elseBlock2">{{proposal.totalUserVotes}}</ng-container>
+                    <ng-template #elseBlock2>0</ng-template>
                         <!-- {{proposal.totalUserVotes}} Montar un pipe que diga que es 0 si no tiene datos-->
                     <button [routerLink]="['/proposal-vote/new']" [queryParams]="{ 'proposalIdEquals': proposal.id }" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-proposal-vote">
                         <span jhiTranslate="spingularApp.proposal.home.vote">
