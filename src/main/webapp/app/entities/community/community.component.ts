@@ -98,7 +98,6 @@ export class CommunityComponent implements OnInit, OnDestroy {
       .query({
         page: this.page - 1,
         size: this.itemsPerPage,
-        search: this.currentSearch,
         sort: this.sort()
       })
       .subscribe(
@@ -142,6 +141,7 @@ export class CommunityComponent implements OnInit, OnDestroy {
 
   clear() {
     this.page = 0;
+    this.currentSearch = '';
     this.router.navigate([
       '/community',
       {

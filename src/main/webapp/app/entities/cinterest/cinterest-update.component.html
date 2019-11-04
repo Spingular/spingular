@@ -30,10 +30,11 @@
 	                <td>{{cinterest.interestName}}</td>
 	                <td class="text-right">
 	                    <div class="btn-group flex-btn-group-container">
-	                    	<button id="jh-create-entity" 
+	                    	<button id="jh-create-entity"
 							        class="btn btn-primary float-right jh-create-entity create-cinterest"
 							        (click)="addExistingProfileCinterest(cinterest.id)">
-								<fa-icon [icon]="'plus'"></fa-icon>
+                                <fa-icon [icon]="'plus'"></fa-icon>
+                                <span jhiTranslate="spingularApp.cinterest.detail.title">Add a Cinterest</span>
 							</button>
 	                    </div>
 	                </td>
@@ -97,7 +98,7 @@
             </div>
         </form>
         </div>
-    <ng-template #zipZeroResults>		
-	  <h2 id="page-heading">Nought, nil, nada, nothing, zero, zilch, zip...</h2>		
+    <ng-template #zipZeroResults>
+	  <h2 id="page-heading">Nought, nil, nada, nothing, zero, zilch, zip...</h2>
 	</ng-template>
 </div>

@@ -31,10 +31,11 @@
 	                <td>{{cactivity.activityName}}</td>
 	                <td class="text-right">
 	                    <div class="btn-group flex-btn-group-container">
-	                    	<button id="jh-create-entity" 
+	                    	<button id="jh-create-entity"
 							        class="btn btn-primary float-right jh-create-entity create-cactivity"
 							        (click)="addExistingProfileCactivity(cactivity.id)">
-								<fa-icon [icon]="'plus'"></fa-icon>
+                                <fa-icon [icon]="'plus'"></fa-icon>
+                                <span jhiTranslate="spingularApp.cactivity.detail.title">Add a Cactivity</span>
 							</button>
 	                    </div>
 	                </td>

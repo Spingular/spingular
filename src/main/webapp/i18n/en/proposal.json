@@ -24,7 +24,7 @@
       "proposalName": "Proposal Name",
       "proposalType": "Proposal Type",
       "proposalRole": "Proposal Role",
-      "userProposalVotes": "User / Proposal Votes",
+      "userProposalVotes": "Proposal Votes / User Votes",
       "releaseDate": "Release Date",
       "isOpen": "Is Open",
       "isAccepted": "Is Accepted",

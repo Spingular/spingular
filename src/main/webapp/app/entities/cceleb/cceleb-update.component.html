@@ -30,10 +30,11 @@
 	                <td>{{cceleb.celebName}}</td>
 	                <td class="text-right">
 	                    <div class="btn-group flex-btn-group-container">
-	                    	<button id="jh-create-entity" 
+	                    	<button id="jh-create-entity"
 							        class="btn btn-primary float-right jh-create-entity create-cceleb"
 							        (click)="addExistingProfileCceleb(cceleb.id)">
-								<fa-icon [icon]="'plus'"></fa-icon>
+                                <fa-icon [icon]="'plus'"></fa-icon>
+                                <span jhiTranslate="spingularApp.cceleb.detail.title">Add a Cceleb</span>
 							</button>
 	                    </div>
 	                </td>
@@ -49,7 +50,7 @@
 	        <div class="row justify-content-center">
 	            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
 	        </div>
-        
+
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-cceleb-heading" jhiTranslate="spingularApp.cceleb.home.createOrEditLabel">Create or edit a Cceleb</h2>
             <div>

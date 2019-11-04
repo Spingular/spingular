@@ -31,10 +31,11 @@
 	                <td>{{tag.tagName}}</td>
 	                <td class="text-right">
 	                    <div class="btn-group flex-btn-group-container">
-	                    	<button id="jh-create-entity" 
+	                    	<button id="jh-create-entity"
 							        class="btn btn-primary float-right jh-create-entity create-tag"
 							        (click)="addExistingTag2Post(tag.id)">
-								<fa-icon [icon]="'plus'"></fa-icon>
+                                <fa-icon [icon]="'plus'"></fa-icon>
+                                <span jhiTranslate="spingularApp.tag.detail.title">Add a Tag</span>
 							</button>
 	                    </div>
 	                </td>
@@ -50,7 +51,7 @@
 	        <div class="row justify-content-center">
 	            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
 	        </div>
-    
+
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-tag-heading" jhiTranslate="spingularApp.tag.home.createOrEditLabel">Create or edit a Tag</h2>
             <div>

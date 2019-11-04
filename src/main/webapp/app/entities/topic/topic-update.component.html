@@ -31,10 +31,11 @@
 	                <td>{{topic.topicName}}</td>
 	                <td class="text-right">
 	                    <div class="btn-group flex-btn-group-container">
-	                    	<button id="jh-create-entity" 
+	                    	<button id="jh-create-entity"
 							        class="btn btn-primary float-right jh-create-entity create-topic"
 							        (click)="addExistingTopic2Post(topic.id)">
-								<fa-icon [icon]="'plus'"></fa-icon>
+                                <fa-icon [icon]="'plus'"></fa-icon>
+                                <span jhiTranslate="spingularApp.topic.detail.title">Add a Topic</span>
 							</button>
 	                    </div>
 	                </td>
