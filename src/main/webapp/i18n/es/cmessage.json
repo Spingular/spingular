@@ -21,8 +21,8 @@
       "creationDate": "Fecha de Creación",
       "messageText": "Texto de Mensajes a la Comunidad",
       "isDelivered": "Ha sido Entregado",
-      "csender": "Csender",
-      "creceiver": "Creceiver"
+      "csender": "Comunidad Emisora",
+      "creceiver": "Comunidad Receptora"
     }
   }
 }

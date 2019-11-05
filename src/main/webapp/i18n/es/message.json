@@ -5,6 +5,7 @@
         "title": "Mensajes",
         "myLabel": "Mis Mensajes",
         "createLabel": "Crear nuevo Mensaje",
+        "sendMessage": "Enviar un Mensaje",
         "createOrEditLabel": "Crear o editar Mensaje",
         "search": "Buscar un Mensaje",
         "notFound": "No se ha encontrado ninún Mensaje"

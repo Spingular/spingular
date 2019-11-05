@@ -21,7 +21,7 @@
 		            Create new Blog
 		            </span>
 		        </button>
-			</td> 
+			</td>
 		  </tr>
 		</table>
 		</h2>
@@ -43,9 +43,9 @@
         </div>
     </div>
     <br/>
-	
+
 	 <!-- User Blocks v16 https://htmlstream.com/public/preview/unify-v2.5.1/unify-main/shortcodes/shortcode-blocks-users.html-->
-      <div class="g-bg-secondary g-py-100">
+      <div *ngIf="blogs?.length; else zipZeroResults" class="g-bg-secondary g-py-100">
         <div class="container" *ngFor="let blog of blogs ;trackBy: trackId">
           <div id="shortcode16">
             <div class="shortcode-html">
@@ -60,7 +60,7 @@
 				        <a *ngIf="blog.image" (click)="openFile(blog.imageContentType, blog.image)">
 				            <img [src]="'data:' + blog.imageContentType + ';base64,' + blog.image" style="max-width: 100%;" alt="blog image"/>
 				        </a>
-	
+
 				        <!-- Figure Image -->
                       </div>
                       <div class="mb-3">
@@ -101,7 +101,7 @@
         </div>
     </div>
       <!-- End User Blocks v16 -->
-	
+
 	<!-- End News Section -->
     <div [hidden]="blogs?.length === 0">
         <div class="row justify-content-center">
@@ -112,21 +112,12 @@
         </div>
     </div>
 </div>
+<ng-template #zipZeroResults>
+    <h2 id="page-heading">Nought, nil, nada, nothing, zero, zilch, zip...</h2>
+</ng-template>
 
 <div>
-    <h2 id="page-heading">
-        <span jhiTranslate="spingularApp.blog.home.title">Blogs</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-blog" [routerLink]="['/blog/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span  jhiTranslate="spingularApp.blog.home.createLabel">
-            Create a new Blog
-            </span>
-        </button>
-    </h2>
     <jhi-alert></jhi-alert>
-    <br/>
-</div>
-
     <div class="table-responsive" *ngIf="blogs?.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
@@ -191,5 +182,4 @@
             <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
-    owner id: {{owner | json}}
 </div>

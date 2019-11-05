@@ -18,13 +18,13 @@
                         {{photo.imageContentType}}, {{byteSize(photo.image)}}
                     </div>
                 </dd>
-                <dt><span jhiTranslate="spingularApp.photo.album">Album</span></dt>
+                <dt><span *ngIf="photo.albumId" jhiTranslate="spingularApp.photo.album">Album</span></dt>
                 <dd>
                     <div *ngIf="photo.albumId">
                         <a [routerLink]="['/album', photo.albumId, 'view']">{{photo.albumTitle}}</a>
                     </div>
                 </dd>
-                <dt><span jhiTranslate="spingularApp.photo.calbum">Calbum</span></dt>
+                <dt><span *ngIf="photo.calbumId" jhiTranslate="spingularApp.photo.calbum">Calbum</span></dt>
                 <dd>
                     <div *ngIf="photo.calbumId">
                         <a [routerLink]="['/calbum', photo.calbumId, 'view']">{{photo.calbumTitle}}</a>

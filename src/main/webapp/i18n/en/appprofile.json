@@ -54,7 +54,11 @@
       "appuser": "Appuser",
       "interest": "Interests",
       "activity": "Activities",
-      "celeb": "Celebs"
+      "celeb": "Celebs",
+      "relationships": "Relationships",
+      "cultural": "Cultural",
+      "habits": "Habits",
+      "family": "Family"
     }
   }
 }

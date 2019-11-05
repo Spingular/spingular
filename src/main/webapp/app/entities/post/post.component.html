@@ -21,7 +21,7 @@
 		            Create new Post
 		            </span>
 		        </button>
-			</td> 
+			</td>
 		  </tr>
 		</table>
 		</h2>
@@ -44,7 +44,7 @@
     </div>
     <br/>
 	<!-- User Blocks v16 https://htmlstream.com/public/preview/unify-v2.5.1/unify-main/shortcodes/shortcode-blocks-users.html-->
-      <div class="g-bg-secondary g-py-100">
+      <div *ngIf="posts?.length; else zipZeroResults" class="g-bg-secondary g-py-100">
         <div class="container" *ngFor="let post of posts ;trackBy: trackId">
           <div id="shortcode16">
             <div class="shortcode-html">
@@ -65,7 +65,7 @@
                         <h2 class="h3 mb-4"><a class="u-link-v5 g-color-main g-color-primary--hover" [routerLink]="['/post', post.id, 'view' ]">{{post.headline}}</a></h2>
 	        			<p class="g-font-size-13">{{post.publicationDate | date:'MMM d, y, h:mm a'}}</p>
 	        			<p>{{post.leadtext}}</p>
-	        			<a [routerLink]="['/topic', topic.id, 'view' ]" 
+	        			<a [routerLink]="['/topic', topic.id, 'view' ]"
 	        				*ngFor="let topic of post.topics"
 	        				class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5">
 	        					{{topic.topicName}}
@@ -116,17 +116,11 @@
 	      </div>
 	  </div>
 </div>
+<ng-template #zipZeroResults>
+    <h2 id="page-heading">Nought, nil, nada, nothing, zero, zilch, zip...</h2>
+</ng-template>
 
 <div>
-    <h2 id="page-heading">
-        <span jhiTranslate="spingularApp.post.home.title">Posts</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-post" [routerLink]="['/post/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span class="hidden-sm-down" jhiTranslate="spingularApp.post.home.createLabel">
-            Create new Post
-            </span>
-        </button>
-    </h2>
     <jhi-alert></jhi-alert>
     <jhi-alert-error></jhi-alert-error>
     <br/>

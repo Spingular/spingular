@@ -34,7 +34,7 @@ export class BlockeduserComponent implements OnInit, OnDestroy {
   nameParamBlockUser: any;
   valueParamBlockUser: any;
   zipZeroResults: any;
-  blockingUserId: number;
+  blockedUserId: number;
 
   userQuery: boolean;
   communityQuery: boolean;
@@ -62,13 +62,13 @@ export class BlockeduserComponent implements OnInit, OnDestroy {
     });
     this.activatedRoute.queryParams.subscribe(params => {
       if (params.blockeduserIdEquals != null) {
-        this.nameParamBlockUser = 'blockinguserId.equals';
+        this.nameParamBlockUser = 'blockeduserId.equals';
         this.valueParamBlockUser = params.blockeduserIdEquals;
         this.userQuery = true;
       }
-      if (params.cblockinguserIdEquals != null) {
-        this.nameParamBlockUser = 'cblockinguserId.equals';
-        this.valueParamBlockUser = params.cblockinguserIdEquals;
+      if (params.cblockedUserIdEquals != null) {
+        this.nameParamBlockUser = 'cblockeduserId.equals';
+        this.valueParamBlockUser = params.cblockeduserIdEquals;
         this.communityQuery = true;
       }
     });
@@ -80,7 +80,7 @@ export class BlockeduserComponent implements OnInit, OnDestroy {
       size: this.itemsPerPage,
       sort: this.sort()
     };
-    query['blockeduserId.equals'] = this.blockingUserId;
+    query['blockinguserId.equals'] = this.blockedUserId;
     this.blockuserService
       .query(query)
       .subscribe(
@@ -131,7 +131,7 @@ export class BlockeduserComponent implements OnInit, OnDestroy {
           }
           this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
             this.owner = res.body[0].id;
-            this.blockingUserId = this.valueParamBlockUser;
+            this.blockedUserId = this.valueParamBlockUser;
             this.loadAll();
           });
         },

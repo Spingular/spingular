@@ -21,8 +21,8 @@
       "creationDate": "Creation Date",
       "messageText": "Message Text",
       "isDelivered": "Is Delivered",
-      "csender": "Csender",
-      "creceiver": "Creceiver"
+      "csender": "Sender Community",
+      "creceiver": "Receiver Community"
     }
   }
 }

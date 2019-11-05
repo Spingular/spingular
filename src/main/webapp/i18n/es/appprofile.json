@@ -54,7 +54,11 @@
       "appuser": "Appuser",
       "interest": "Intereses",
       "activity": "Actividades",
-      "celeb": "Celebridades"
+      "celeb": "Celebridades",
+      "relationships": "Relaciones",
+      "cultural": "Cultural",
+      "habits": "Hábitos",
+      "family": "Familia"
     }
   }
 }

@@ -17,7 +17,7 @@
                 <dd>
                     <span>{{cmessage.isDelivered}}</span>
                 </dd>
-                <dt><span jhiTranslate="spingularApp.cmessage.csender">Csender</span></dt>
+                <dt><span jhiTranslate="spingularApp.message.sender">Csender</span></dt>
                 <dd>
                     <div *ngIf="cmessage.csenderId">
                         <a [routerLink]="['/community', cmessage.csenderId, 'view']">{{cmessage.csenderId}}</a>

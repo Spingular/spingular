@@ -21,7 +21,7 @@
 		            Create new Community
 		            </span>
 		        </button>
-			</td> 
+			</td>
 		  </tr>
 		</table>
 		</h2>
@@ -43,9 +43,9 @@
         </div>
     </div>
     <br/>
- 		
+
 	  <!-- User Blocks v16 https://htmlstream.com/public/preview/unify-v2.5.1/unify-main/shortcodes/shortcode-blocks-users.html-->
-      <section class="g-bg-secondary g-py-100">
+      <section *ngIf="communities?.length; else zipZeroResults" class="g-bg-secondary g-py-100">
         <div class="container" *ngFor="let community of communities ;trackBy: trackId">
           <div id="shortcode16">
             <div class="shortcode-html">
@@ -68,7 +68,7 @@
                       <span class="d-block g-font-weight-500 g-font-size-13">{{community.communityDescription}}</span>
                       <span class="d-block g-font-weight-500 g-font-size-13">{{community.creationDate | date:'longDate'}}</span>
                     </div>
-					
+
 					<!-- Figure List -->
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
@@ -104,6 +104,9 @@
 
         </div>
       </section>
+    <ng-template #zipZeroResults>
+        <h2 id="page-heading">Nought, nil, nada, nothing, zero, zilch, zip...</h2>
+    </ng-template>
       <!-- End User Blocks v16 -->
 	<div *ngIf="communities && communities.length">
 	    <div class="row justify-content-center">

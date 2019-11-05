@@ -83,13 +83,13 @@
 
               <!-- Following Contacts http://localhost:9000/api/follows?followedId.equals=1 -->
               <a [routerLink]="['/follow/following']" [queryParams]="{ 'followedIdEquals': appprofile.id }" class="list-group-item list-group-item-action justify-content-between">
-                <span><i class="icon-notebook g-pos-rel g-top-1 g-mr-8"></i> Following</span>
+                <span><i class="icon-notebook g-pos-rel g-top-1 g-mr-8"></i> <span jhiTranslate="spingularApp.follow.home.titleFollowing" ></span></span>
               </a>
               <!-- End Following Contacts -->
 
               <!-- Follower Contacts  http://localhost:9000/api/follows?followingId.equals=1 -->
               <a [routerLink]="['/follow/follower']" [queryParams]="{ 'followingIdEquals': appprofile.id }" class="list-group-item list-group-item-action justify-content-between">
-                <span><i class="icon-notebook g-pos-rel g-top-1 g-mr-8"></i> Followers</span>
+                <span><i class="icon-notebook g-pos-rel g-top-1 g-mr-8"></i> <span jhiTranslate="spingularApp.follow.home.titleFollower" ></span></span>
               </a>
               <!-- End Follower Contacts -->
 
@@ -113,19 +113,19 @@
 
               <!-- Blocking Users -->
               <a [routerLink]="['/blockuser/blockinguser']" [queryParams]="{ 'blockinguserIdEquals': appprofile.id }" class="list-group-item list-group-item-action justify-content-between">
-                <span><i class="icon-fire g-pos-rel g-top-1 g-mr-8"></i> Blocking Users</span>
+                <span><i class="icon-fire g-pos-rel g-top-1 g-mr-8"></i> <span jhiTranslate="spingularApp.blockuser.home.titleBlockingusers"></span></span>
               </a>
               <!-- End Blocking Users -->
 
               <!-- Blocked Users -->
               <a [routerLink]="['/blockuser/blockeduser']" [queryParams]="{ 'blockeduserIdEquals': appprofile.id }" class="list-group-item list-group-item-action justify-content-between">
-                <span><i class="icon-fire g-pos-rel g-top-1 g-mr-8"></i> Blocked Users</span>
+                <span><i class="icon-fire g-pos-rel g-top-1 g-mr-8"></i> <span jhiTranslate="spingularApp.blockuser.home.titleBlockedusers"></span></span>
               </a>
               <!-- End Blocked Users -->
 
               <!-- Messages http://localhost:9000/api/messages?appprofileId.equals=1-->
               <a [routerLink]="['/message/new']" [queryParams]="{ 'appprofileIdEquals': appprofile.id }" class="list-group-item justify-content-between active">
-                <span><i class="icon-settings g-pos-rel g-top-1 g-mr-8"></i> Send a Message</span>
+                <span><i class="icon-envelope-letter g-pos-rel g-top-1 g-mr-8"></i> <span jhiTranslate="spingularApp.message.home.sendMessage"></span></span>
                 <span class="u-label g-font-size-11 g-bg-cyan g-rounded-20 g-px-8"></span>
               </a>
               <!-- End Messages -->
@@ -305,7 +305,7 @@
 				                -->
 
 
-				                <h3><span class="g-color-primary">Relationships:</span></h3>
+				                <h3><span jhiTranslate="spingularApp.appprofile.relationships" class="g-color-primary">Relationships:</span></h3>
 
 				                <dt><span *ngIf="appprofile.civilStatus" jhiTranslate="spingularApp.appprofile.civilStatus">Civil Status</span></dt>
 				                <dd>
@@ -326,7 +326,7 @@
 				                    <span jhiTranslate="{{'spingularApp.Purpose.' + appprofile.purpose}}">{{appprofile.purpose}}</span>
 				                </dd>
 
-				                <h3><span class="g-color-primary">Family:</span></h3>
+				                <h3><span jhiTranslate="spingularApp.appprofile.family" class="g-color-primary">Family:</span></h3>
 
 
 				                <dt><span *ngIf="appprofile.sibblings" jhiTranslate="spingularApp.appprofile.sibblings">Sibblings</span></dt>
@@ -346,7 +346,7 @@
 				                    <span *ngIf="appprofile.pet===true">{{appprofile.pet}}</span>
 				                </dd>
 
-				                <h3><span class="g-color-primary">Physical:</span></h3>
+				                <h3><span jhiTranslate="spingularApp.appprofile.physical" class="g-color-primary">Physical:</span></h3>
 
 				                <dt><span *ngIf="appprofile.physical" jhiTranslate="spingularApp.appprofile.physical">Physical</span></dt>
 				                <dd>
@@ -357,7 +357,7 @@
 				                    <span jhiTranslate="{{'spingularApp.Eyes.' + appprofile.eyes}}">{{appprofile.eyes}}</span>
 				                </dd>
 
-				                <h3><span class="g-color-primary">Cultural:</span></h3>
+				                <h3><span jhiTranslate="spingularApp.appprofile.cultural" class="g-color-primary">Cultural:</span></h3>
 
 				                <dt><span *ngIf="appprofile.religion" jhiTranslate="spingularApp.appprofile.religion">Religion</span></dt>
 				                <dd>
@@ -368,13 +368,13 @@
 				                    <span jhiTranslate="{{'spingularApp.EthnicGroup.' + appprofile.ethnicGroup}}">{{appprofile.ethnicGroup}}</span>
 				                </dd>
 
-				                <h3><span class="g-color-primary">Studies:</span></h3>
+				                <h3><span jhiTranslate="spingularApp.appprofile.studies" class="g-color-primary">Studies:</span></h3>
 
 				                <dt><span *ngIf="appprofile.studies" jhiTranslate="spingularApp.appprofile.studies">Studies</span></dt>
 				                <dd>
 				                    <span jhiTranslate="{{'spingularApp.Studies.' + appprofile.studies}}">{{appprofile.studies}}</span>
 								</dd>
-				                <h3><span class="g-color-primary">Habits:</span></h3>
+				                <h3><span jhiTranslate="spingularApp.appprofile.habits" class="g-color-primary">Habits:</span></h3>
 
 				                <dt><span *ngIf="appprofile.smoker" jhiTranslate="spingularApp.appprofile.smoker">Smoker</span></dt>
 				                <dd>

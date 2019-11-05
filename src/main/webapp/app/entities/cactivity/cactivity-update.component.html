@@ -52,7 +52,8 @@
 	            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
 	        </div>
 	    </div>
-	</div>
+    </div>
+    <div>
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-cactivity-heading" jhiTranslate="spingularApp.cactivity.home.createOrEditLabel">Create or edit a Cactivity</h2>
             <div>
@@ -98,11 +99,6 @@
                 </button>
             </div>
         </form>
-        <p>owner: {{owner |json}}</p>
-        <p>valueParamCommunityId: {{valueParamCommunityId |json}}</p>
-
-        <p>{{communities | json}}</p>
-    </div>
     <ng-template #zipZeroResults>
 	  <h2 id="page-heading">Nought, nil, nada, nothing, zero, zilch, zip...</h2>
     </ng-template>

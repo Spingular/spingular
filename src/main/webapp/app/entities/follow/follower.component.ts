@@ -75,18 +75,6 @@ export class FollowerComponent implements OnInit, OnDestroy {
   }
 
   loadAll() {
-    // const query = {
-    //   page: this.page - 1,
-    //   size: this.itemsPerPage,
-    //   sort: this.sort()
-    // };
-    // query['followingId.equals'] = this.followingId;
-    // this.followService
-    //   .query(query)
-    //   .subscribe(
-    //     (res: HttpResponse<IFollow[]>) => this.paginateFollows(res.body, res.headers),
-    //     (res: HttpErrorResponse) => this.onError(res.message)
-    //   );
     if (this.communityQuery === true) {
       const query = {};
       query['cfollowingId.equals'] = this.valueParamFollows;
@@ -152,8 +140,6 @@ export class FollowerComponent implements OnInit, OnDestroy {
           }
           this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
             this.owner = res.body[0].id;
-            // this.followingId = this.valueParamFollows;
-            // this.loadAll();
           });
         },
         (res: HttpErrorResponse) => this.onError(res.message)

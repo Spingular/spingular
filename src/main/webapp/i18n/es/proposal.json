@@ -20,10 +20,10 @@
       "detail": {
         "title": "Propuesta"
       },
-      "creationDate": "Fecha de Creación Date",
+      "creationDate": "Fecha de Creación",
       "proposalName": "Nombre de la Propuesta",
       "proposalType": "Tipo de Propuesta",
-      "proposalRole": "Role en la Propuesta",
+      "proposalRole": "Rol en la Propuesta",
       "userProposalVotes": "Votos Propuesta / Votos Usuario",
       "releaseDate": "Fecha de Entrega",
       "isOpen": "Abierta?",

@@ -16,7 +16,7 @@
         "question": "¿Seguro que quiere eliminar Celebridad {{ id }}?"
       },
       "detail": {
-        "title": "Celebridad"
+        "title": "Celebridades"
       },
       "celebName": "Nombre de la Celebridad",
       "appuser": "Appuser"
