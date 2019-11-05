@@ -2,9 +2,9 @@
   "spingularApp": {
     "FutureChildren": {
       "null": "",
-      "NA": "NA",
-      "YES": "YES",
-      "NO": "NO"
+      "NA": "Non Aplicable",
+      "YES": "Yes",
+      "NO": "No"
     }
   }
 }

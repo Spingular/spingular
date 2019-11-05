@@ -2,13 +2,13 @@
   "spingularApp": {
     "Physical": {
       "null": "",
-      "NA": "NA",
-      "THIN": "THIN",
-      "ATHLETIC": "ATHLETIC",
-      "NORMAL": "NORMAL",
-      "CORPULENT": "CORPULENT",
-      "BULKY": "BULKY",
-      "OTHER": "OTHER"
+      "NA": "Non Aplicable",
+      "THIN": "Thin",
+      "ATHLETIC": "Athletinc",
+      "NORMAL": "Normal",
+      "CORPULENT": "Corpulent",
+      "BULKY": "Bulky",
+      "OTHER": "Other"
     }
   }
 }

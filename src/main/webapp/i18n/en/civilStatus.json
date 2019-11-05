@@ -2,14 +2,14 @@
   "spingularApp": {
     "CivilStatus": {
       "null": "",
-      "NA": "NA",
-      "SINGLE": "SINGLE",
-      "MARRIED": "MARRIED",
-      "DIVORCED": "DIVORCED",
-      "WIDOWER": "WIDOWER",
-      "SEPARATED": "SEPARATED",
-      "ENGAGED": "ENGAGED",
-      "OTHER": "OTHER"
+      "NA": "Non Aplicable",
+      "SINGLE": "Single",
+      "MARRIED": "Married",
+      "DIVORCED": "Divorced",
+      "WIDOWER": "Widower",
+      "SEPARATED": "Separated",
+      "ENGAGED": "Engaged",
+      "OTHER": "Other"
     }
   }
 }
