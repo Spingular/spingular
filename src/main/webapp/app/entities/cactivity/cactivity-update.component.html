@@ -33,7 +33,7 @@
 	                    <div class="btn-group flex-btn-group-container">
 	                    	<button id="jh-create-entity"
 							        class="btn btn-primary float-right jh-create-entity create-cactivity"
-							        (click)="addExistingProfileCactivity(cactivity.id)">
+							        (click)="addExistingCommunityCactivity(cactivity.id)">
                                 <fa-icon [icon]="'plus'"></fa-icon>
                                 <span jhiTranslate="spingularApp.cactivity.detail.title">Add a Cactivity</span>
 							</button>
@@ -98,6 +98,10 @@
                 </button>
             </div>
         </form>
+        <p>owner: {{owner |json}}</p>
+        <p>valueParamCommunityId: {{valueParamCommunityId |json}}</p>
+
+        <p>{{communities | json}}</p>
     </div>
     <ng-template #zipZeroResults>
 	  <h2 id="page-heading">Nought, nil, nada, nothing, zero, zilch, zip...</h2>

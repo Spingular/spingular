@@ -69,13 +69,17 @@ export class CactivityUpdateComponent implements OnInit {
     protected accountService: AccountService,
     protected router: Router,
     protected eventManager: JhiEventManager
-  ) {}
+  ) {
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params.communityIdEquals != null) {
+        this.nameParamCommunityId = 'community.id ';
+        this.valueParamCommunityId = params.communityIdEquals;
+      }
+    });
+  }
 
   ngOnInit() {
     this.isSaving = false;
-    this.activatedRoute.data.subscribe(({ cactivity }) => {
-      this.cactivity = cactivity;
-    });
     this.accountService.identity().subscribe(
       account => {
         this.currentAccount = account;
@@ -86,20 +90,30 @@ export class CactivityUpdateComponent implements OnInit {
         }
         this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
           this.owner = res.body[0].id;
-          const query2 = {};
-          if (this.currentAccount.id != null) {
-            query2['appuserId.equals'] = this.owner;
-          }
-          this.communityService.query(query2).subscribe(
-            (res2: HttpResponse<ICommunity[]>) => {
-              this.communities = res2.body;
-            },
-            (res2: HttpErrorResponse) => this.onError(res2.message)
-          );
         });
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
+    this.activatedRoute.data.subscribe(({ cactivity }) => {
+      this.updateForm(cactivity);
+    });
+    if (this.valueParamCommunityId != null) {
+      const query = {};
+      query['id.equals'] = this.valueParamCommunityId;
+      this.communityService.query(query).subscribe(
+        (res: HttpResponse<ICommunity[]>) => {
+          this.communities = res.body;
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+    } else {
+      this.communityService.query().subscribe(
+        (res: HttpResponse<ICommunity[]>) => {
+          this.communities = res.body;
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+    }
   }
 
   loadAll() {
@@ -112,7 +126,7 @@ export class CactivityUpdateComponent implements OnInit {
           sort: this.sort()
         })
         .subscribe(
-          (res: HttpResponse<ICactivity[]>) => this.paginateCactivitys(res.body, res.headers),
+          (res: HttpResponse<ICactivity[]>) => this.paginateCactivities(res.body, res.headers),
           (res: HttpErrorResponse) => this.onError(res.message)
         );
       return;
@@ -124,12 +138,12 @@ export class CactivityUpdateComponent implements OnInit {
         sort: this.sort()
       })
       .subscribe(
-        (res: HttpResponse<ICactivity[]>) => this.paginateCactivitys(res.body, res.headers),
+        (res: HttpResponse<ICactivity[]>) => this.paginateCactivities(res.body, res.headers),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
   }
 
-  addExistingProfileCactivity(cactivityId) {
+  addExistingCommunityCactivity(cactivityId) {
     this.isSaving = true;
     if (cactivityId !== undefined) {
       const query = {};
@@ -212,7 +226,7 @@ export class CactivityUpdateComponent implements OnInit {
     this.loadAll();
   }
 
-  private paginateCactivitys(data: ICactivity[], headers: HttpHeaders) {
+  private paginateCactivities(data: ICactivity[], headers: HttpHeaders) {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.cactivities = data;

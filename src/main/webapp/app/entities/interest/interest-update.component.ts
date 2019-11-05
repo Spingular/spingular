@@ -260,53 +260,6 @@ export class InterestUpdateComponent implements OnInit {
     }
   }
 
-  // save() {
-  //   this.isSaving = true;
-  //   const interest = this.createFromForm();
-  //   if (interest.interestName !== undefined) {
-  //     const query = {};
-  //     query['interestName.equals'] = interest.interestName;
-  //     this.interestService.query(query).subscribe(
-  //       (res: HttpResponse<IInterest[]>) => {
-  //         this.interests = res.body;
-  //         // console.log('this.interests', this.interests);
-  //         if (this.interests[0] !== undefined) { // si NO está vacía (el interes ya existe) compruebo si lo tiene
-  //           // this.interest[0].appusers.array.forEach(appuser => {
-  //             if (this.interest[0].appusers.indexOf(this.appusers[0])) {
-  //               this.onSaveSuccess();
-  //             } else {
-  //               this.interests[0].appusers.push(this.appusers[0]);
-  //               this.subscribeToSaveResponse(this.interestService.update(this.interests[0]));
-  //             }
-  //           // });
-  //           // tengo que recorrer la lista de users que tienen ese interes y buscar a mi user.
-  //           // IF my user está, pues no hago nado y si IF NO está pues lo añado
-  //           // this.interests = res.body;
-  //           // this.interests[0].appusers.push(this.appusers[0]);
-  //           // this.subscribeToSaveResponse(this.interestService.update(this.interests[0]));
-  //           // this.onSaveSuccess();
-  //         } else { // si está vacía es que lo creo y se lo añado
-
-  //           this.interestService.create(interest);
-  //           this.save();
-  //           // const newArrayAppusers: IAppuser[] = [];
-  //           // this.interests[0].newArrayAppusers.push(this.appuser);
-  //           // this.subscribeToSaveResponse(this.interestService.update(this.interests[0]));
-
-  //           // this.subscribeToSaveResponse(this.interestService.create(interest));
-  //           // después de crearlo tengo que añadirselo a mi appuser.
-  //         }
-  //       },
-  //       (res: HttpErrorResponse) => this.onError(res.message)
-  //     );
-  //   }
-  //   // if (interest.id !== undefined) {
-  //   //   this.subscribeToSaveResponse(this.interestService.update(interest));
-  //   // } else {
-  //   //   this.subscribeToSaveResponse(this.interestService.create(interest));
-  //   // }
-  // }
-
   private createFromForm(): IInterest {
     return {
       ...new Interest(),

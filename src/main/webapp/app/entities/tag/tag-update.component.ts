@@ -73,20 +73,6 @@ export class TagUpdateComponent implements OnInit {
     });
   }
 
-  // ngOnInit() {
-  //   this.isSaving = false;
-  //   this.activatedRoute.data.subscribe(({ tag }) => {
-  //     this.updateForm(tag);
-  //   });
-  //   this.postService
-  //     .query()
-  //     .pipe(
-  //       filter((mayBeOk: HttpResponse<IPost[]>) => mayBeOk.ok),
-  //       map((response: HttpResponse<IPost[]>) => response.body)
-  //     )
-  //     .subscribe((res: IPost[]) => (this.posts = res), (res: HttpErrorResponse) => this.onError(res.message));
-  // }
-
   ngOnInit() {
     this.isSaving = false;
     this.accountService.identity().subscribe(

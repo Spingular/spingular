@@ -69,13 +69,17 @@ export class CinterestUpdateComponent implements OnInit {
     protected accountService: AccountService,
     protected router: Router,
     protected eventManager: JhiEventManager
-  ) {}
+  ) {
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params.communityIdEquals != null) {
+        this.nameParamCommunityId = 'community.id ';
+        this.valueParamCommunityId = params.communityIdEquals;
+      }
+    });
+  }
 
   ngOnInit() {
     this.isSaving = false;
-    this.activatedRoute.data.subscribe(({ cinterest }) => {
-      this.cinterest = cinterest;
-    });
     this.accountService.identity().subscribe(
       account => {
         this.currentAccount = account;
@@ -86,20 +90,30 @@ export class CinterestUpdateComponent implements OnInit {
         }
         this.appuserService.query(query).subscribe((res: HttpResponse<IAppuser[]>) => {
           this.owner = res.body[0].id;
-          const query2 = {};
-          if (this.currentAccount.id != null) {
-            query2['appuserId.equals'] = this.owner;
-          }
-          this.communityService.query(query2).subscribe(
-            (res2: HttpResponse<ICommunity[]>) => {
-              this.communities = res2.body;
-            },
-            (res2: HttpErrorResponse) => this.onError(res2.message)
-          );
         });
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
+    this.activatedRoute.data.subscribe(({ cinterest }) => {
+      this.updateForm(cinterest);
+    });
+    if (this.valueParamCommunityId != null) {
+      const query = {};
+      query['id.equals'] = this.valueParamCommunityId;
+      this.communityService.query(query).subscribe(
+        (res: HttpResponse<ICommunity[]>) => {
+          this.communities = res.body;
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+    } else {
+      this.communityService.query().subscribe(
+        (res: HttpResponse<ICommunity[]>) => {
+          this.communities = res.body;
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+    }
   }
 
   loadAll() {
@@ -129,7 +143,7 @@ export class CinterestUpdateComponent implements OnInit {
       );
   }
 
-  addExistingProfileCinterest(cinterestId) {
+  addExistingCommunityCinterest(cinterestId) {
     this.isSaving = true;
     if (cinterestId !== undefined) {
       const query = {};
