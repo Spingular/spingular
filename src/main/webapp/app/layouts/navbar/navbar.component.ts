@@ -91,8 +91,8 @@ export class NavbarComponent implements OnInit {
       this.loginName = this.currentAccount.login;
       this.mynotifications().subscribe(
         (res: HttpResponse<INotification[]>) => {
-          // this.numberOfNotifications = res.body.length;
-          this.notifications = res.body;
+          this.numberOfNotifications = res.body.length;
+          // this.notifications = res.body;
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );

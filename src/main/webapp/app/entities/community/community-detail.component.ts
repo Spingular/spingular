@@ -245,28 +245,28 @@ export class CommunityDetailComponent implements OnInit {
     });
   }
 
-  removeCommunityCactivity(cactivityId, communityId) {
+  removeCommunityCactivity(cactivityId, communityId, z) {
     this.cactivities.forEach(cactivity => {
       if (cactivity.id === cactivityId) {
         cactivity.communities.forEach(community => {
           if (community.id === communityId) {
             cactivity.communities.splice(cactivity.communities.indexOf(community), 1);
-            this.subscribeToSaveResponse3(this.cactivityService.update(cactivity));
-            this.cactivities.splice(cactivity.communities.indexOf(community), 1);
+            this.subscribeToSaveResponse4(this.cactivityService.update(cactivity));
+            this.cactivities.splice(z, 1);
           }
         });
       }
     });
   }
 
-  removeCommunityCceleb(ccelebId, communityId) {
+  removeCommunityCceleb(ccelebId, communityId, j) {
     this.ccelebs.forEach(cceleb => {
       if (cceleb.id === ccelebId) {
         cceleb.communities.forEach(community => {
           if (community.id === communityId) {
             cceleb.communities.splice(cceleb.communities.indexOf(community), 1);
-            this.subscribeToSaveResponse3(this.ccelebService.update(cceleb));
-            this.ccelebs.splice(cceleb.communities.indexOf(community), 1);
+            this.subscribeToSaveResponse5(this.ccelebService.update(cceleb));
+            this.ccelebs.splice(j, 1);
           }
         });
       }

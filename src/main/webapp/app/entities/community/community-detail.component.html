@@ -70,7 +70,7 @@
                 <span *ngFor="let cinterest of cinterests; let i = index" class="g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-white--hover"
                         style="font-size: 13px; font-weight: bold; cursor: pointer; float:left; padding: 8px 10px; border-radius: 5px; border: solid 1px; margin-right: 15px; overflow: hidden; display: inherit; width: fit-content; margin-top: 15px;">
                     <fa-icon *ngIf="owner === community.appuserId" (click)="removeCommunityCinterest(cinterest.id, community.id, i)" [icon]="'times'" class="g-color-red--hover"></fa-icon>
-                    <span [routerLink]="['/cinterest', cinterest.id, 'view' ]" style="padding-left: 10px;">{{cinterest.interestName}}</span>
+                    <span [routerLink]="['/cinterest', cinterest.id, 'view' ]" style="padding-left: 10px;">{{cinterest.interestName}}--{{i}}</span>
                 </span>
             </div>
             <!-- End Interests -->
@@ -92,9 +92,9 @@
                         <span jhiTranslate="spingularApp.activity.detail.title">Cactivity</span>
                     </button>
                 </div>
-                <span *ngFor="let cactivity of cactivities" class="g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-white--hover"
+                <span *ngFor="let cactivity of cactivities; let i = index" class="g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-white--hover"
                         style="font-size: 13px; font-weight: bold; cursor: pointer; float:left; padding: 8px 10px; border-radius: 5px; border: solid 1px; margin-right: 15px; overflow: hidden; display: inherit; width: fit-content; margin-top: 15px;">
-                    <fa-icon *ngIf="owner === community.appuserId" (click)="removeCommunityCactivity(cactivity.id, community.id)" [icon]="'times'" class="g-color-red--hover"></fa-icon>
+                    <fa-icon *ngIf="owner === community.appuserId" (click)="removeCommunityCactivity(cactivity.id, community.id, i)" [icon]="'times'" class="g-color-red--hover"></fa-icon>
                     <span [routerLink]="['/cactivity', cactivity.id, 'view' ]" style="padding-left: 10px;">{{cactivity.activityName}}</span>
                 </span>
             </div>
@@ -117,9 +117,9 @@
                         <span jhiTranslate="spingularApp.celeb.detail.title">Cceleb</span>
                     </button>
                 </div>
-                <span *ngFor="let cceleb of ccelebs" class="g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-white--hover"
+                <span *ngFor="let cceleb of ccelebs; let i = index" class="g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-white--hover"
                         style="font-size: 13px; font-weight: bold; cursor: pointer; float:left; padding: 8px 10px; border-radius: 5px; border: solid 1px; margin-right: 15px; overflow: hidden; display: inherit; width: fit-content; margin-top: 15px;">
-                    <fa-icon *ngIf="owner === community.appuserId" (click)="removeCommunityCceleb(cceleb.id, community.id)" [icon]="'times'" class="g-color-red--hover"></fa-icon>
+                    <fa-icon *ngIf="owner === community.appuserId" (click)="removeCommunityCceleb(cceleb.id, community.id, i)" [icon]="'times'" class="g-color-red--hover"></fa-icon>
                     <span [routerLink]="['/cceleb', cceleb.id, 'view' ]" style="padding-left: 10px;">{{cceleb.celebName}}</span>
                 </span>
             </div>
