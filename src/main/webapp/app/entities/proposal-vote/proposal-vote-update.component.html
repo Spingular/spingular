@@ -1,14 +1,17 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div>
-        	<h4><!--
+        	<h4>
+                <!--
                 {{nameParamFollows}} {{valueParamFollows}}
                 <p><label> User :</label>{{appuser | json}}</p>
+                <p><label> proposalVote :</label>{{proposalVote | json}}</p>
 	            <p><label>Assigned User Points:</label>{{appuser.assignedVotesPoints}}</p>
 	            <p><label>totalProposalVotes Proposal Votes Points:</label>{{totalProposalVotes}}</p>
 	            <p><label>User Proposal Votes Points:</label>{{appuserProposalVotes}}</p>
                 <p><label>User Available Proposal Points:</label>{{userAvailableProposalVotes}}</p>
                 <p><label>Proposal:</label>{{proposal | json}}</p>
+
                 <p><label>kk:</label>{{kk}}</p>
 	             NECESITO RESTAR LOS PUNTOS ASIGNADOS A LOS VOTOS DE QUE DISPONE y poner el limite en la diferencia.
 	            <label class="form-control-label" for="assignedVotesPoints">Votes Points Left:</label>{{proposaluser.assignedVotesPoints}} - 'votePoints'
@@ -55,7 +58,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="spingularApp.proposalVote.votePoints" for="field_votePoints">Vote Points</label>
                     <input type="number" value="0" class="form-control" name="votePoints" id="field_votePoints"
-                           formControlName="votePoints" (click)="test()" />
+                           formControlName="votePoints" />
                     <div *ngIf="editForm.get('votePoints').invalid && (editForm.get('votePoints').dirty || editForm.get('votePoints').touched)">
                         <small class="form-text text-danger"
                                *ngIf="editForm.get('votePoints').errors.required" jhiTranslate="entity.validation.required">

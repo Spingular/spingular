@@ -10,8 +10,8 @@ import { AccountService } from 'app/core/auth/account.service';
 import { LoginModalService } from 'app/core/login/login-modal.service';
 import { LoginService } from 'app/core/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
-import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { JhiAlertService } from 'ng-jhipster';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 import { INotification } from 'app/shared/model/notification.model';
 import { NotificationService } from '../.././../app/entities/notification/notification.service';
@@ -41,8 +41,8 @@ export class NavbarComponent implements OnInit {
   numberOfNotifications: number;
   numberOfMessages: number;
   numberOfCmessages: number;
-  numberOfCommunities: number;
 
+  notifications: INotification[];
   messages: IMessage[];
   cmessages: ICmessage[];
   communities: ICommunity[];
@@ -86,20 +86,19 @@ export class NavbarComponent implements OnInit {
   }
 
   loginData() {
-    this.accountService.identity().then(account => {
+    this.accountService.identity().subscribe(account => {
       this.currentAccount = account;
       this.loginName = this.currentAccount.login;
-      this.notifications().subscribe(
+      this.mynotifications().subscribe(
         (res: HttpResponse<INotification[]>) => {
-          this.numberOfNotifications = res.body.length;
-          return this.numberOfNotifications;
+          // this.numberOfNotifications = res.body.length;
+          this.notifications = res.body;
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
       this.mymessages().subscribe(
         (res: HttpResponse<IMessage[]>) => {
           this.numberOfMessages = res.body.length;
-          return this.numberOfMessages;
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
@@ -113,12 +112,12 @@ export class NavbarComponent implements OnInit {
             (res3: HttpErrorResponse) => this.onError(res3.message)
           );
         },
-        (res: HttpErrorResponse) => this.onError(res.message)
+        (res2: HttpErrorResponse) => this.onError(res2.message)
       );
     });
   }
 
-  private notifications() {
+  private mynotifications() {
     const query = {};
     if (this.currentAccount.id != null) {
       query['userId.equals'] = this.currentAccount.id;

@@ -110,7 +110,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
   }
 
   private filterArray(arr1, arr2) {
-    const newArray = arr1.filter(arr => arr2.findIndex(arrAux => arrAux.id === arr.id) !== -1);
+    const newArray = arr1.filter(arr => arr2.findIndex(arrAux => arrAux.id === arr.id) === -1);
     return [...arr2, ...newArray];
   }
 

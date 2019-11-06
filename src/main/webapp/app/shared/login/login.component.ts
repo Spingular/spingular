@@ -76,7 +76,10 @@ export class JhiLoginModalComponent implements AfterViewInit {
             this.router.navigateByUrl(redirect);
           }
         },
-        () => (this.authenticationError = true)
+        () => {
+          this.authenticationError = true;
+          this.loginService.logout();
+        }
       );
   }
 

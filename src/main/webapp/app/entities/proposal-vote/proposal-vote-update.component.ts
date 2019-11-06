@@ -131,9 +131,6 @@ export class ProposalVoteUpdateComponent implements OnInit {
                     this.proposalVotes2.forEach(voteProposal2 => {
                       this.userAvailableProposalVotes = this.userAvailableProposalVotes - voteProposal2.votePoints;
                     });
-                    this.activatedRoute.data.subscribe(({ voteProposal }) => {
-                      this.updateForm(voteProposal);
-                    });
                   },
                   (res3: HttpErrorResponse) => this.onError(res3.message)
                 );

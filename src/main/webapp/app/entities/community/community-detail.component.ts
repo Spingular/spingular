@@ -231,14 +231,14 @@ export class CommunityDetailComponent implements OnInit {
     }
   }
 
-  removeCommunityCinterest(cinterestId, communityId) {
+  removeCommunityCinterest(cinterestId, communityId, i) {
     this.cinterests.forEach(cinterest => {
       if (cinterest.id === cinterestId) {
         cinterest.communities.forEach(community => {
           if (community.id === communityId) {
             cinterest.communities.splice(cinterest.communities.indexOf(community), 1);
             this.subscribeToSaveResponse3(this.cinterestService.update(cinterest));
-            this.cinterests.splice(cinterest.communities.indexOf(community), 1);
+            this.cinterests.splice(i, 1);
           }
         });
       }

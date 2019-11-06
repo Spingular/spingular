@@ -86,7 +86,7 @@ export class CommunityComponent implements OnInit, OnDestroy {
           this.communityService.query(query2).subscribe(
             (res2: HttpResponse<ICommunity[]>) => {
               // this.communities = this.filterArray(this.communities.concat(res2.body));
-              this.communities = this.filterArray(this.communities, res2.body);
+              this.paginateCommunities(this.filterArray(this.communities, res2.body), res2.headers);
             },
             (res2: HttpErrorResponse) => this.onError(res2.message)
           );
@@ -109,7 +109,7 @@ export class CommunityComponent implements OnInit, OnDestroy {
   // funciones de alto orden -> filter, sort
   // spread operator
   private filterArray(arr1, arr2) {
-    const newArray = arr1.filter(arr => arr2.findIndex(arrAux => arrAux.id === arr.id) !== -1);
+    const newArray = arr1.filter(arr => arr2.findIndex(arrAux => arrAux.id === arr.id) === -1);
     return [...arr2, ...newArray];
   }
   // private filterArray(posts) {

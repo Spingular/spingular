@@ -12,7 +12,7 @@
       "updated": "Una Pregunta ha sido actualizado con el identificador {{ param }}",
       "deleted": "Una Pregunta ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Vquestion {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Pregunta {{ id }}?"
       },
       "detail": {
         "title": "Pregunta"

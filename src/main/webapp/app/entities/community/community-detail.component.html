@@ -67,9 +67,9 @@
                         <span jhiTranslate="spingularApp.interest.detail.title">CInterest</span>
                     </button>
                 </div>
-                <span *ngFor="let cinterest of cinterests" class="g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-white--hover"
+                <span *ngFor="let cinterest of cinterests; let i = index" class="g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-white--hover"
                         style="font-size: 13px; font-weight: bold; cursor: pointer; float:left; padding: 8px 10px; border-radius: 5px; border: solid 1px; margin-right: 15px; overflow: hidden; display: inherit; width: fit-content; margin-top: 15px;">
-                    <fa-icon *ngIf="owner === community.appuserId" (click)="removeCommunityCinterest(cinterest.id, community.id)" [icon]="'times'" class="g-color-red--hover"></fa-icon>
+                    <fa-icon *ngIf="owner === community.appuserId" (click)="removeCommunityCinterest(cinterest.id, community.id, i)" [icon]="'times'" class="g-color-red--hover"></fa-icon>
                     <span [routerLink]="['/cinterest', cinterest.id, 'view' ]" style="padding-left: 10px;">{{cinterest.interestName}}</span>
                 </span>
             </div>
