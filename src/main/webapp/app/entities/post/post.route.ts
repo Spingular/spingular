@@ -37,11 +37,11 @@ export const postRoute: Routes = [
       pagingParams: JhiResolvePagingParams
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: [],
       defaultSort: 'id,asc',
       pageTitle: 'spingularApp.post.home.title'
-    },
-    canActivate: [UserRouteAccessService]
+    }
+    // canActivate: [UserRouteAccessService]
   },
   {
     path: ':id/view',
@@ -50,10 +50,10 @@ export const postRoute: Routes = [
       post: PostResolve
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: [],
       pageTitle: 'spingularApp.post.home.title'
-    },
-    canActivate: [UserRouteAccessService]
+    }
+    // canActivate: [UserRouteAccessService]
   },
   {
     path: 'new',

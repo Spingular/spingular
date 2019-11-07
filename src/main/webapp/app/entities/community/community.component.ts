@@ -85,7 +85,6 @@ export class CommunityComponent implements OnInit, OnDestroy {
           query2['communityName.contains'] = this.currentSearch;
           this.communityService.query(query2).subscribe(
             (res2: HttpResponse<ICommunity[]>) => {
-              // this.communities = this.filterArray(this.communities.concat(res2.body));
               this.paginateCommunities(this.filterArray(this.communities, res2.body), res2.headers);
             },
             (res2: HttpErrorResponse) => this.onError(res2.message)
@@ -106,26 +105,11 @@ export class CommunityComponent implements OnInit, OnDestroy {
         (res: HttpErrorResponse) => this.onError(res.message)
       );
   }
-  // funciones de alto orden -> filter, sort
-  // spread operator
+
   private filterArray(arr1, arr2) {
     const newArray = arr1.filter(arr => arr2.findIndex(arrAux => arrAux.id === arr.id) === -1);
     return [...arr2, ...newArray];
   }
-  // private filterArray(posts) {
-  //   this.arrayAux = [];
-  //   this.arrayIds = [];
-  //   posts.map(x => {
-  //     if (this.arrayIds.length >= 1 && this.arrayIds.includes(x.id) === false) {
-  //       this.arrayAux.push(x);
-  //       this.arrayIds.push(x.id);
-  //     } else if (this.arrayIds.length === 0) {
-  //       this.arrayAux.push(x);
-  //       this.arrayIds.push(x.id);
-  //     }
-  //   });
-  //   return this.arrayAux;
-  // }
 
   loadPage(page: number) {
     if (page !== this.previousPage) {

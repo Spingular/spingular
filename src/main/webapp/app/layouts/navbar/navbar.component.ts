@@ -42,9 +42,9 @@ export class NavbarComponent implements OnInit {
   numberOfMessages: number;
   numberOfCmessages: number;
 
-  notifications: INotification[];
-  messages: IMessage[];
-  cmessages: ICmessage[];
+  // notifications: INotification[];
+  // messages: IMessage[];
+  // cmessages: ICmessage[];
   communities: ICommunity[];
 
   constructor(

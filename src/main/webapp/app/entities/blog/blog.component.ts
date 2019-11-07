@@ -72,7 +72,8 @@ export class BlogComponent implements OnInit, OnDestroy {
       query['title.contains'] = this.currentSearch;
       this.blogService.query(query).subscribe(
         (res: HttpResponse<IBlog[]>) => {
-          this.blogs = res.body;
+          // this.blogs = res.body;
+          this.paginateBlogs(res.body, res.headers);
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );

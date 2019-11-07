@@ -5,7 +5,6 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-// import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
@@ -28,7 +27,6 @@ export class VanswerUpdateComponent implements OnInit {
 
   vquestions: IVquestion[];
 
-  // vanswer: IVanswer;
   vanswers: IVanswer[];
   owner: any;
   isAdmin: boolean;
@@ -95,13 +93,6 @@ export class VanswerUpdateComponent implements OnInit {
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
-    // this.vquestionService
-    //   .query()
-    //   .pipe(
-    //     filter((mayBeOk: HttpResponse<IVquestion[]>) => mayBeOk.ok),
-    //     map((response: HttpResponse<IVquestion[]>) => response.body)
-    //   )
-    //   .subscribe((res: IVquestion[]) => (this.vquestions = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(vanswer: IVanswer) {

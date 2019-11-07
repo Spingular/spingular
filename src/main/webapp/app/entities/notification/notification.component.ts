@@ -68,16 +68,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
       this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search'] ? this.activatedRoute.snapshot.params['search'] : '';
   }
 
-  // loadAll() {
-  //   this.notificationService
-  //     .query({
-  //       page: this.page - 1,
-  //       size: this.itemsPerPage,
-  //       sort: this.sort()
-  //     })
-  //     .subscribe((res: HttpResponse<INotification[]>) => this.paginateNotifications(res.body, res.headers));
-  // }
-
   loadAll() {
     if (this.currentSearch) {
       const query = {
@@ -89,7 +79,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
       query['userId.equals'] = this.currentAccount.id;
       this.notificationService.query(query).subscribe(
         (res: HttpResponse<INotification[]>) => {
-          this.notifications = res.body;
+          this.paginateNotifications(res.body, res.headers);
+          // this.notifications = res.body;
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
@@ -103,7 +94,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
     query2['userId.equals'] = this.currentAccount.id;
     this.notificationService.query(query2).subscribe(
       (res: HttpResponse<INotification[]>) => {
-        this.notifications = res.body;
+        this.paginateNotifications(res.body, res.headers);
+        // this.notifications = res.body;
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
@@ -159,13 +151,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.loadAll();
   }
 
-  // ngOnInit() {
-  //   this.loadAll();
-  //   this.accountService.identity().subscribe(account => {
-  //     this.currentAccount = account;
-  //   });
-  //   this.registerChangeInNotifications();
-  // }
   ngOnInit() {
     this.isSaving = false;
     this.accountService.identity().subscribe(
@@ -185,17 +170,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
-    // this.accountService.identity().then(account => {
-    //     this.currentAccount = account;
-    //     this.owner = account.id;
-    //     this.myNotifications();
-    // });
-    // this.userService.query().subscribe(
-    //     (res: HttpResponse<IUser[]>) => {
-    //         this.users = res.body;
-    //     },
-    //     (res: HttpErrorResponse) => this.onError(res.message)
-    // );
     this.registerChangeInNotifications();
   }
 
@@ -211,7 +185,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.notificationService.query(query).subscribe(
       (res: HttpResponse<INotification[]>) => {
         this.paginateNotifications(res.body, res.headers);
-        this.notifications = res.body;
+        this.paginateNotifications(res.body, res.headers);
+        // this.notifications = res.body;
         //                console.log('CONSOLOG: M:isDeliveredUpdate & O: res.body : ', res.body);
         this.isDeliveredUpdate(this.notifications);
       },
@@ -222,15 +197,9 @@ export class NotificationComponent implements OnInit, OnDestroy {
   isDeliveredUpdate(notifications: INotification[]) {
     this.isSaving = true;
     this.notifications.forEach(notification => {
-      //            console.log('CONSOLOG: M:isDeliveredUpdate & O: notifications PRE-Date : ', notifications);
       this.notificationDate = moment(notification.notificationDate).format(DATE_TIME_FORMAT);
-      //            console.log('CONSOLOG: M:isDeliveredUpdate & O: this.notificationDate : ', this.notificationDate);
-      //            console.log('CONSOLOG: M:isDeliveredUpdate & O: notifications POST-Date : ', notifications);
       notification.isDelivered = true;
-      //            this.notificationService.update(notification);
       this.subscribeToSaveResponse(this.notificationService.update(notification));
-      //            this.subscribeToSaveResponse(this.notificationService.update(notification));
-      //            console.log('CONSOLOG: M:isDeliveredUpdate & O: notifications : ', notifications);
     });
   }
 

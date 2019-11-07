@@ -37,11 +37,11 @@ export const topicRoute: Routes = [
       pagingParams: JhiResolvePagingParams
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: [],
       defaultSort: 'id,asc',
       pageTitle: 'spingularApp.topic.home.title'
-    },
-    canActivate: [UserRouteAccessService]
+    }
+    // canActivate: [UserRouteAccessService]
   },
   {
     path: ':id/view',

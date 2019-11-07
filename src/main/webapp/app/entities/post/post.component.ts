@@ -75,7 +75,8 @@ export class PostComponent implements OnInit, OnDestroy {
       query['headline.contains'] = this.currentSearch;
       this.postService.query(query).subscribe(
         (res: HttpResponse<IPost[]>) => {
-          this.posts = res.body;
+          // this.posts = res.body;
+          this.paginatePosts(res.body, res.headers);
           const query2 = {
             page: this.page - 1,
             size: this.itemsPerPage,
@@ -84,7 +85,10 @@ export class PostComponent implements OnInit, OnDestroy {
           query2['bodytext.contains'] = this.currentSearch;
           this.postService.query(query2).subscribe(
             (res2: HttpResponse<IPost[]>) => {
-              this.posts = this.filterArray(this.posts.concat(res2.body));
+              this.paginatePosts(this.filterArray(this.posts, res2.body), res2.headers);
+              // this.posts = this.filterArray(this.posts.concat(res2.body));
+              // this.paginatePosts(this.filterArray(this.posts.concat(res2.body)), res2.headers);
+              // this.paginatePosts(this.filterArray(this.posts.concat(res2.body)), res2.headers);
               const query3 = {
                 page: this.page - 1,
                 size: this.itemsPerPage,
@@ -93,7 +97,9 @@ export class PostComponent implements OnInit, OnDestroy {
               query3['conclusion.contains'] = this.currentSearch;
               this.postService.query(query3).subscribe(
                 (res3: HttpResponse<IPost[]>) => {
-                  this.posts = this.filterArray(this.posts.concat(res3.body));
+                  this.paginatePosts(this.filterArray(this.posts, res3.body), res3.headers);
+                  // this.paginatePosts(this.filterArray(this.posts.concat(res3.body)), res3.headers);
+                  // this.paginatePosts(this.filterArray(this.posts.concat(res3.body)), res3.headers);
                 },
                 (res3: HttpErrorResponse) => this.onError(res3.message)
               );
@@ -117,20 +123,9 @@ export class PostComponent implements OnInit, OnDestroy {
       );
   }
 
-  private filterArray(posts) {
-    this.arrayAux = [];
-    this.arrayIds = [];
-    posts.map(x => {
-      if (this.arrayIds.length >= 1 && this.arrayIds.includes(x.id) === false) {
-        this.arrayAux.push(x);
-        this.arrayIds.push(x.id);
-      } else if (this.arrayIds.length === 0) {
-        this.arrayAux.push(x);
-        this.arrayIds.push(x.id);
-      }
-    });
-    //        console.log('CONSOLOG: M:filterInterests & O: this.follows : ', this.arrayIds, this.arrayAux);
-    return this.arrayAux;
+  private filterArray(arr1, arr2) {
+    const newArray = arr1.filter(arr => arr2.findIndex(arrAux => arrAux.id === arr.id) === -1);
+    return [...arr2, ...newArray];
   }
 
   loadPage(page: number) {

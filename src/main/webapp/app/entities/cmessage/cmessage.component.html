@@ -14,8 +14,6 @@
             </span>
         </button> -->
     </h2>
-    <jhi-alert-error></jhi-alert-error>
-    <jhi-alert></jhi-alert>
     <div class="row">
         <div class="col-sm-12">
             <form name="searchForm" class="form-inline">
@@ -100,4 +98,6 @@
             <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
 </div>

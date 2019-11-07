@@ -92,7 +92,7 @@ export class CmessageComponent implements OnInit, OnDestroy {
       query['creceiverId.in'] = this.arrayCommmunities;
       this.cmessageService.query(query).subscribe(
         (res: HttpResponse<ICmessage[]>) => {
-          this.cmessages = res.body;
+          this.paginateCmessages(res.body, res.headers);
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
@@ -106,7 +106,7 @@ export class CmessageComponent implements OnInit, OnDestroy {
     query2['creceiverId.in'] = this.arrayCommmunities;
     this.cmessageService.query(query2).subscribe(
       (res: HttpResponse<ICmessage[]>) => {
-        this.cmessages = res.body;
+        this.paginateCmessages(res.body, res.headers);
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
@@ -202,7 +202,6 @@ export class CmessageComponent implements OnInit, OnDestroy {
           (res2: HttpResponse<IFollow[]>) => {
             this.follows = res2.body;
             this.follows.forEach(follow => {
-              // this.arrayCommmunities = this.filterArray(this.arrayCommmunities.concat(this.arrayCommmunities2));
               this.arrayCommmunities = this.arrayCommmunities.concat(follow.cfollowingId);
               const query3 = {};
               if (this.arrayCommmunities != null) {
