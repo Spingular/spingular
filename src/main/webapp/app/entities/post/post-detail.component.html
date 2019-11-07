@@ -1,8 +1,3 @@
-<!--
-post.tags: {{tags |json}} && post.topics: {{topics |json}}
--->
-
-
 <div class="row justify-content-center">
     <div class="col-lg-8 col-md-12">
         <div *ngIf="post">
@@ -26,7 +21,7 @@ post.tags: {{tags |json}} && post.topics: {{topics |json}}
 
 		                  <ul *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']" class="list-inline d-sm-flex g-color-gray-dark-v4 mb-0">
 		                    <li class="list-inline-item" *ngIf="post && appprofile">
-		                      <a [routerLink]="['/appprofile', appprofile.id, 'view']" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover">{{post.userFirstName}} {{post.userLastName}}</a>
+		                      <a [routerLink]="['/appprofile', appprofile.id, 'view']" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover">{{postUserFirstName}} {{postUserLastName}}</a>
 		                    </li>
 		                    <li class="list-inline-item g-mx-10">/</li>
 		                    <li class="list-inline-item">
@@ -179,13 +174,13 @@ post.tags: {{tags |json}} && post.topics: {{topics |json}}
 		                  <div *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']" class="media g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-20">
 		                    <div *ngIf="appprofile">
 		                        <a [routerLink]="['/uprofile', appprofile.id, 'view']">
-									<img [src]="'data:' + post.userImageContentType + ';base64,' + post.userImage" style="max-width: 100%;" alt="post.userImage"/>
+									<img [src]="'data:' + post.imageContentType + ';base64,' + post.userImage" style="max-width: 100%;" alt="post.image"/>
 		                        </a>
 			                </div>
 
 		                    <div class="media-body" *ngIf="appprofile">
 		                      <h4 class="g-color-gray-dark-v1 g-mb-15">
-		                        <a class="u-link-v5 g-color-gray-dark-v1 g-color-primary--hover" [routerLink]="['/uprofile', appprofile.id, 'view']">{{post.userFirstName}} {{post.userLastName}}</a>
+		                        <a class="u-link-v5 g-color-gray-dark-v1 g-color-primary--hover" [routerLink]="['/uprofile', appprofile.id, 'view']">{{postUserFirstName}} {{postUserLastName}}</a>
 		                      </h4>
 
 		                      <div class="g-mb-15">

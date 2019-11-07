@@ -99,6 +99,8 @@ export class PostDetailComponent implements OnInit {
       if (account != null) {
         this.currentAccount = account;
         this.owner = this.currentAccount.id;
+        this.postUserFirstName = this.currentAccount.firstName;
+        this.postUserLastName = this.currentAccount.lastName;
         this.isAdmin = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
         this.loadAll();
         this.postTags();
@@ -232,7 +234,6 @@ export class PostDetailComponent implements OnInit {
     }
     this.appuserService.query(query3).subscribe(
       (res: HttpResponse<IAppuser[]>) => {
-        // this.appusers = res.body;
         this.appuser = res.body[0];
       },
       (res: HttpErrorResponse) => this.onError(res.message)

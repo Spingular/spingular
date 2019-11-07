@@ -47,14 +47,14 @@
                     <label class="form-control-label" jhiTranslate="spingularApp.photo.album" for="field_album">Album</label>
                     <select class="form-control" id="field_album" name="album" formControlName="albumId">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="albumOption.id" *ngFor="let albumOption of albums; trackBy: trackAlbumById">{{albumOption.title}}</option>
+                        <option [ngValue]="albumOption.id" *ngFor="let albumOption of albums">{{albumOption.title}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="spingularApp.photo.calbum" for="field_calbum">Calbum</label>
                     <select class="form-control" id="field_calbum" name="calbum" formControlName="calbumId">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="calbumOption.id" *ngFor="let calbumOption of calbums; trackBy: trackCalbumById">{{calbumOption.title}}</option>
+                        <option [ngValue]="calbumOption.id" *ngFor="let calbumOption of calbums">{{calbumOption.title}}</option>
                     </select>
                 </div>
             </div>

@@ -26,7 +26,7 @@
 	            </tr>
 	            </thead>
 	            <tbody>
-	            <tr *ngFor="let topic of topics ;trackBy: trackId">
+                    <tr *ngFor="let topic of topics"><!-- <tr *ngFor="let topic of topics ;trackBy: trackId"> -->
 	                <td><a [routerLink]="['/topic', topic.id, 'view' ]">{{topic.id}}</a></td>
 	                <td>{{topic.topicName}}</td>
 	                <td class="text-right">

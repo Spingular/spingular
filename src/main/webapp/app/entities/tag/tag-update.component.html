@@ -26,7 +26,7 @@
 	            </tr>
 	            </thead>
 	            <tbody>
-	            <tr *ngFor="let tag of tags ;trackBy: trackId">
+                <tr *ngFor="let tag of tags"><!-- <tr *ngFor="let tag of tags ;trackBy: trackId"> -->
 	                <td><a [routerLink]="['/tag', tag.id, 'view' ]">{{tag.id}}</a></td>
 	                <td>{{tag.tagName}}</td>
 	                <td class="text-right">

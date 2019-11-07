@@ -37,6 +37,11 @@ export interface IAppprofile {
   futureChildren?: FutureChildren;
   pet?: boolean;
   appuserId?: number;
+  userLogin?: string;
+  userFirstName?: string;
+  userLastName?: string;
+  userImageContentType?: string;
+  userImage?: any;
 }
 
 export class Appprofile implements IAppprofile {

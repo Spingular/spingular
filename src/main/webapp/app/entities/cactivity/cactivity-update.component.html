@@ -26,7 +26,7 @@
 	            </tr>
 	            </thead>
 	            <tbody>
-	 			<tr *ngFor="let cactivity of cactivities ;trackBy: trackId">
+	 			<tr *ngFor="let cactivity of cactivities">
 	                <td><a [routerLink]="['/cactivity', cactivity.id, 'view' ]">{{cactivity.id}}</a></td>
 	                <td>{{cactivity.activityName}}</td>
 	                <td class="text-right">

@@ -21,12 +21,12 @@
 		            Create new AppProfiles
 		            </span>
 		        </button>
-			</td> 
+			</td>
 		  </tr>
 		</table>
 		</h2>
     </div>
-    <!-- 
+    <!--
     <div class="row">
         <div class="col-sm-12">
             <form name="searchForm" class="form-inline">
@@ -46,7 +46,7 @@
     <br/>
 
   <!-- Profile Content -->
-	<div class="col-lg-9" *ngIf="appprofile">
+	<div class="col-lg-9" *ngIf="appprofiles">
 	  <!-- User Contacts -->
 	  <div class="row g-mb-40">
 	    <div class="col-md-4 g-mb-30 g-mb-0--md" *ngFor="let appprofile of appprofiles ;trackBy: trackId">
@@ -55,11 +55,11 @@
 	        <div class="g-py-40 g-px-20">
 	          <!-- Figure Image -->
 	          <a *ngIf="appprofile.userImage" [routerLink]="['/appprofile', appprofile.id, 'view' ]">
-                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" 
+                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20"
                   [src]="'data:' + appprofile.userImageContentType + ';base64,' + appprofile.userImage" alt="appprofile userImage"/>
               </a>
 	          <!-- Figure Image -->
-	
+
 	          <!-- Figure Info -->
 	          <a [routerLink]="['/appprofile', appprofile.id, 'view' ]">
 	          	<h4 class="h5 g-mb-5">{{appprofile.userFirstName}} {{appprofile.userLastName}}</h4>
@@ -72,9 +72,9 @@
 	          </div>
 	          <!-- End Figure Info -->
 	        </div>
-	
+
 	        <hr class="g-brd-gray-light-v4 g-my-0">
-	
+
 	        <!-- Figure List --
 	        <ul class="row list-inline g-py-20 g-ma-0">
 	          <li class="col g-brd-right g-brd-gray-light-v4">

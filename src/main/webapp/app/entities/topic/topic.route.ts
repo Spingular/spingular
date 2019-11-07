@@ -50,10 +50,10 @@ export const topicRoute: Routes = [
       topic: TopicResolve
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: [],
       pageTitle: 'spingularApp.topic.home.title'
-    },
-    canActivate: [UserRouteAccessService]
+    }
+    // canActivate: [UserRouteAccessService]
   },
   {
     path: 'new',
