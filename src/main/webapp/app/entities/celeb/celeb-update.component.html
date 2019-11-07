@@ -25,7 +25,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let celeb of celebs ;trackBy: trackId">
+                <tr *ngFor="let celeb of celebs">
                     <td><a [routerLink]="['/celeb', celeb.id, 'view' ]">{{celeb.id}}</a></td>
                     <td>{{celeb.celebName}}</td>
                     <td class="text-right">

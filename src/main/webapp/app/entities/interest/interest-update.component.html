@@ -25,7 +25,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let interest of interests ;trackBy: trackId">
+                <tr *ngFor="let interest of interests">
                     <td><a [routerLink]="['/interest', interest.id, 'view' ]">{{interest.id}}</a></td>
                     <td>{{interest.interestName}}</td>
                     <td class="text-right">

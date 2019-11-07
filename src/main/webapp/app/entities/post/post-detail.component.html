@@ -174,7 +174,7 @@
 		                  <div *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']" class="media g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-20">
 		                    <div *ngIf="appprofile">
 		                        <a [routerLink]="['/uprofile', appprofile.id, 'view']">
-									<img [src]="'data:' + post.imageContentType + ';base64,' + post.userImage" style="max-width: 100%;" alt="post.image"/>
+                                    <img [src]="'data:' + appprofile.userImageContentType + ';base64,' + appprofile.userImage" style="max-width: 90%; padding: 10%;" alt="appprofile userImage"/>
 		                        </a>
 			                </div>
 

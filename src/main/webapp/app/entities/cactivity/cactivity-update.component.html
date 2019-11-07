@@ -86,7 +86,7 @@
                 <div class="form-group">
                     <label jhiTranslate="spingularApp.cactivity.community" for="field_communities">Community</label>
                     <select class="form-control" id="field_communities" multiple name="communities" formControlName="communities">
-                        <option [ngValue]="getSelected(editForm.get('communities').value, communityOption)" *ngFor="let communityOption of communities; trackBy: trackCommunityById">{{communityOption.id}}</option>
+                        <option [ngValue]="getSelected(editForm.get('communities').value, communityOption)" *ngFor="let communityOption of communities">{{communityOption.id}}</option>
                     </select>
                 </div>
             </div>
