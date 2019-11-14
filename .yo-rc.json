@@ -37,8 +37,6 @@
     "enableTranslation": true,
     "nativeLanguage": "en",
     "languages": ["en", "es"],
-    "blueprints": [],
-    "herokuAppName": "spingular",
-    "herokuDeployType": "git"
+    "blueprints": []
   }
 }
