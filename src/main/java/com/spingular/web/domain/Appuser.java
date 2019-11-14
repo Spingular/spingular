@@ -22,7 +22,8 @@ public class Appuser implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
     @NotNull
@@ -32,7 +33,7 @@ public class Appuser implements Serializable {
     @Column(name = "assigned_votes_points")
     private Long assignedVotesPoints;
 
-    @OneToOne(optional = false)    
+    @OneToOne(optional = false)
     @NotNull
     @JoinColumn(unique = true)
     private User user;
