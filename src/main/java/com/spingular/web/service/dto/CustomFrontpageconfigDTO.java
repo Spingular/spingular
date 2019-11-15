@@ -3,7 +3,7 @@ package com.spingular.web.service.dto;
 import javax.validation.constraints.NotNull;
 
 import com.spingular.web.domain.Post;
-//import com.spingular.web.domain.Urllink;
+import com.spingular.web.domain.Urllink;
 import com.spingular.web.service.dto.CustomFrontpageconfigDTO;
 
 import java.io.Serializable;
@@ -106,29 +106,29 @@ public class CustomFrontpageconfigDTO implements Serializable {
 
     private Post newsFeeds6;
 
-//    private Urllink usefulLinks1;
-//
-//    private Urllink usefulLinks2;
-//
-//    private Urllink usefulLinks3;
-//
-//    private Urllink usefulLinks4;
-//
-//    private Urllink usefulLinks5;
-//
-//    private Urllink usefulLinks6;
-//
-//    private Urllink recentVideos1;
-//
-//    private Urllink recentVideos2;
-//
-//    private Urllink recentVideos3;
-//
-//    private Urllink recentVideos4;
-//
-//    private Urllink recentVideos5;
-//
-//    private Urllink recentVideos6;
+    private Urllink usefulLinks1;
+
+    private Urllink usefulLinks2;
+
+    private Urllink usefulLinks3;
+
+    private Urllink usefulLinks4;
+
+    private Urllink usefulLinks5;
+
+    private Urllink usefulLinks6;
+
+    private Urllink recentVideos1;
+
+    private Urllink recentVideos2;
+
+    private Urllink recentVideos3;
+
+    private Urllink recentVideos4;
+
+    private Urllink recentVideos5;
+
+    private Urllink recentVideos6;
 
     public Long getId() {
         return id;
@@ -493,194 +493,194 @@ public class CustomFrontpageconfigDTO implements Serializable {
 //    public Post getUsefulLinks1() {
 //        return usefulLinks1;
 //    }
-//
+
 //    public void setUsefulLinks1(Post usefulLinks1) {
 //        this.usefulLinks1 = usefulLinks1;
 //    }
-//
+
 //    public Post getUsefulLinks2() {
 //        return usefulLinks2;
 //    }
-//
+
 //    public void setUsefulLinks2(Post usefulLinks2) {
 //        this.usefulLinks2 = usefulLinks2;
 //    }
-//
+
 //    public Post getUsefulLinks3() {
 //        return usefulLinks3;
 //    }
-//
+
 //    public void setUsefulLinks3(Post usefulLinks3) {
 //        this.usefulLinks3 = usefulLinks3;
 //    }
-//
+
 //    public Post getUsefulLinks4() {
 //        return usefulLinks4;
 //    }
-//
+
 //    public void setUsefulLinks4(Post usefulLinks4) {
 //        this.usefulLinks4 = usefulLinks4;
 //    }
-//
+
 //    public Post getUsefulLinks5() {
 //        return usefulLinks5;
 //    }
-//
+
 //    public void setUsefulLinks5(Post usefulLinks5) {
 //        this.usefulLinks5 = usefulLinks5;
 //    }
-//
+
 //    public Post getUsefulLinks6() {
 //        return usefulLinks6;
 //    }
-//
+
 //    public void setUsefulLinks6(Post usefulLinks6) {
 //        this.usefulLinks6 = usefulLinks6;
 //    }
-//
+
 //    public Post getRecentVideos1() {
 //        return recentVideos1;
 //    }
-//
+
 //    public void setRecentVideos1(Post recentVideos1) {
 //        this.recentVideos1 = recentVideos1;
 //    }
-//
+
 //    public Post getRecentVideos2() {
 //        return recentVideos2;
 //    }
-//
+
 //    public void setRecentVideos2(Post recentVideos2) {
 //        this.recentVideos2 = recentVideos2;
 //    }
-//
+
 //    public Post getRecentVideos3() {
 //        return recentVideos3;
 //    }
-//
+
 //    public void setRecentVideos3(Post recentVideos3) {
 //        this.recentVideos3 = recentVideos3;
 //    }
-//
+
 //    public Post getRecentVideos4() {
 //        return recentVideos4;
 //    }
-//
+
 //    public void setRecentVideos4(Post recentVideos4) {
 //        this.recentVideos4 = recentVideos4;
 //    }
-//
+
 //    public Post getRecentVideos5() {
 //        return recentVideos5;
 //    }
-//
+
 //    public void setRecentVideos5(Post recentVideos5) {
 //        this.recentVideos5 = recentVideos5;
 //    }
-//
+
 //    public Post getRecentVideos6() {
 //        return recentVideos6;
 //    }
-//
+
 //    public void setRecentVideos6(Post recentVideos6) {
 //        this.recentVideos6 = recentVideos6;
 //    }
 
-//    public Urllink getUsefulLinks1() {
-//		return usefulLinks1;
-//	}
-//
-//	public void setUsefulLinks1(Urllink usefulLinks1) {
-//		this.usefulLinks1 = usefulLinks1;
-//	}
-//
-//	public Urllink getUsefulLinks2() {
-//		return usefulLinks2;
-//	}
-//
-//	public void setUsefulLinks2(Urllink usefulLinks2) {
-//		this.usefulLinks2 = usefulLinks2;
-//	}
-//
-//	public Urllink getUsefulLinks3() {
-//		return usefulLinks3;
-//	}
-//
-//	public void setUsefulLinks3(Urllink usefulLinks3) {
-//		this.usefulLinks3 = usefulLinks3;
-//	}
-//
-//	public Urllink getUsefulLinks4() {
-//		return usefulLinks4;
-//	}
-//
-//	public void setUsefulLinks4(Urllink usefulLinks4) {
-//		this.usefulLinks4 = usefulLinks4;
-//	}
-//
-//	public Urllink getUsefulLinks5() {
-//		return usefulLinks5;
-//	}
-//
-//	public void setUsefulLinks5(Urllink usefulLinks5) {
-//		this.usefulLinks5 = usefulLinks5;
-//	}
-//
-//	public Urllink getUsefulLinks6() {
-//		return usefulLinks6;
-//	}
-//
-//	public void setUsefulLinks6(Urllink usefulLinks6) {
-//		this.usefulLinks6 = usefulLinks6;
-//	}
-//
-//	public Urllink getRecentVideos1() {
-//		return recentVideos1;
-//	}
-//
-//	public void setRecentVideos1(Urllink recentVideos1) {
-//		this.recentVideos1 = recentVideos1;
-//	}
-//
-//	public Urllink getRecentVideos2() {
-//		return recentVideos2;
-//	}
-//
-//	public void setRecentVideos2(Urllink recentVideos2) {
-//		this.recentVideos2 = recentVideos2;
-//	}
-//
-//	public Urllink getRecentVideos3() {
-//		return recentVideos3;
-//	}
-//
-//	public void setRecentVideos3(Urllink recentVideos3) {
-//		this.recentVideos3 = recentVideos3;
-//	}
-//
-//	public Urllink getRecentVideos4() {
-//		return recentVideos4;
-//	}
-//
-//	public void setRecentVideos4(Urllink recentVideos4) {
-//		this.recentVideos4 = recentVideos4;
-//	}
-//
-//	public Urllink getRecentVideos5() {
-//		return recentVideos5;
-//	}
-//
-//	public void setRecentVideos5(Urllink recentVideos5) {
-//		this.recentVideos5 = recentVideos5;
-//	}
-//
-//	public Urllink getRecentVideos6() {
-//		return recentVideos6;
-//	}
-//
-//	public void setRecentVideos6(Urllink recentVideos6) {
-//		this.recentVideos6 = recentVideos6;
-//	}
+   public Urllink getUsefulLinks1() {
+		return usefulLinks1;
+	}
+
+	public void setUsefulLinks1(Urllink usefulLinks1) {
+		this.usefulLinks1 = usefulLinks1;
+	}
+
+	public Urllink getUsefulLinks2() {
+		return usefulLinks2;
+	}
+
+	public void setUsefulLinks2(Urllink usefulLinks2) {
+		this.usefulLinks2 = usefulLinks2;
+	}
+
+	public Urllink getUsefulLinks3() {
+		return usefulLinks3;
+	}
+
+	public void setUsefulLinks3(Urllink usefulLinks3) {
+		this.usefulLinks3 = usefulLinks3;
+	}
+
+	public Urllink getUsefulLinks4() {
+		return usefulLinks4;
+	}
+
+	public void setUsefulLinks4(Urllink usefulLinks4) {
+		this.usefulLinks4 = usefulLinks4;
+	}
+
+	public Urllink getUsefulLinks5() {
+		return usefulLinks5;
+	}
+
+	public void setUsefulLinks5(Urllink usefulLinks5) {
+		this.usefulLinks5 = usefulLinks5;
+	}
+
+	public Urllink getUsefulLinks6() {
+		return usefulLinks6;
+	}
+
+	public void setUsefulLinks6(Urllink usefulLinks6) {
+		this.usefulLinks6 = usefulLinks6;
+	}
+
+	public Urllink getRecentVideos1() {
+		return recentVideos1;
+	}
+
+	public void setRecentVideos1(Urllink recentVideos1) {
+		this.recentVideos1 = recentVideos1;
+	}
+
+	public Urllink getRecentVideos2() {
+		return recentVideos2;
+	}
+
+	public void setRecentVideos2(Urllink recentVideos2) {
+		this.recentVideos2 = recentVideos2;
+	}
+
+	public Urllink getRecentVideos3() {
+		return recentVideos3;
+	}
+
+	public void setRecentVideos3(Urllink recentVideos3) {
+		this.recentVideos3 = recentVideos3;
+	}
+
+	public Urllink getRecentVideos4() {
+		return recentVideos4;
+	}
+
+	public void setRecentVideos4(Urllink recentVideos4) {
+		this.recentVideos4 = recentVideos4;
+	}
+
+	public Urllink getRecentVideos5() {
+		return recentVideos5;
+	}
+
+	public void setRecentVideos5(Urllink recentVideos5) {
+		this.recentVideos5 = recentVideos5;
+	}
+
+	public Urllink getRecentVideos6() {
+		return recentVideos6;
+	}
+
+	public void setRecentVideos6(Urllink recentVideos6) {
+		this.recentVideos6 = recentVideos6;
+	}
 
 	@Override
     public boolean equals(Object o) {
@@ -728,7 +728,7 @@ public class CustomFrontpageconfigDTO implements Serializable {
 //				+ ", recentVideos4=" + recentVideos4 + ", recentVideos5=" + recentVideos5 + ", recentVideos6="
 //				+ recentVideos6 + "]";
 //	}
-    
+
     @Override
     public String toString() {
         return "FrontpageconfigDTO{" +
@@ -777,18 +777,18 @@ public class CustomFrontpageconfigDTO implements Serializable {
             ", newsFeeds4=" + getNewsFeeds4() +
             ", newsFeeds5=" + getNewsFeeds5() +
             ", newsFeeds6=" + getNewsFeeds6() +
-//            ", usefulLinks1=" + getUsefulLinks1() +
-//            ", usefulLinks2=" + getUsefulLinks2() +
-//            ", usefulLinks3=" + getUsefulLinks3() +
-//            ", usefulLinks4=" + getUsefulLinks4() +
-//            ", usefulLinks5=" + getUsefulLinks5() +
-//            ", usefulLinks6=" + getUsefulLinks6() +
-//            ", recentVideos1=" + getRecentVideos1() +
-//            ", recentVideos2=" + getRecentVideos2() +
-//            ", recentVideos3=" + getRecentVideos3() +
-//            ", recentVideos4=" + getRecentVideos4() +
-//            ", recentVideos5=" + getRecentVideos5() +
-//            ", recentVideos6=" + getRecentVideos6() +
+           ", usefulLinks1=" + getUsefulLinks1() +
+           ", usefulLinks2=" + getUsefulLinks2() +
+           ", usefulLinks3=" + getUsefulLinks3() +
+           ", usefulLinks4=" + getUsefulLinks4() +
+           ", usefulLinks5=" + getUsefulLinks5() +
+           ", usefulLinks6=" + getUsefulLinks6() +
+           ", recentVideos1=" + getRecentVideos1() +
+           ", recentVideos2=" + getRecentVideos2() +
+           ", recentVideos3=" + getRecentVideos3() +
+           ", recentVideos4=" + getRecentVideos4() +
+           ", recentVideos5=" + getRecentVideos5() +
+           ", recentVideos6=" + getRecentVideos6() +
             "}";
     }
 }

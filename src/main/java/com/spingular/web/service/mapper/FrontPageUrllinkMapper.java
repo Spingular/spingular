@@ -3,25 +3,25 @@ package com.spingular.web.service.mapper;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.spingular.web.domain.Post;
-import com.spingular.web.repository.PostRepository;
+import com.spingular.web.domain.Urllink;
+import com.spingular.web.repository.UrllinkRepository;;
 
 /**
- * Mapper for the entity Post and its DTO PostDTO.
+ * Mapper for the entity UrlLink and its DTO UrlLinkDTO.
  */
 @Mapper(componentModel = "spring", uses = {})
 public abstract class FrontPageUrllinkMapper {
 
     @Autowired
-    private PostRepository postRepository;
+    private UrllinkRepository urllinkRepository;
 
-    public Post postFromId(Long id) {
+    public Urllink postFromId(Long id) {
         if (id == null) {
             return null;
         }
-        return postRepository.findById(id).orElse(new Post());
+        return urllinkRepository.findById(id).orElse(new Urllink());
     }
-    public Long idFromPost(Post post) {
-        return post.getId();
+    public Long idFromUrllink(Urllink urllink) {
+        return urllink.getId();
     }
 }

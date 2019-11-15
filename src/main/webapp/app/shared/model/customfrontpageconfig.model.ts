@@ -1,5 +1,6 @@
 import { Moment } from 'moment';
 import { CustomPost } from 'app/shared/model//custompost.model';
+import { IUrllink } from 'app/shared/model/urllink.model';
 
 export interface ICustomFrontpageconfig {
   id?: number;
@@ -53,12 +54,12 @@ export interface ICustomFrontpageconfig {
   usefulLinks4?: CustomPost;
   usefulLinks5?: CustomPost;
   usefulLinks6?: CustomPost;
-  recentVideos1?: CustomPost;
-  recentVideos2?: CustomPost;
-  recentVideos3?: CustomPost;
-  recentVideos4?: CustomPost;
-  recentVideos5?: CustomPost;
-  recentVideos6?: CustomPost;
+  recentVideos1?: IUrllink[];
+  recentVideos2?: IUrllink[];
+  recentVideos3?: IUrllink[];
+  recentVideos4?: IUrllink[];
+  recentVideos5?: IUrllink[];
+  recentVideos6?: IUrllink[];
 }
 
 export class CustomFrontpageconfig implements ICustomFrontpageconfig {
@@ -114,11 +115,11 @@ export class CustomFrontpageconfig implements ICustomFrontpageconfig {
     public usefulLinks4?: CustomPost,
     public usefulLinks5?: CustomPost,
     public usefulLinks6?: CustomPost,
-    public recentVideos1?: CustomPost,
-    public recentVideos2?: CustomPost,
-    public recentVideos3?: CustomPost,
-    public recentVideos4?: CustomPost,
-    public recentVideos5?: CustomPost,
-    public recentVideos6?: CustomPost
+    public recentVideos1?: IUrllink[],
+    public recentVideos2?: IUrllink[],
+    public recentVideos3?: IUrllink[],
+    public recentVideos4?: IUrllink[],
+    public recentVideos5?: IUrllink[],
+    public recentVideos6?: IUrllink[]
   ) {}
 }

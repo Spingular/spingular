@@ -20,6 +20,9 @@ import { JhiAlertService } from 'ng-jhipster';
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 
+import { DomSanitizer } from '@angular/platform-browser';
+import { SafeResourceUrl } from '@angular/platform-browser';
+
 @Component({
   selector: 'jhi-home',
   templateUrl: './home.component.html',
@@ -29,10 +32,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   account: Account;
   authSubscription: Subscription;
   modalRef: NgbModalRef;
+
   frontpageconfigs: ICustomFrontpageconfig[];
   configVariables: IConfigVariables[];
   configVariable: IConfigVariables;
   topics: ITopic[];
+
   currentAccount: any;
   eventSubscriber: Subscription;
   itemsPerPage: number;
@@ -45,6 +50,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   currentSearch: string;
   id: number;
 
+  safeURL: SafeResourceUrl;
+
   constructor(
     private accountService: AccountService,
     private loginModalService: LoginModalService,
@@ -53,7 +60,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private configVariablesService: ConfigVariablesService,
     private topicService: TopicService,
     private jhiAlertService: JhiAlertService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    protected _sanitizer: DomSanitizer
   ) {
     this.frontpageconfigs = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
@@ -97,6 +105,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         (res: HttpResponse<ICustomFrontpageconfig>) => this.paginateFrontpageconfigs(res.body, res.headers),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
+  }
+
+  saveUrl(url) {
+    return this._sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
   registerAuthenticationSuccess() {
