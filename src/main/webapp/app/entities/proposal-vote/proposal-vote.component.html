@@ -1,12 +1,14 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="spingularApp.proposalVote.home.title">Proposal Votes</span>
+        <!--
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-proposal-vote" [routerLink]="['/proposal-vote/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="spingularApp.proposalVote.home.createLabel">
             Create a new Proposal Vote
             </span>
         </button>
+        -->
     </h2>
     <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
@@ -49,12 +51,14 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
+                        <!--
                         <button type="submit"
                                 [routerLink]="['/proposal-vote', proposalVote.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
+                        -->
                         <button type="submit"
                                 [routerLink]="['/proposal-vote', { outlets: { popup: proposalVote.id + '/delete'} }]"
                                 replaceUrl="true"

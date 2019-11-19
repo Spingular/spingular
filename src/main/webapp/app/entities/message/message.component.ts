@@ -24,6 +24,7 @@ import { MessageService } from './message.service';
 export class MessageComponent implements OnInit, OnDestroy {
   currentAccount: any;
   messages: IMessage[];
+
   error: any;
   success: any;
   eventSubscriber: Subscription;
@@ -65,16 +66,6 @@ export class MessageComponent implements OnInit, OnDestroy {
       this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search'] ? this.activatedRoute.snapshot.params['search'] : '';
   }
 
-  // loadAll() {
-  //   this.messageService
-  //     .query({
-  //       page: this.page - 1,
-  //       size: this.itemsPerPage,
-  //       sort: this.sort()
-  //     })
-  //     .subscribe((res: HttpResponse<IMessage[]>) => this.paginateMessages(res.body, res.headers));
-  // }
-
   loadAll() {
     if (this.currentSearch) {
       const query = {
@@ -86,7 +77,7 @@ export class MessageComponent implements OnInit, OnDestroy {
       query['receiverId.equals'] = this.appuser.id;
       this.messageService.query(query).subscribe(
         (res: HttpResponse<IMessage[]>) => {
-          this.messages = res.body;
+          this.paginateMessages(res.body, res.headers);
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
@@ -100,7 +91,7 @@ export class MessageComponent implements OnInit, OnDestroy {
     query2['receiverId.equals'] = this.appuser.id;
     this.messageService.query(query2).subscribe(
       (res: HttpResponse<IMessage[]>) => {
-        this.messages = res.body;
+        this.paginateMessages(res.body, res.headers);
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
@@ -154,14 +145,6 @@ export class MessageComponent implements OnInit, OnDestroy {
     this.loadAll();
   }
 
-  // ngOnInit() {
-  //   this.loadAll();
-  //   this.accountService.identity().subscribe(account => {
-  //     this.currentAccount = account;
-  //   });
-  //   this.registerChangeInMessages();
-  // }
-
   ngOnInit() {
     this.accountService.identity().subscribe(
       account => {
@@ -189,14 +172,12 @@ export class MessageComponent implements OnInit, OnDestroy {
       size: this.itemsPerPage,
       sort: this.sort()
     };
-    //        console.log('CONSOLOG: M:myMessages & O: query : ', query, this.itemsPerPage);
     if (this.currentAccount.id != null) {
       query['receiverId.equals'] = this.appuser.id;
     }
     this.messageService.query(query).subscribe(
       (res: HttpResponse<IMessage[]>) => {
         this.messages = res.body;
-        //                console.log('CONSOLOG: M:myMessages & O: this.messages : ', this.messages);
         this.isDeliveredUpdate(this.messages);
         this.paginateMessages(res.body, res.headers);
       },
@@ -207,15 +188,9 @@ export class MessageComponent implements OnInit, OnDestroy {
   isDeliveredUpdate(messages: IMessage[]) {
     this.isSaving = true;
     this.messages.forEach(message => {
-      //            console.log('CONSOLOG: M:isDeliveredUpdate & O: messages PRE-Date : ', message);
       this.creationDate = moment(message.creationDate).format(DATE_TIME_FORMAT);
-      //            console.log('CONSOLOG: M:isDeliveredUpdate & O: this.creationDate : ', this.creationDate);
-      //            console.log('CONSOLOG: M:isDeliveredUpdate & O: messages POST-Date : ', message);
       message.isDelivered = true;
-      //            this.notificationService.update(notification);
       this.subscribeToSaveResponse(this.messageService.update(message));
-      //            this.subscribeToSaveResponse(this.notificationService.update(notification));
-      //            console.log('CONSOLOG: M:isDeliveredUpdate & O: message : ', message);
     });
   }
 

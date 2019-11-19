@@ -25,16 +25,25 @@
 		</table>
 		<table style="width:100%">
 		  <tr>
-        	<span jhiTranslate="spingularApp.proposal.home.filterProposalByType">Filter Proposals by Type</span>
-		  </tr>
-		  <tr>
+            <th colspan="3">
+                <span jhiTranslate="spingularApp.proposal.home.filterProposalByType">Filter Proposals by Type</span>
+            </th>
             <td>
-                <button id="jh-my-entity" class="btn btn-primary float-left jh-create-entity create-chat-room" (click)="clear()">
+                <button id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-chat-room" (click)="clear()">
                     <span jhiTranslate="spingularApp.proposal.home.all">
-                    Study
+                    All proposals
                     </span>
                 </button>
             </td>
+		  </tr>
+		  <tr>
+            <!-- <td>
+                <button id="jh-my-entity" class="btn btn-primary float-left jh-create-entity create-chat-room" (click)="clear()">
+                    <span jhiTranslate="spingularApp.proposal.home.all">
+                    All proposals
+                    </span>
+                </button>
+            </td> -->
 		    <td>
    		        <button id="jh-my-entity" class="btn btn-primary float-left jh-create-entity create-chat-room" (click)="study()">
 		            <span jhiTranslate="spingularApp.ProposalType.STUDY">
