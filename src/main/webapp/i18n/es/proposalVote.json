@@ -21,9 +21,9 @@
       "appuser": "Appuser",
       "proposal": "Propuesta",
       "userAvailableVotes": "Votos Disponibles del Usuario",
-      "totalProposalVotes": "Votos Totales de la Propuesta",
+      "totalProposalVotes": "Votos Totales de la Propuesta antes del Voto",
       "userProposalVotePoints": "Votos del Usuario a la Propuesta",
-      "totalProposalAfterVotePoints": "Votos Totales finales de la Propuesta"
+      "totalProposalAfterVotePoints": "Votos Totales de la Propuesta tras el Voto"
     }
   }
 }

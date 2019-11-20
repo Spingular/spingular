@@ -17,13 +17,13 @@
         "title": "Proposal Vote"
       },
       "creationDate": "Creation Date",
-      "votePoints": "Vote Points",
+      "votePoints": "Votes for the Proposal",
       "appuser": "Appuser",
       "proposal": "Proposal",
       "userAvailableVotes": "User Available Votes",
-      "totalProposalVotes": "Total Proposal Votes",
+      "totalProposalVotes": "Total Proposal Votes Before Your Vote",
       "userProposalVotePoints": "User Proposal Vote Points",
-      "totalProposalAfterVotePoints": "Total Proposal After Vote Points"
+      "totalProposalAfterVotePoints": "Total Proposal After Your Vote"
     }
   }
 }

@@ -62,7 +62,8 @@ export class ProposalVoteUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     creationDate: [null, [Validators.required]],
-    votePoints: [null, [Validators.required]],
+    // votePoints: [null, [Validators.required]],
+    votePoints: [null, [Validators.max(this.userAvailableProposalVotes), Validators.min(0)]],
     appuserId: [],
     proposalId: []
   });
@@ -94,7 +95,6 @@ export class ProposalVoteUpdateComponent implements OnInit {
       if (this.valueParamFollows) {
         this.proposalVote.proposalId = this.valueParamFollows;
       }
-      this.updateForm(proposalVote);
     });
     this.accountService.identity().subscribe(account => {
       this.currentAccount = account;
@@ -130,6 +130,7 @@ export class ProposalVoteUpdateComponent implements OnInit {
                     this.userAvailableProposalVotes = this.appuser.assignedVotesPoints;
                     this.proposalVotes2.forEach(voteProposal2 => {
                       this.userAvailableProposalVotes = this.userAvailableProposalVotes - voteProposal2.votePoints;
+                      this.updateForm(this.proposalVote);
                     });
                   },
                   (res3: HttpErrorResponse) => this.onError(res3.message)
@@ -142,6 +143,7 @@ export class ProposalVoteUpdateComponent implements OnInit {
         (res: HttpErrorResponse) => this.onError(res.message)
       );
     });
+    // this.updateForm(this.proposalVote);
     this.proposalService
       .query()
       .pipe(
@@ -155,9 +157,8 @@ export class ProposalVoteUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: proposalVote.id,
       creationDate: proposalVote.creationDate != null ? proposalVote.creationDate.format(DATE_TIME_FORMAT) : null,
-      votePoints: proposalVote.votePoints,
-      appuserId: proposalVote.appuserId,
-      proposalId: proposalVote.proposalId
+      votePoints: proposalVote.votePoints
+      // votePoints: [null, [Validators.max(this.userAvailableProposalVotes), Validators.min(0)]],
     });
   }
 
@@ -168,6 +169,8 @@ export class ProposalVoteUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     const proposalVote = this.createFromForm();
+    proposalVote.appuserId = this.owner;
+    proposalVote.proposalId = this.proposalVote.proposalId;
     if (proposalVote.id !== undefined) {
       this.subscribeToSaveResponse(this.proposalVoteService.update(proposalVote));
     } else {
